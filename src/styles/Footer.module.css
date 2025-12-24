@@ -38,6 +38,8 @@
 .link {
   font-size: 15px;
   color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .link:hover {
@@ -91,6 +93,12 @@
 .legalLink {
   font-size: 14px;
   color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.legalLink:hover {
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 1024px) {

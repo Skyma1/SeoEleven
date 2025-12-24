@@ -20,6 +20,13 @@
   font-size: 20px;
   font-weight: 600;
   color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.logo:hover {
+  opacity: 0.8;
 }
 
 .nav {

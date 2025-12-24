@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { X, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/MobileMenu.module.css';
 
 const MobileMenu = ({ isOpen, onClose }) => {
+  const { openModal } = useModal();
   const [expandedSection, setExpandedSection] = React.useState(null);
 
   useEffect(() => {
@@ -76,7 +78,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
       <div className={styles.mobileMenuOverlay} onClick={onClose}></div>
       <div className={styles.mobileMenuContent}>
         <div className={styles.mobileMenuHeader}>
-          <div className={styles.logo}>Студия</div>
+          <Link to="/" className={styles.logo} onClick={onClose}>SeoEleven</Link>
           <button className={styles.closeButton} onClick={onClose} aria-label="Закрыть меню">
             <X size={24} strokeWidth={1.5} />
           </button>
@@ -143,7 +145,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
           <Link to="/about" className={styles.mobileNavLink} onClick={onClose}>О нас</Link>
           <Link to="/contact" className={styles.mobileNavLink} onClick={onClose}>Контакты</Link>
           
-          <button className={styles.mobileCtaButton} onClick={onClose}>
+          <button 
+            className={styles.mobileCtaButton} 
+            onClick={() => {
+              onClose();
+              openModal(null, 'mobile-menu');
+            }}
+          >
             Начать проект
           </button>
         </nav>

@@ -24,7 +24,7 @@ const AboutPage = () => {
       <section className={styles.hero}>
         <div className={styles.heroContainer}>
           <h1 className={styles.heroTitle}>
-            Мы — digital-студия, которая работает на результат, а не отчёты
+            Мы — SeoEleven, которая работает на результат, а не отчёты
           </h1>
           <p className={styles.heroSubtitle}>
             SEO, GEO (AI SEO), реклама, разработка и автоматизация для малого и среднего бизнеса

@@ -38,7 +38,7 @@
 .acceptButton {
   background-color: var(--color-accent);
   color: white;
-  padding: var(--space-10) var(--space-20);
+  padding: var(--space-12) var(--space-24);
   border-radius: var(--radius-s);
   font-size: 14px;
   font-weight: 500;
@@ -57,12 +57,14 @@
   border: none;
   color: var(--color-text-secondary);
   cursor: pointer;
-  padding: var(--space-8);
+  padding: var(--space-10);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: color var(--transition-fast);
   border-radius: var(--radius-xs);
+  min-width: 36px;
+  min-height: 36px;
 }
 
 .closeButton:hover {

@@ -1,0 +1,343 @@
+/* БЛОК 1. HERO */
+.hero {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+  animation: fadeIn 600ms ease-out both;
+}
+
+.heroContainer {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-64) var(--space-56);
+  border: 1px solid var(--color-border);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-24);
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-24);
+}
+
+.heroDescription {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+}
+
+/* Общие стили секций */
+.section {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: var(--space-32);
+  padding-right: var(--space-32);
+  animation: fadeIn 600ms ease-out both;
+}
+
+/* БЛОК 2. ФИЛЬТРЫ */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  justify-content: center;
+  margin-bottom: var(--space-32);
+}
+
+.filterButton {
+  background-color: white;
+  color: var(--color-text-secondary);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-s);
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.filterButton:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.filterButtonActive {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+.filterButtonActive:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* БЛОК 3. СПИСОК ПОСТОВ */
+.emptyState {
+  text-align: center;
+  padding: var(--space-64) var(--space-32);
+  color: var(--color-text-secondary);
+  font-size: 17px;
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-24);
+  align-items: stretch;
+  padding-top: var(--space-16);
+}
+
+.postCard {
+  background-color: white;
+  border-radius: var(--radius-m);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  position: relative;
+  height: 100%;
+  overflow: visible;
+}
+
+.postCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.postCardFeatured {
+  border-color: var(--color-accent);
+  border-width: 2px;
+}
+
+.featuredBadge {
+  position: absolute;
+  top: var(--space-16);
+  left: var(--space-16);
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-s);
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  z-index: 1;
+}
+
+.featuredBadge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-16);
+  margin-bottom: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+.postCardFeatured .postHeader {
+  margin-top: var(--space-40);
+}
+
+.postCategory {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.postDate,
+.readTime {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.postDate svg,
+.readTime svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.postTitle {
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.postTitle a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.postTitle a:hover {
+  color: var(--color-accent);
+}
+
+.postExcerpt {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.postTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+.tag {
+  background-color: #FAF9F6;
+  color: var(--color-text-secondary);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-xs);
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.tag svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.postFooter {
+  margin-top: auto;
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--color-border);
+}
+
+.readMoreButton {
+  background-color: transparent;
+  color: var(--color-accent);
+  padding: var(--space-12) var(--space-20);
+  border-radius: var(--radius-s);
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--color-accent);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  text-decoration: none;
+  width: 100%;
+  justify-content: center;
+}
+
+.readMoreButton:hover {
+  background-color: var(--color-accent);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.readMoreButton svg {
+  transition: transform var(--transition-fast);
+}
+
+.readMoreButton:hover svg {
+  transform: translateX(4px);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .postsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .hero,
+  .section {
+    padding-left: var(--space-24);
+    padding-right: var(--space-24);
+  }
+
+  .hero {
+    padding-top: var(--space-48);
+    padding-bottom: var(--space-48);
+  }
+
+  .heroContainer {
+    padding: var(--space-32) var(--space-24);
+  }
+
+  .heroTitle {
+    font-size: 36px;
+  }
+
+  .heroSubtitle {
+    font-size: 18px;
+  }
+
+  .filters {
+    justify-content: flex-start;
+    gap: var(--space-8);
+  }
+
+  .filterButton {
+    font-size: 14px;
+    padding: var(--space-10) var(--space-20);
+  }
+
+  .postsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-20);
+  }
+
+  .postCard {
+    padding: var(--space-24);
+  }
+
+  .postMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+}
+

@@ -1,8 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, MessageCircle, TrendingUp, Zap } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/Hero.module.css';
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const { openModal } = useModal();
+
+  const handleStartProject = () => {
+    openModal(null, 'hero');
+  };
+
+  const handleContact = () => {
+    navigate('/contact');
+  };
+
   return (
     <section className={styles.hero}>
       <div className={styles.gridContainer}>
@@ -14,11 +27,11 @@ const Hero = () => {
             и интеллектуальной автоматизации.
           </p>
           <div className={styles.actions}>
-            <button className={styles.primaryButton}>
+            <button className={styles.primaryButton} onClick={handleStartProject}>
               Начать проект
               <ArrowRight size={20} strokeWidth={1.5} />
             </button>
-            <button className={styles.secondaryButton}>
+            <button className={styles.secondaryButton} onClick={handleContact}>
               <MessageCircle size={20} strokeWidth={1.5} />
               Связаться с нами
             </button>

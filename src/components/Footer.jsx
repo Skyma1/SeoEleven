@@ -1,5 +1,6 @@
 import React from 'react';
-import { Mail, Linkedin, Twitter, Github } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Linkedin, Twitter, Github, MessageCircle } from 'lucide-react';
 import styles from '../styles/Footer.module.css';
 
 const Footer = () => {
@@ -8,23 +9,23 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <h3>Студия</h3>
+            <h3>SeoEleven</h3>
             <p>
               Цифровые решения для малого и среднего бизнеса. 
               Специализируемся на SEO, разработке, дизайне и автоматизации.
             </p>
             <div className={styles.social}>
-              <a href="#linkedin" className={styles.socialLink} aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/seoeleven" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="LinkedIn">
                 <Linkedin size={20} strokeWidth={1.5} />
               </a>
-              <a href="#twitter" className={styles.socialLink} aria-label="Twitter">
+              <a href="https://twitter.com/seoeleven" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Twitter">
                 <Twitter size={20} strokeWidth={1.5} />
               </a>
-              <a href="#github" className={styles.socialLink} aria-label="GitHub">
+              <a href="https://github.com/seoeleven" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="GitHub">
                 <Github size={20} strokeWidth={1.5} />
               </a>
-              <a href="#email" className={styles.socialLink} aria-label="Email">
-                <Mail size={20} strokeWidth={1.5} />
+              <a href="https://t.me/seoeleven" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Telegram">
+                <MessageCircle size={20} strokeWidth={1.5} />
               </a>
             </div>
           </div>
@@ -32,37 +33,38 @@ const Footer = () => {
           <div className={styles.column}>
             <h3>Услуги</h3>
             <div className={styles.links}>
-              <a href="#seo" className={styles.link}>SEO и поисковая оптимизация</a>
-              <a href="#development" className={styles.link}>Разработка</a>
-              <a href="#design" className={styles.link}>Дизайн</a>
-              <a href="#automation" className={styles.link}>Автоматизация</a>
+              <Link to="/services/ai-seo" className={styles.link}>AI SEO (GEO)</Link>
+              <Link to="/uslugi/seo-prodvizhenie" className={styles.link}>Комплексное SEO</Link>
+              <Link to="/uslugi/kontekstnaya-reklama" className={styles.link}>Контекстная реклама</Link>
+              <Link to="/uslugi/targetirovannaya-reklama" className={styles.link}>Таргетированная реклама</Link>
+              <Link to="/services/telegram-bots" className={styles.link}>Telegram-боты</Link>
+              <Link to="/services/no-code-automation" className={styles.link}>Автоматизация</Link>
             </div>
           </div>
           
           <div className={styles.column}>
             <h3>Компания</h3>
             <div className={styles.links}>
-              <a href="#about" className={styles.link}>О нас</a>
-              <a href="#portfolio" className={styles.link}>Портфолио</a>
-              <a href="#blog" className={styles.link}>Блог</a>
-              <a href="#contact" className={styles.link}>Контакты</a>
+              <Link to="/about" className={styles.link}>О нас</Link>
+              <Link to="/cases" className={styles.link}>Кейсы</Link>
+              <Link to="/blog" className={styles.link}>Блог</Link>
+              <Link to="/contact" className={styles.link}>Контакты</Link>
             </div>
           </div>
           
           <div className={styles.column}>
             <h3>Контакты</h3>
             <div className={styles.links}>
-              <a href="mailto:hello@studio.com" className={styles.link}>hello@studio.com</a>
+              <a href="mailto:seoeleve@gmail.com" className={styles.link}>seoeleve@gmail.com</a>
               <a href="tel:+1234567890" className={styles.link}>+1 (234) 567-890</a>
             </div>
           </div>
         </div>
         
         <div className={styles.bottom}>
-          <p className={styles.copyright}>© 2025 Студия. Все права защищены.</p>
+          <p className={styles.copyright}>© 2026 SeoEleven. Все права защищены.</p>
           <div className={styles.legalLinks}>
-            <a href="#privacy" className={styles.legalLink}>Политика конфиденциальности</a>
-            <a href="#terms" className={styles.legalLink}>Условия использования</a>
+            <Link to="/privacy" className={styles.legalLink}>Политика конфиденциальности</Link>
           </div>
         </div>
       </div>

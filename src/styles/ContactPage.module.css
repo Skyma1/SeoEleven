@@ -1,0 +1,357 @@
+/* БЛОК 1. HERO */
+.hero {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+  animation: fadeIn 600ms ease-out both;
+}
+
+.heroContainer {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-64) var(--space-56);
+  border: 1px solid var(--color-border);
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-24);
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-24);
+}
+
+.heroDescription {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+/* Общие стили секций */
+.section {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+  animation: fadeIn 600ms ease-out both;
+}
+
+.sectionTitle {
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-48);
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+/* БЛОК 2. КОНТАКТНАЯ ИНФОРМАЦИЯ */
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-24);
+}
+
+.contactCard {
+  background-color: white;
+  border-radius: var(--radius-m);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  text-align: center;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.contactCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.contactIcon {
+  width: 64px;
+  height: 64px;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+.contactTitle {
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.contactValue {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-accent);
+  font-weight: 500;
+  margin: 0;
+}
+
+.contactValue a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.contactValue a:hover {
+  opacity: 0.8;
+}
+
+.contactDescription {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* БЛОК 3. ФОРМА ОБРАТНОЙ СВЯЗИ */
+.formSection {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-48) var(--space-56);
+  border: 1px solid var(--color-border);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: var(--space-48);
+}
+
+.formSubtitle {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-16);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-24);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.formGroup:last-of-type {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  background-color: white;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(79, 111, 94, 0.1);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.submitButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  align-self: flex-start;
+  border: none;
+}
+
+.submitButton:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton svg {
+  transition: transform var(--transition-fast);
+}
+
+.submitButton:hover:not(:disabled) svg {
+  transform: translateX(4px);
+}
+
+.successMessage {
+  padding: var(--space-16) var(--space-24);
+  background-color: #F0F9F4;
+  border: 1px solid #4F6F5E;
+  border-radius: var(--radius-s);
+  color: var(--color-accent);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* БЛОК 4. СОЦИАЛЬНЫЕ СЕТИ */
+.socialSection {
+  text-align: center;
+}
+
+.socialSubtitle {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-24);
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-24);
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.socialLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.socialLink svg {
+  flex-shrink: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .contactGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formGroup:last-of-type {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero,
+  .section {
+    padding: var(--space-48) var(--space-24);
+  }
+
+  .heroContainer {
+    padding: var(--space-32) var(--space-24);
+  }
+
+  .heroTitle {
+    font-size: 36px;
+  }
+
+  .heroSubtitle {
+    font-size: 18px;
+  }
+
+  .sectionTitle {
+    font-size: 28px;
+    margin-bottom: var(--space-32);
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formSection {
+    padding: var(--space-32) var(--space-24);
+  }
+
+  .socialLinks {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .socialLink {
+    justify-content: center;
+  }
+}
+

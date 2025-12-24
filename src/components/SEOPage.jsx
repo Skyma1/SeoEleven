@@ -1,9 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Check, X, Search, FileText, Settings, BarChart3, Target } from 'lucide-react';
 import styles from '../styles/SEOPage.module.css';
 import Quiz from './Quiz';
 
 const SEOPage = () => {
+  const navigate = useNavigate();
+
+  const handleCTA = () => {
+    navigate('/contact');
+  };
+
   return (
     <>
       {/* БЛОК 1. HERO */}
@@ -19,7 +26,7 @@ const SEOPage = () => {
             результаты поиска. В отличие от традиционного SEO, GEO фокусируется на структурированном 
             контенте, который AI-системы могут корректно интерпретировать и использовать в ответах.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Рассчитать потенциал продвижения
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -213,8 +220,8 @@ const SEOPage = () => {
               от 150 000 рублей за проект.
             </p>
             <p className={styles.paragraph}>
-              <a href="/prices" className={styles.pricingLink}>
-                Подробнее о ценах и форматах сотрудничества
+              <a href="/contact" className={styles.pricingLink}>
+                Обсудить проект и получить оценку
               </a>
             </p>
           </div>

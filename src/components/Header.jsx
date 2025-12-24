@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import MegaMenu from './MegaMenu';
 import MobileMenu from './MobileMenu';
 import styles from '../styles/Header.module.css';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const { openModal } = useModal();
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMegaMenuClosing, setIsMegaMenuClosing] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,6 +21,10 @@ const Header = () => {
   const closingTimeoutRef = useRef(null);
   const isHoveringServicesRef = useRef(false);
   const isHoveringMegaMenuRef = useRef(false);
+
+  const handleStartProject = () => {
+    openModal(null, 'header');
+  };
 
   useEffect(() => {
     const updateHeaderPosition = () => {
@@ -54,6 +61,7 @@ const Header = () => {
     const handleClickOutside = (event) => {
       if (
         isMegaMenuOpen &&
+        event.target instanceof Node &&
         servicesRef.current &&
         !servicesRef.current.contains(event.target) &&
         megaMenuRef.current &&
@@ -132,7 +140,8 @@ const Header = () => {
     if (window.innerWidth <= 1024) return;
     // Не закрываем меню, если курсор переходит в megaMenuContent
     const relatedTarget = e?.relatedTarget;
-    if (relatedTarget && megaMenuRef.current && megaMenuRef.current.contains(relatedTarget)) {
+    // Проверяем, что relatedTarget является Node перед вызовом contains
+    if (relatedTarget && relatedTarget instanceof Node && megaMenuRef.current && megaMenuRef.current.contains(relatedTarget)) {
       return;
     }
     isHoveringServicesRef.current = false;
@@ -155,11 +164,12 @@ const Header = () => {
     if (window.innerWidth <= 1024) return;
     // Не закрываем меню, если курсор переходит в navItem
     const relatedTarget = e?.relatedTarget;
-    if (relatedTarget && servicesRef.current && servicesRef.current.contains(relatedTarget)) {
+    // Проверяем, что relatedTarget является Node перед вызовом contains
+    if (relatedTarget && relatedTarget instanceof Node && servicesRef.current && servicesRef.current.contains(relatedTarget)) {
       return;
     }
     // Если курсор уходит за пределы мега-меню (в overlay или за пределы), закрываем меню
-    if (!relatedTarget || (megaMenuRef.current && !megaMenuRef.current.contains(relatedTarget))) {
+    if (!relatedTarget || !(relatedTarget instanceof Node) || (megaMenuRef.current && !megaMenuRef.current.contains(relatedTarget))) {
       isHoveringMegaMenuRef.current = false;
       checkAndCloseMenu();
     }
@@ -180,7 +190,7 @@ const Header = () => {
     <>
       <header className={styles.header} ref={headerRef}>
         <div className={styles.container}>
-          <div className={styles.logo}>Студия</div>
+          <Link to="/" className={styles.logo}>SeoEleven</Link>
           
           <nav className={styles.nav}>
             <div 
@@ -207,7 +217,7 @@ const Header = () => {
             <Link to="/blog" className={styles.navLink}>Блог</Link>
             <Link to="/about" className={styles.navLink}>О нас</Link>
             <Link to="/contact" className={styles.navLink}>Контакты</Link>
-            <button className={styles.ctaButton}>Начать проект</button>
+            <button className={styles.ctaButton} onClick={handleStartProject}>Начать проект</button>
           </nav>
           
           <button 

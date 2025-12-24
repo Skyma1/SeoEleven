@@ -109,9 +109,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Доминирующий элемент (первый элемент) */
+/* Доминирующий элемент (теперь вне grid) */
 .valueCardDominant {
-  grid-column: span 2;
+  margin-top: var(--space-24);
 }
 
 .valueIcon {
@@ -447,10 +447,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .valueCardDominant {
-    grid-column: span 2;
-  }
-
   .processGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -492,10 +488,6 @@
 
   .valuesGrid {
     grid-template-columns: 1fr;
-  }
-
-  .valueCardDominant {
-    grid-column: span 1;
   }
 
   .comparisonGrid {

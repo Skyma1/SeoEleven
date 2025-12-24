@@ -6,7 +6,7 @@ import styles from '../styles/MegaMenu.module.css';
 const MegaMenu = forwardRef(({ headerHeight = 73, headerTop = 0, onClose, onMouseEnter, onMouseLeave, onOverlayMouseEnter, isClosing }, ref) => {
   const services = {
     performance: {
-      title: 'Performance',
+      title: 'Реклама и трафик',
       subtitle: 'Трафик и реклама',
       icon: TrendingUp,
       items: [
@@ -32,26 +32,26 @@ const MegaMenu = forwardRef(({ headerHeight = 73, headerTop = 0, onClose, onMous
       ]
     },
     development: {
-      title: 'Development',
+      title: 'Разработка',
       subtitle: 'Разработка и поддержка',
       icon: Code,
       items: [
-        { name: 'Web development', url: '/services/web-development' },
-        { name: 'Support & maintenance', url: '/services/support' },
-        { name: 'Hosting setup', url: '/services/hosting-setup' },
-        { name: 'Logo design', url: '/services/logo-design' },
+        { name: 'Веб-разработка', url: '/services/web-development' },
+        { name: 'Поддержка и обслуживание', url: '/services/support' },
+        { name: 'Настройка хостинга', url: '/services/hosting-setup' },
+        { name: 'Дизайн логотипа', url: '/services/logo-design' },
       ]
     },
     tech: {
-      title: 'Tech & AI',
+      title: 'Технологии и ИИ',
       subtitle: 'Флагман и УТП',
       icon: Cpu,
       items: [
         { name: 'AI SEO (GEO)', url: '/services/ai-seo', featured: true },
-        { name: 'Telegram bots & Mini Apps', url: '/services/telegram-bots' },
-        { name: 'No-code automation (Make, n8n)', url: '/services/no-code-automation' },
-        { name: 'Custom scripts', url: '/services/scripts' },
-        { name: 'Advanced analytics & audit', url: '/services/analytics' },
+        { name: 'Telegram-боты и Mini Apps', url: '/services/telegram-bots' },
+        { name: 'Автоматизация без кода (Make, n8n)', url: '/services/no-code-automation' },
+        { name: 'Индивидуальные скрипты', url: '/services/scripts' },
+        { name: 'Продвинутая аналитика и аудит', url: '/services/analytics' },
       ]
     }
   };
