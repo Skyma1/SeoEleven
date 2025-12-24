@@ -1,7 +1,7 @@
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
   animation: fadeIn 400ms ease-out;
@@ -28,12 +28,28 @@
   align-items: center;
 }
 
+.navItem {
+  position: relative;
+}
+
 .navLink {
   font-size: 15px;
   color: var(--color-text-secondary);
   font-weight: 500;
   transition: color var(--transition-fast);
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.navLink .chevron {
+  transition: transform var(--transition-fast);
+}
+
+.navItem:hover .chevron,
+.chevronOpen {
+  transform: rotate(180deg);
 }
 
 .navLink::after {
@@ -51,7 +67,7 @@
   color: var(--color-text-primary);
 }
 
-.navLink:hover::after {
+.navItem:hover .navLink::after {
   width: 100%;
 }
 

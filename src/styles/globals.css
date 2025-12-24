@@ -19,6 +19,12 @@
   --space-32: 32px;
   --space-48: 48px;
   --space-64: 64px;
+  --space-40: 40px;
+  --space-36: 36px;
+  --space-28: 28px;
+  --space-20: 20px;
+  --space-56: 56px;
+  --space-10: 10px;
   
   --transition-fast: 200ms ease;
   --transition-base: 300ms ease;
@@ -44,29 +50,31 @@ body {
 
 /* Typography */
 h1 {
-  font-size: 44px;
-  line-height: 1.15;
+  font-size: 52px;
+  line-height: 1.1;
   font-weight: 600;
   color: var(--color-text-primary);
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: 32px;
+  font-size: 36px;
   line-height: 1.15;
   font-weight: 600;
   color: var(--color-text-primary);
+  letter-spacing: -0.01em;
 }
 
 h3 {
   font-size: 22px;
-  line-height: 1.15;
+  line-height: 1.2;
   font-weight: 600;
   color: var(--color-text-primary);
 }
 
 p {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--color-text-secondary);
 }
 
@@ -114,19 +122,23 @@ a:hover {
 /* Mobile Typography Adjustments */
 @media (max-width: 768px) {
   h1 {
-    font-size: 32px;
+    font-size: 36px;
+    line-height: 1.15;
   }
   
   h2 {
-    font-size: 24px;
+    font-size: 28px;
+    line-height: 1.2;
   }
   
   h3 {
-    font-size: 18px;
+    font-size: 20px;
+    line-height: 1.25;
   }
   
   p {
     font-size: 15px;
+    line-height: 1.6;
   }
 }
 
