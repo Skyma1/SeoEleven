@@ -1,0 +1,109 @@
+.cta {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+}
+
+.container {
+  background-color: var(--color-accent);
+  border-radius: var(--radius-l);
+  padding: var(--space-64);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-32);
+  animation: fadeIn 600ms ease-out 300ms both;
+}
+
+.container h2 {
+  color: white;
+  max-width: 700px;
+}
+
+.container p {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.primaryButton {
+  background-color: white;
+  color: var(--color-accent);
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+}
+
+.primaryButton:hover {
+  opacity: 0.9;
+  transform: translateX(2px);
+}
+
+.primaryButton:hover svg {
+  transform: translateX(2px);
+}
+
+.primaryButton svg {
+  transition: transform var(--transition-fast);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+}
+
+.secondaryButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.secondaryButton:hover svg {
+  transform: scale(1.1);
+}
+
+.secondaryButton svg {
+  transition: transform var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+  .cta {
+    padding: var(--space-48) var(--space-24);
+  }
+  
+  .container {
+    padding: var(--space-48) var(--space-32);
+  }
+  
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    justify-content: center;
+    width: 100%;
+  }
+}
+

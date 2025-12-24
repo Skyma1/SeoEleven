@@ -1,0 +1,132 @@
+/* Design System Variables */
+:root {
+  --color-bg: #F0EEE9;
+  --color-accent: #4F6F5E;
+  --color-text-primary: #2E2E2E;
+  --color-text-secondary: #5F5F5F;
+  --color-border: rgba(0, 0, 0, 0.06);
+  
+  --radius-xs: 10px;
+  --radius-s: 14px;
+  --radius-m: 18px;
+  --radius-l: 24px;
+  
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  
+  --transition-fast: 200ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1 {
+  font-size: 44px;
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+h3 {
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-fast);
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* Mobile Typography Adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 32px;
+  }
+  
+  h2 {
+    font-size: 24px;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+  
+  p {
+    font-size: 15px;
+  }
+}
+

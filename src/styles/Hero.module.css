@@ -1,0 +1,206 @@
+.hero {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-24);
+  min-height: 600px;
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border);
+  animation: fadeIn 600ms ease-out;
+}
+
+.dominantBlock {
+  grid-column: span 8;
+  grid-row: 1 / span 2;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-m);
+  padding: var(--space-64);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.dominantBlock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dominantBlock h1 {
+  margin-bottom: var(--space-24);
+}
+
+.dominantBlock p {
+  margin-bottom: var(--space-32);
+  max-width: 600px;
+}
+
+.secondaryBlock {
+  grid-column: span 4;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-m);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.secondaryBlock:first-of-type {
+  grid-row: 1;
+}
+
+.secondaryBlock:last-of-type {
+  grid-row: 2;
+}
+
+.secondaryBlock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.secondaryBlock h3 {
+  font-size: 20px;
+}
+
+.secondaryBlock p {
+  font-size: 15px;
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  transition: transform var(--transition-base), background-color var(--transition-base);
+}
+
+.secondaryBlock:hover .iconWrapper {
+  transform: scale(1.1);
+  background-color: white;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+}
+
+.primaryButton:hover {
+  opacity: 0.9;
+  transform: translateX(2px);
+}
+
+.primaryButton:hover svg {
+  transform: translateX(2px);
+}
+
+.primaryButton svg {
+  transition: transform var(--transition-fast);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-border);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+}
+
+.secondaryButton:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  transform: translateY(-1px);
+}
+
+.secondaryButton:hover svg {
+  transform: scale(1.1);
+}
+
+.secondaryButton svg {
+  transition: transform var(--transition-fast);
+}
+
+@media (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+    min-height: auto;
+    padding: var(--space-24);
+  }
+  
+  .dominantBlock {
+    grid-column: span 1;
+    grid-row: 1;
+    padding: var(--space-48);
+  }
+  
+  .secondaryBlock {
+    grid-column: span 1;
+    grid-row: auto;
+  }
+  
+  .secondaryBlock:first-of-type {
+    grid-row: 2;
+  }
+  
+  .secondaryBlock:last-of-type {
+    grid-row: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: var(--space-32) var(--space-24);
+  }
+  
+  .gridContainer {
+    padding: var(--space-24);
+  }
+  
+  .dominantBlock {
+    padding: var(--space-32);
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
