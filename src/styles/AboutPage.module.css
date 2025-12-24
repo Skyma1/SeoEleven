@@ -1,0 +1,532 @@
+/* БЛОК 1. HERO */
+.hero {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+  animation: fadeIn 600ms ease-out both;
+}
+
+.heroContainer {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-64) var(--space-56);
+  border: 1px solid var(--color-border);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-24);
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-24);
+}
+
+.heroDescription {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+}
+
+.heroCTA {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.heroCTA:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+}
+
+.heroCTA svg {
+  transition: transform var(--transition-fast);
+}
+
+.heroCTA:hover svg {
+  transform: translateX(4px);
+}
+
+/* Общие стили секций */
+.section {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+  animation: fadeIn 600ms ease-out both;
+}
+
+.sectionTitle {
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-48);
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+/* БЛОК 2. КТО МЫ И КАК ДУМАЕМ */
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-24);
+  margin-top: var(--space-40);
+}
+
+.valueCard {
+  background-color: white;
+  border-radius: var(--radius-m);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.valueCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Доминирующий элемент (первый элемент) */
+.valueCardDominant {
+  grid-column: span 2;
+}
+
+.valueIcon {
+  width: 48px;
+  height: 48px;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.valueTitle {
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.valueDescription {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* БЛОК 3. ЧЕМ МЫ ОТЛИЧАЕМСЯ */
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-32);
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-48);
+  border: 1px solid var(--color-border);
+}
+
+.comparisonColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.comparisonColumnUs {
+  border-left: 2px solid var(--color-border);
+  padding-left: var(--space-32);
+}
+
+.comparisonHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-8);
+}
+
+.comparisonHeader svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.comparisonColumnUs .comparisonHeader svg {
+  color: var(--color-accent);
+}
+
+.comparisonHeader h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.comparisonList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.comparisonList li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  padding-left: var(--space-24);
+  position: relative;
+}
+
+.comparisonList li::before {
+  content: '•';
+  position: absolute;
+  left: var(--space-8);
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.comparisonColumnUs .comparisonList li::before {
+  color: var(--color-accent);
+}
+
+/* БЛОК 4. НАШ ПОДХОД К РАБОТЕ */
+.processGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-24);
+}
+
+.processStep {
+  background-color: white;
+  border-radius: var(--radius-m);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.processStep:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stepNumber {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stepTitle {
+  font-size: 19px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.stepDescription {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* БЛОК 5. НАША ЭКСПЕРТИЗА И ФОКУС */
+.expertiseBlock {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-48) var(--space-56);
+  border: 1px solid var(--color-border);
+}
+
+.expertiseContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.expertiseParagraph {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.expertiseParagraph strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* БЛОК 6. КОМАНДА */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-24);
+}
+
+.teamCard {
+  background-color: white;
+  border-radius: var(--radius-m);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  text-align: center;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.teamCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.teamIcon {
+  width: 64px;
+  height: 64px;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+.teamRole {
+  font-size: 19px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.teamDescription {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* БЛОК 7. ПРОЗРАЧНОСТЬ */
+.transparencyBlock {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-48) var(--space-56);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.transparencyIcon {
+  width: 64px;
+  height: 64px;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin: 0 auto var(--space-32);
+  flex-shrink: 0;
+}
+
+.transparencyTitle {
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-32);
+  letter-spacing: -0.01em;
+}
+
+.transparencyContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.transparencyParagraph {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-align: left;
+}
+
+.transparencyParagraph strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* БЛОК 8. ФИНАЛЬНЫЙ CTA */
+.ctaBlock {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-64) var(--space-56);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-24);
+  letter-spacing: -0.01em;
+}
+
+.ctaDescription {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+}
+
+.ctaButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.ctaButton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .valueCardDominant {
+    grid-column: span 2;
+  }
+
+  .processGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .comparisonColumnUs {
+    border-left: none;
+    border-top: 2px solid var(--color-border);
+    padding-left: 0;
+    padding-top: var(--space-32);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero,
+  .section {
+    padding: var(--space-48) var(--space-24);
+  }
+
+  .heroContainer {
+    padding: var(--space-32) var(--space-24);
+  }
+
+  .heroTitle {
+    font-size: 36px;
+  }
+
+  .heroSubtitle {
+    font-size: 18px;
+  }
+
+  .sectionTitle {
+    font-size: 28px;
+    margin-bottom: var(--space-32);
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .valueCardDominant {
+    grid-column: span 1;
+  }
+
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+    padding: var(--space-32) var(--space-24);
+  }
+
+  .comparisonColumnUs {
+    border-top: 2px solid var(--color-border);
+    border-left: none;
+    padding-top: var(--space-24);
+    padding-left: 0;
+  }
+
+  .processGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .expertiseBlock,
+  .transparencyBlock,
+  .ctaBlock {
+    padding: var(--space-32) var(--space-24);
+  }
+
+  .transparencyTitle,
+  .ctaTitle {
+    font-size: 24px;
+  }
+}
+

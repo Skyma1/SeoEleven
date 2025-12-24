@@ -1,9 +1,11 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import CTA from './components/CTA';
+import Home from './components/Home';
+import SEOPage from './components/SEOPage';
+import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
+import CookieConsent from './components/CookieConsent';
 import './styles/globals.css';
 
 function App() {
@@ -11,11 +13,14 @@ function App() {
     <div className="App">
       <Header />
       <main>
-        <Hero />
-        <Services />
-        <CTA />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services/seo/geo" element={<SEOPage />} />
+          <Route path="/about" element={<AboutPage />} />
+        </Routes>
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }

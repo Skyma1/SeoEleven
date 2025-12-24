@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search, Code, Palette, Cpu, ArrowRight } from 'lucide-react';
 import styles from '../styles/Services.module.css';
 
@@ -25,10 +26,10 @@ const Services = () => {
               и локальной оптимизации для привлечения целевой аудитории.
             </p>
           </div>
-          <a href="#seo" className={styles.cardLink}>
+          <Link to="/services/seo/geo" className={styles.cardLink}>
             Подробнее
             <ArrowRight size={16} strokeWidth={1.5} />
-          </a>
+          </Link>
         </div>
         
         <div className={`${styles.secondaryLargeBlock} ${styles.block}`}>

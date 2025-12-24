@@ -1,0 +1,612 @@
+.quiz {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-64) var(--space-32);
+  animation: fadeIn 600ms ease-out 300ms both;
+}
+
+.quizCard {
+  background-color: white;
+  border-radius: var(--radius-l);
+  padding: var(--space-48) var(--space-56);
+  border: 1px solid var(--color-border);
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.quizCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.quizIcon {
+  width: 64px;
+  height: 64px;
+  background-color: #FAF9F6;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin-bottom: var(--space-32);
+  flex-shrink: 0;
+}
+
+.quizTitle {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-16);
+  letter-spacing: -0.01em;
+}
+
+.quizSubtitle {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+}
+
+.startButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.startButton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+}
+
+.startButton svg {
+  transition: transform var(--transition-fast);
+}
+
+.startButton:hover svg {
+  transform: translateX(4px);
+}
+
+.quizHeader {
+  margin-bottom: var(--space-40);
+}
+
+.progressBar {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--space-16);
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  transition: width 200ms ease-out;
+}
+
+.stepIndicator {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.quizContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInSlide 200ms ease-out;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.question {
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-32);
+  letter-spacing: -0.01em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  margin-bottom: var(--space-32);
+  flex: 1;
+}
+
+.option {
+  background-color: #FAF9F6;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  padding: var(--space-16) var(--space-24);
+  font-size: 16px;
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: 400;
+}
+
+.option:hover {
+  background-color: rgba(79, 111, 94, 0.05);
+  border-color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+.optionSelected {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+.optionSelected:hover {
+  background-color: var(--color-accent);
+  opacity: 0.9;
+  transform: translateX(4px);
+}
+
+.backButton {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-s);
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.backButton:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  flex: 1;
+}
+
+.contactInput {
+  width: 100%;
+  padding: var(--space-16) var(--space-24);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  background-color: white;
+  transition: all var(--transition-fast);
+}
+
+.contactInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(79, 111, 94, 0.1);
+}
+
+.contactInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.formActions {
+  display: flex;
+  gap: var(--space-16);
+  margin-top: auto;
+}
+
+.submitButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+  flex: 1;
+  justify-content: center;
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+}
+
+.submitButton svg {
+  transition: transform var(--transition-fast);
+}
+
+.submitButton:hover svg {
+  transform: translateX(4px);
+}
+
+.successContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-32) 0;
+}
+
+.successText {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+  max-width: 500px;
+}
+
+.resetButton {
+  background-color: #FAF9F6;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-s);
+  font-size: 15px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.resetButton:hover {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+/* Сетка услуг */
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.serviceCard {
+  background-color: #FAF9F6;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  padding: var(--space-24);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
+}
+
+.serviceCard:hover {
+  border-color: var(--color-accent);
+  background-color: rgba(79, 111, 94, 0.03);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.serviceCardSelected {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+.serviceCardSelected:hover {
+  background-color: var(--color-accent);
+  opacity: 0.95;
+}
+
+.serviceCardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.serviceName {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.serviceCardSelected .serviceName {
+  color: white;
+}
+
+.servicePrice {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-top: var(--space-4);
+}
+
+.serviceCardSelected .servicePrice {
+  color: white;
+}
+
+.serviceFormat {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-4);
+}
+
+.serviceCardSelected .serviceFormat {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.serviceCheck {
+  position: absolute;
+  top: var(--space-16);
+  right: var(--space-16);
+  width: 28px;
+  height: 28px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Блок результата */
+.resultSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.resultTitle {
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+  letter-spacing: -0.01em;
+}
+
+.priceCard {
+  background-color: #FAF9F6;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  padding: var(--space-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.priceLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priceService {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.priceDivider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: var(--space-8) 0;
+}
+
+.priceValue {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-accent);
+  line-height: 1.2;
+}
+
+.priceFormat {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.disclaimer {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: var(--space-16);
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-s);
+  line-height: 1.5;
+}
+
+.contactLabel {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+}
+
+/* Textarea */
+.textareaWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  flex: 1;
+}
+
+.textarea {
+  width: 100%;
+  padding: var(--space-16) var(--space-24);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  background-color: white;
+  transition: all var(--transition-fast);
+  resize: vertical;
+  min-height: 120px;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(79, 111, 94, 0.1);
+}
+
+.textarea::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.nextButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: all var(--transition-fast);
+  align-self: flex-start;
+  border: none;
+  cursor: pointer;
+}
+
+.nextButton:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+}
+
+.nextButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nextButton svg {
+  transition: transform var(--transition-fast);
+}
+
+.nextButton:hover:not(:disabled) svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .quiz {
+    padding: var(--space-48) var(--space-24);
+  }
+
+  .quizCard {
+    padding: var(--space-32) var(--space-24);
+    min-height: auto;
+  }
+
+  .quizIcon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--space-24);
+  }
+
+  .quizIcon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .quizTitle {
+    font-size: 24px;
+    margin-bottom: var(--space-12);
+  }
+
+  .quizSubtitle {
+    font-size: 16px;
+    margin-bottom: var(--space-32);
+  }
+
+  .question {
+    font-size: 20px;
+    margin-bottom: var(--space-24);
+  }
+
+  .serviceGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .serviceCard {
+    min-height: 100px;
+    padding: var(--space-20);
+  }
+
+  .serviceName {
+    font-size: 16px;
+  }
+
+  .servicePrice {
+    font-size: 16px;
+  }
+
+  .priceCard {
+    padding: var(--space-24);
+  }
+
+  .priceValue {
+    font-size: 28px;
+  }
+
+  .resultTitle {
+    font-size: 20px;
+  }
+
+  .startButton,
+  .submitButton,
+  .nextButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .backButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+

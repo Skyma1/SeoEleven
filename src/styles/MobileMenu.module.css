@@ -1,0 +1,237 @@
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.mobileMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: all;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.mobileMenuOpen .mobileMenuOverlay {
+  opacity: 1;
+}
+
+.mobileMenuContent {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  max-width: 400px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  pointer-events: all;
+  transform: translateX(100%);
+  transition: transform 300ms ease-out;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.mobileMenuOpen .mobileMenuContent {
+  transform: translateX(0);
+}
+
+.mobileMenuHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-24);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition-fast);
+}
+
+.closeButton:hover {
+  opacity: 0.7;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-24);
+  gap: var(--space-8);
+}
+
+.mobileNavItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNavLink {
+  font-size: 16px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  padding: var(--space-16) 0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.mobileNavLink:hover {
+  color: var(--color-accent);
+}
+
+.mobileSubmenu {
+  padding-left: var(--space-16);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-16);
+  animation: slideDown 250ms ease-out;
+}
+
+.mobileSubmenuSection {
+  margin-bottom: var(--space-24);
+}
+
+.mobileSubmenuHeader {
+  margin-bottom: var(--space-12);
+}
+
+.mobileSubmenuTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+.mobileSubmenuSubtitle {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.mobileSubmenuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.mobileSubmenuLink {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  display: block;
+  padding: var(--space-8) 0;
+  transition: color var(--transition-fast);
+}
+
+.mobileSubmenuLink:hover {
+  color: var(--color-text-primary);
+}
+
+.mobileSubmenuLinkFeatured {
+  font-weight: 500;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.mobileSubmenuLinkFeatured:hover {
+  color: var(--color-accent);
+}
+
+.mobileFeaturedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  background-color: rgba(79, 111, 94, 0.1);
+  color: var(--color-accent);
+  font-size: 10px;
+  font-weight: 600;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.mobileFeaturedBadge svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.5;
+}
+
+.mobileCtaButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-16) var(--space-24);
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  margin-top: var(--space-16);
+  transition: all var(--transition-fast);
+}
+
+.mobileCtaButton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileMenuContent {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+

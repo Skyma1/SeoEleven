@@ -32,6 +32,24 @@
   position: relative;
 }
 
+.navItem::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  z-index: 1001;
+  pointer-events: all;
+  background: transparent;
+}
+
+@media (max-width: 1024px) {
+  .navItem::after {
+    display: none;
+  }
+}
+
 .navLink {
   font-size: 15px;
   color: var(--color-text-secondary);
@@ -44,7 +62,7 @@
 }
 
 .navLink .chevron {
-  transition: transform var(--transition-fast);
+  transition: transform 250ms ease-out;
 }
 
 .navItem:hover .chevron,
@@ -60,7 +78,7 @@
   width: 0;
   height: 2px;
   background-color: var(--color-accent);
-  transition: width var(--transition-base);
+  transition: width 250ms ease-out;
 }
 
 .navLink:hover {
@@ -89,6 +107,26 @@
 
 .mobileMenu {
   display: none;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: var(--space-8);
+  transition: opacity var(--transition-fast);
+}
+
+.mobileMenu:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  }
+  
+  .mobileMenu {
+    display: block;
+  }
 }
 
 @media (max-width: 768px) {
@@ -102,8 +140,6 @@
   
   .mobileMenu {
     display: block;
-    background: none;
-    color: var(--color-text-primary);
   }
 }
 

@@ -1,0 +1,109 @@
+.cookieConsent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--space-16) var(--space-24);
+  background-color: white;
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  animation: slideUp 300ms ease-out;
+}
+
+.cookieContent {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+}
+
+.cookieText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex: 1;
+}
+
+.cookieActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  flex-shrink: 0;
+}
+
+.acceptButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-10) var(--space-20);
+  border-radius: var(--radius-s);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.acceptButton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(79, 111, 94, 0.25);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+  border-radius: var(--radius-xs);
+}
+
+.closeButton:hover {
+  color: var(--color-text-primary);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cookieConsent {
+    padding: var(--space-16) var(--space-16);
+  }
+
+  .cookieContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-16);
+  }
+
+  .cookieText {
+    font-size: 13px;
+  }
+
+  .cookieActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .acceptButton {
+    flex: 1;
+  }
+}
+
+

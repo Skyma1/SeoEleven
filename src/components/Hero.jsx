@@ -26,16 +26,16 @@ const Hero = () => {
         </div>
         
         <div className={styles.secondaryBlock}>
-          <div className={styles.iconWrapper}>
-            <TrendingUp size={24} strokeWidth={1.5} />
-          </div>
+            <div className={styles.iconWrapper}>
+              <TrendingUp size={24} strokeWidth={1.5} />
+            </div>
           <h3>Проверенные результаты</h3>
           <p>Подход на основе данных, направленный на измеримые бизнес-результаты</p>
-        </div>
-        
+          </div>
+          
         <div className={styles.secondaryBlock}>
-          <div className={styles.iconWrapper}>
-            <Zap size={24} strokeWidth={1.5} />
+            <div className={styles.iconWrapper}>
+              <Zap size={24} strokeWidth={1.5} />
           </div>
           <h3>Быстрая реализация</h3>
           <p>Эффективные процессы с учетом ваших сроков и бюджета</p>
