@@ -1,0 +1,434 @@
+.statistics {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-32);
+  flex-wrap: wrap;
+  gap: var(--space-16);
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-16);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dateButtons {
+  display: flex;
+  gap: var(--space-8);
+  background-color: #ffffff;
+  padding: var(--space-4);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-border);
+}
+
+.dateBtn {
+  padding: var(--space-8) var(--space-16);
+  border: none;
+  background: none;
+  border-radius: var(--radius-s);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dateBtn:hover {
+  background-color: var(--color-bg);
+}
+
+.dateBtn.active {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+.dateRange {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.dateInput {
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  font-size: 14px;
+  background-color: #ffffff;
+}
+
+.summaryCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.card {
+  background-color: #ffffff;
+  padding: var(--space-24);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--color-border);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+
+.cardHeader h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.changePositive {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: #16a34a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.changePositive svg {
+  flex-shrink: 0;
+}
+
+.changeNegative {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.changeNegative svg {
+  flex-shrink: 0;
+}
+
+.cardValue {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.deviceInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.deviceItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.deviceItem strong {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.chartCard {
+  background-color: #ffffff;
+  padding: var(--space-24);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--color-border);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-24);
+}
+
+.chartHeader h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.chartTotal {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.chartContainer {
+  height: 300px;
+  position: relative;
+}
+
+.chartPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-s);
+  border: 2px dashed var(--color-border);
+}
+
+.chartPlaceholder p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: var(--space-8);
+}
+
+.chartPlaceholder small {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.trafficSources,
+.topPages,
+.geography {
+  background-color: #ffffff;
+  padding: var(--space-24);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--space-24);
+}
+
+.trafficSources h2,
+.topPages h2,
+.geography h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-24) 0;
+}
+
+.sourcesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.sourceItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.sourceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sourceName {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.sourceStats {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.sourceBar {
+  height: 24px;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  position: relative;
+}
+
+.sourceBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent) 0%, #6b9c85 100%);
+  border-radius: var(--radius-xs);
+  transition: width var(--transition-base);
+}
+
+.pagesTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  gap: var(--space-16);
+  padding-bottom: var(--space-12);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-16);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  gap: var(--space-16);
+  padding: var(--space-12) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.colPage {
+  font-size: 14px;
+}
+
+.pageUrl {
+  font-family: monospace;
+  color: var(--color-text-primary);
+}
+
+.colViews,
+.colSessions,
+.colVisitors {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.colDevice {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.devicePercent {
+  font-weight: 500;
+}
+
+.countriesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.countryItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.countryHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-width: 150px;
+}
+
+.countryCode {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.countryName {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.countryBar {
+  flex: 1;
+  height: 24px;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  position: relative;
+}
+
+.countryBarFill {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-xs);
+  transition: width var(--transition-base);
+}
+
+.countryStats {
+  min-width: 80px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .dateButtons {
+    width: 100%;
+  }
+
+  .dateBtn {
+    flex: 1;
+  }
+
+  .summaryCards {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .countryItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .countryBar {
+    width: 100%;
+  }
+}
+

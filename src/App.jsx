@@ -1,5 +1,15 @@
+/**
+ * Главный компонент приложения
+ * 
+ * Подключает все контексты (Auth, Data, Modal),
+ * Error Boundary для обработки ошибок,
+ * и настраивает роутинг для публичной части и админки
+ */
+
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+
+// Компоненты
 import Header from './components/Header';
 import Home from './components/Home';
 import SEOPage from './components/SEOPage';
@@ -33,52 +43,110 @@ import Footer from './components/Footer';
 import CookieConsent from './components/CookieConsent';
 import NotFoundPage from './components/NotFoundPage';
 import ScrollToTop from './components/ScrollToTop';
+import ErrorBoundary from './components/ErrorBoundary';
+import ProtectedRoute from './components/ProtectedRoute';
+
+// Admin компоненты
+import AdminLayout from './admin/AdminLayout';
+import AdminLogin from './admin/pages/AdminLogin';
+import AdminBlog from './admin/pages/AdminBlog';
+import BlogEdit from './admin/pages/BlogEdit';
+import AdminCases from './admin/pages/AdminCases';
+import CaseEdit from './admin/pages/CaseEdit';
+import AdminServices from './admin/pages/AdminServices';
+import AdminRequests from './admin/pages/AdminRequests';
+import AdminStatistics from './admin/pages/AdminStatistics';
+
+// Контексты
 import { ModalProvider } from './context/ModalContext';
+import { DataProvider } from './context/DataContext';
+import { AuthProvider } from './context/AuthContext';
+
+// Стили
 import './styles/globals.css';
 
 function App() {
   return (
-    <ModalProvider>
-      <div className="App">
-        <ScrollToTop />
-        <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services/ai-seo" element={<SEOPage />} />
-          <Route path="/services/telegram-bots" element={<TelegramBotsPage />} />
-          <Route path="/services/no-code-automation" element={<NoCodeAutomationPage />} />
-          <Route path="/services/scripts" element={<CustomScriptsPage />} />
-          <Route path="/services/analytics" element={<AnalyticsPage />} />
-          <Route path="/uslugi/kontekstnaya-reklama" element={<ContextualAdvertisingPage />} />
-          <Route path="/uslugi/targetirovannaya-reklama" element={<TargetedAdvertisingPage />} />
-          <Route path="/uslugi/seo-dlya-marketpleysov" element={<MarketplaceSEOPage />} />
-          <Route path="/uslugi/nastrojka-yandex-direct" element={<YandexDirectPage />} />
-          <Route path="/uslugi/seo-prodvizhenie" element={<ComprehensiveSEOPage />} />
-          <Route path="/uslugi/prodvizhenie-molodyh-sajtov" element={<YoungSitesSEOPage />} />
-          <Route path="/uslugi/bazovaya-optimizaciya" element={<BasicOptimizationPage />} />
-          <Route path="/uslugi/stateinoe-prodvizhenie" element={<ArticleSEOPage />} />
-          <Route path="/uslugi/semanticheskoe-yadro" element={<SemanticCorePage />} />
-          <Route path="/uslugi/ssylki" element={<LinkBuildingPage />} />
-          <Route path="/uslugi/prodvizhenie-po-slovam" element={<KeywordPromotionPage />} />
-          <Route path="/uslugi/seo-audit" element={<SEOAuditPage />} />
-          <Route path="/services/web-development" element={<WebDevelopmentPage />} />
-          <Route path="/services/support" element={<SupportPage />} />
-          <Route path="/services/hosting-setup" element={<HostingSetupPage />} />
-          <Route path="/services/logo-design" element={<LogoDesignPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/cases" element={<CasesPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<ArticlePage />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
-      <Footer />
-      <CookieConsent />
-      </div>
-    </ModalProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <DataProvider>
+          <ModalProvider>
+            <div className="App">
+              <ScrollToTop />
+              <Routes>
+                {/* Admin Login Route (не защищенный) */}
+                <Route path="/admin/login" element={<AdminLogin />} />
+
+                {/* Admin Routes (защищенные) */}
+                <Route
+                  path="/admin/*"
+                  element={
+                    <ProtectedRoute>
+                      <AdminLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<AdminStatistics />} />
+                  <Route path="blog" element={<AdminBlog />} />
+                  <Route path="blog/new" element={<BlogEdit />} />
+                  <Route path="blog/:id/edit" element={<BlogEdit />} />
+                  <Route path="cases" element={<AdminCases />} />
+                  <Route path="cases/new" element={<CaseEdit />} />
+                  <Route path="cases/:id/edit" element={<CaseEdit />} />
+                  <Route path="services" element={<AdminServices />} />
+                  <Route path="requests" element={<AdminRequests />} />
+                </Route>
+
+                {/* Public Routes */}
+                <Route
+                  path="/*"
+                  element={
+                    <>
+                      <Header />
+                      <main>
+                        <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/services/ai-seo" element={<SEOPage />} />
+                          <Route path="/services/telegram-bots" element={<TelegramBotsPage />} />
+                          <Route path="/services/no-code-automation" element={<NoCodeAutomationPage />} />
+                          <Route path="/services/scripts" element={<CustomScriptsPage />} />
+                          <Route path="/services/analytics" element={<AnalyticsPage />} />
+                          <Route path="/uslugi/kontekstnaya-reklama" element={<ContextualAdvertisingPage />} />
+                          <Route path="/uslugi/targetirovannaya-reklama" element={<TargetedAdvertisingPage />} />
+                          <Route path="/uslugi/seo-dlya-marketpleysov" element={<MarketplaceSEOPage />} />
+                          <Route path="/uslugi/nastrojka-yandex-direct" element={<YandexDirectPage />} />
+                          <Route path="/uslugi/seo-prodvizhenie" element={<ComprehensiveSEOPage />} />
+                          <Route path="/uslugi/prodvizhenie-molodyh-sajtov" element={<YoungSitesSEOPage />} />
+                          <Route path="/uslugi/bazovaya-optimizaciya" element={<BasicOptimizationPage />} />
+                          <Route path="/uslugi/stateinoe-prodvizhenie" element={<ArticleSEOPage />} />
+                          <Route path="/uslugi/semanticheskoe-yadro" element={<SemanticCorePage />} />
+                          <Route path="/uslugi/ssylki" element={<LinkBuildingPage />} />
+                          <Route path="/uslugi/prodvizhenie-po-slovam" element={<KeywordPromotionPage />} />
+                          <Route path="/uslugi/seo-audit" element={<SEOAuditPage />} />
+                          <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+                          <Route path="/services/support" element={<SupportPage />} />
+                          <Route path="/services/hosting-setup" element={<HostingSetupPage />} />
+                          <Route path="/services/logo-design" element={<LogoDesignPage />} />
+                          <Route path="/about" element={<AboutPage />} />
+                          <Route path="/contact" element={<ContactPage />} />
+                          <Route path="/cases" element={<CasesPage />} />
+                          <Route path="/blog" element={<BlogPage />} />
+                          <Route path="/blog/:id" element={<ArticlePage />} />
+                          <Route path="/privacy" element={<PrivacyPolicy />} />
+                          <Route path="*" element={<NotFoundPage />} />
+                        </Routes>
+                      </main>
+                      <Footer />
+                      <CookieConsent />
+                    </>
+                  }
+                />
+              </Routes>
+            </div>
+          </ModalProvider>
+        </DataProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 

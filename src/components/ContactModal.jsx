@@ -1,85 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { X, Send, CheckCircle, Phone, Mail } from 'lucide-react';
+import apiService from '../services/api';
+import { validateContactForm } from '../utils/validation';
+import { handleApiError, parseFormErrors } from '../utils/errorHandlers';
+import {
+  FORM_SERVICES as SERVICES,
+  FORM_GOALS as GOALS,
+  FORM_BUDGETS as BUDGETS,
+  FORM_TIMELINES as TIMELINES,
+  SERVICES_REQUIRING_WEBSITE,
+  SERVICE_MAPPING,
+  CONTACT_TYPES,
+  SUCCESS_MESSAGES,
+} from '../config/constants';
 import styles from '../styles/ContactModal.module.css';
 
 /**
- * Структура данных формы для отправки на бекенд:
+ * Модальное окно контактной формы
  * 
- * POST /api/contact
- * Content-Type: application/json
- * 
- * {
- *   "name": string,                    // Имя (обязательное)
- *   "contactType": "phone" | "email",  // Тип контакта (обязательное)
- *   "contact": string,                 // Телефон или email (обязательное)
- *   "company": string,                 // Компания (опциональное)
- *   "service": string,                 // Услуга (обязательное)
- *   "website": string,                 // Сайт (обязателен для SEO/GEO/аудита)
- *   "goal": string,                    // Цель (обязательное)
- *   "budget": string,                  // Бюджет (обязательное)
- *   "timeline": string,                // Сроки (опциональное)
- *   "comment": string,                 // Комментарий (опциональное)
- *   "privacyAgreed": boolean,          // Согласие (обязательное)
- *   "source": string                   // Источник заявки
- * }
+ * Отправляет данные через API сервис,
+ * валидирует форму на клиенте,
+ * обрабатывает ошибки с сервера
  */
-
-const SERVICES = [
-  'SEO-продвижение',
-  'GEO / AI SEO',
-  'Контекстная реклама',
-  'Разработка сайта',
-  'Поддержка / доработка',
-  'Автоматизация / боты',
-  'Аудит / аналитика'
-];
-
-const GOALS = [
-  'Рост заявок',
-  'Рост трафика',
-  'Запуск нового проекта',
-  'Аудит текущего состояния',
-  'Автоматизация процессов',
-  'Другое'
-];
-
-const BUDGETS = [
-  'До 30 000 ₽',
-  '30 000 – 70 000 ₽',
-  '70 000 – 150 000 ₽',
-  '150 000 ₽ и выше',
-  'Пока не определились'
-];
-
-const TIMELINES = [
-  'Как можно быстрее',
-  'В течение месяца',
-  '1–3 месяца',
-  'Без жёстких сроков'
-];
-
-// Услуги, для которых сайт обязателен
-const SERVICES_REQUIRING_WEBSITE = ['SEO-продвижение', 'GEO / AI SEO', 'Аудит / аналитика'];
-
-// Маппинг услуг для автоподстановки
-const SERVICE_MAPPING = {
-  'AI SEO (GEO)': 'GEO / AI SEO',
-  'SEO-продвижение под AI (GEO)': 'GEO / AI SEO',
-  'Комплексное SEO-продвижение': 'SEO-продвижение',
-  'Контекстная реклама': 'Контекстная реклама',
-  'Таргетированная реклама': 'Контекстная реклама',
-  'Web development': 'Разработка сайта',
-  'Веб-разработка': 'Разработка сайта',
-  'Support & maintenance': 'Поддержка / доработка',
-  'Telegram bots & Mini Apps': 'Автоматизация / боты',
-  'No-code automation': 'Автоматизация / боты',
-  'Advanced analytics & audit': 'Аудит / аналитика',
-};
 
 const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => {
   const [formData, setFormData] = useState({
     name: '',
-    contactType: 'email',
+    contactType: CONTACT_TYPES.EMAIL,
     contact: '',
     company: '',
     service: service || '',
@@ -109,7 +56,7 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
       const mappedService = service && SERVICE_MAPPING[service] ? SERVICE_MAPPING[service] : '';
       setFormData({
         name: '',
-        contactType: 'email',
+        contactType: CONTACT_TYPES.EMAIL,
         contact: '',
         company: '',
         service: mappedService,
@@ -173,51 +120,11 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
     }
   };
 
+  // Используем централизованную валидацию
   const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Укажите, как к вам обращаться';
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Минимум 2 символа';
-    }
-
-    if (!formData.contact.trim()) {
-      newErrors.contact = `Укажите ${formData.contactType === 'phone' ? 'телефон' : 'email'}`;
-    } else if (formData.contactType === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contact)) {
-      newErrors.contact = 'Введите корректный email';
-    } else if (formData.contactType === 'phone' && formData.contact.trim().length < 5) {
-      newErrors.contact = 'Введите корректный телефон';
-    }
-
-    if (!formData.service) {
-      newErrors.service = 'Выберите услугу';
-    }
-
-    if (SERVICES_REQUIRING_WEBSITE.includes(formData.service)) {
-      if (!formData.website.trim()) {
-        newErrors.website = 'Для этой услуги требуется указать сайт';
-      } else if (!/^https?:\/\/.+/.test(formData.website.trim())) {
-        newErrors.website = 'Введите корректный URL (начинается с http:// или https://)';
-      }
-    } else if (formData.website.trim() && !/^https?:\/\/.+/.test(formData.website.trim())) {
-      newErrors.website = 'Введите корректный URL (начинается с http:// или https://)';
-    }
-
-    if (!formData.goal) {
-      newErrors.goal = 'Укажите основную цель';
-    }
-
-    if (!formData.budget) {
-      newErrors.budget = 'Укажите примерный бюджет';
-    }
-
-    if (!formData.privacyAgreed) {
-      newErrors.privacyAgreed = 'Необходимо согласие на обработку данных';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    const { isValid, errors: validationErrors } = validateContactForm(formData);
+    setErrors(validationErrors);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
@@ -231,8 +138,6 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
     setSubmitStatus(null);
 
     try {
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
-      
       const payload = {
         name: formData.name.trim(),
         contactType: formData.contactType,
@@ -248,29 +153,30 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
         source: formData.source
       };
 
-      const response = await fetch(`${API_URL}/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      // Используем централизованный API сервис
+      const { data, error } = await apiService.submitContactForm(payload);
 
-      const data = await response.json();
+      if (error) {
+        throw new Error(error);
+      }
 
-      if (response.ok && data.success) {
+      if (data && data.success) {
         setSubmitStatus('success');
+        // Закрываем модалку через 3 секунды после успешной отправки
         setTimeout(() => {
           onClose();
         }, 3000);
       } else {
-        if (data.errors) {
-          setErrors(data.errors);
+        // Если есть ошибки валидации с сервера
+        if (data && data.errors) {
+          const serverErrors = parseFormErrors(data.errors);
+          setErrors(serverErrors);
         }
         setSubmitStatus('error');
       }
     } catch (error) {
-      console.error('Ошибка отправки формы:', error);
+      const errorMessage = handleApiError(error, 'Ошибка отправки формы');
+      console.error(errorMessage, error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -322,9 +228,9 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
               <div className={styles.contactToggle}>
                 <button
                   type="button"
-                  className={`${styles.toggleButton} ${formData.contactType === 'email' ? styles.toggleButtonActive : ''}`}
+                  className={`${styles.toggleButton} ${formData.contactType === CONTACT_TYPES.EMAIL ? styles.toggleButtonActive : ''}`}
                   onClick={() => {
-                    handleInputChange({ target: { name: 'contactType', value: 'email', type: 'text' } });
+                    handleInputChange({ target: { name: 'contactType', value: CONTACT_TYPES.EMAIL, type: 'text' } });
                   }}
                   disabled={isSubmitting}
                 >
@@ -333,9 +239,9 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
                 </button>
                 <button
                   type="button"
-                  className={`${styles.toggleButton} ${formData.contactType === 'phone' ? styles.toggleButtonActive : ''}`}
+                  className={`${styles.toggleButton} ${formData.contactType === CONTACT_TYPES.PHONE ? styles.toggleButtonActive : ''}`}
                   onClick={() => {
-                    handleInputChange({ target: { name: 'contactType', value: 'phone', type: 'text' } });
+                    handleInputChange({ target: { name: 'contactType', value: CONTACT_TYPES.PHONE, type: 'text' } });
                   }}
                   disabled={isSubmitting}
                 >
@@ -344,13 +250,13 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
                 </button>
               </div>
               <input
-                type={formData.contactType === 'email' ? 'email' : 'tel'}
+                type={formData.contactType === CONTACT_TYPES.EMAIL ? 'email' : 'tel'}
                 id="modal-contact"
                 name="contact"
                 value={formData.contact}
                 onChange={handleInputChange}
                 className={`${styles.input} ${errors.contact ? styles.inputError : ''}`}
-                placeholder={formData.contactType === 'email' ? 'your@email.com' : '+7 (___) ___-__-__'}
+                placeholder={formData.contactType === CONTACT_TYPES.EMAIL ? 'your@email.com' : '+7 (___) ___-__-__'}
                 disabled={isSubmitting}
               />
               {errors.contact && <span className={styles.error}>{errors.contact}</span>}
@@ -530,7 +436,7 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
           {submitStatus === 'success' && (
             <div className={styles.successMessage}>
               <CheckCircle size={20} strokeWidth={1.5} />
-              <span>Спасибо! Мы изучим запрос и свяжемся с вами в ближайшее время.</span>
+              <span>{SUCCESS_MESSAGES.FORM_SUBMITTED}</span>
             </div>
           )}
 

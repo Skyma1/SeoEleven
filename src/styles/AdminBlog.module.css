@@ -1,0 +1,240 @@
+.blogAdmin {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-32);
+  gap: var(--space-16);
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-8) 0;
+}
+
+.header p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-24);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border-radius: var(--radius-s);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.addBtn:hover {
+  background-color: #3d5548;
+  transform: translateY(-1px);
+}
+
+.addBtn svg {
+  flex-shrink: 0;
+}
+
+.toolbar {
+  margin-bottom: var(--space-24);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  background-color: #ffffff;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-border);
+  max-width: 500px;
+}
+
+.search svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--color-text-primary);
+  background: none;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.postCard {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  padding: var(--space-24);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-24);
+  transition: all var(--transition-fast);
+}
+
+.postCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.postContent {
+  flex: 1;
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-12);
+}
+
+.postHeader h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.featuredBadge {
+  padding: var(--space-4) var(--space-12);
+  background-color: rgba(79, 111, 94, 0.1);
+  color: var(--color-accent);
+  border-radius: var(--radius-xs);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.postExcerpt {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-16);
+  line-height: 1.6;
+}
+
+.postMeta {
+  display: flex;
+  gap: var(--space-24);
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.metaItem svg {
+  flex-shrink: 0;
+}
+
+.postActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  align-items: flex-end;
+}
+
+.editBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.editBtn:hover {
+  background-color: rgba(79, 111, 94, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.editBtn svg {
+  flex-shrink: 0;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  background-color: #ffffff;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: var(--radius-s);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.deleteBtn:hover {
+  background-color: rgba(220, 38, 38, 0.1);
+}
+
+.deleteBtn svg {
+  flex-shrink: 0;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  padding: var(--space-64);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .postCard {
+    flex-direction: column;
+  }
+
+  .postActions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .editBtn,
+  .deleteBtn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+

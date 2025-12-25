@@ -1,0 +1,95 @@
+import React from 'react';
+import { Outlet, NavLink } from 'react-router-dom';
+import { 
+  LayoutDashboard, 
+  FileText, 
+  Briefcase, 
+  Settings, 
+  BarChart3, 
+  MessageSquare,
+  LogOut,
+  Menu,
+  X
+} from 'lucide-react';
+import styles from '../styles/AdminLayout.module.css';
+
+const AdminLayout = () => {
+  const [sidebarOpen, setSidebarOpen] = React.useState(true);
+
+  // Предотвращаем горизонтальный скролл на body
+  React.useEffect(() => {
+    document.body.style.overflowX = 'hidden';
+    return () => {
+      document.body.style.overflowX = '';
+    };
+  }, []);
+
+  const menuItems = [
+    { path: '/admin', icon: LayoutDashboard, label: 'Статистика', exact: true },
+    { path: '/admin/blog', icon: FileText, label: 'Блог' },
+    { path: '/admin/cases', icon: Briefcase, label: 'Кейсы' },
+    { path: '/admin/services', icon: Settings, label: 'Услуги' },
+    { path: '/admin/requests', icon: MessageSquare, label: 'Заявки' },
+  ];
+
+  return (
+    <div className={styles.adminContainer}>
+      {/* Плавающая кнопка для открытия меню, когда оно закрыто */}
+      {!sidebarOpen && (
+        <button 
+          className={styles.openMenuBtn}
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open sidebar"
+        >
+          <Menu size={20} strokeWidth={1.5} />
+        </button>
+      )}
+
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.open : styles.closed}`}>
+        <div className={styles.sidebarHeader}>
+          <h2>Админ-панель</h2>
+          <button 
+            className={styles.toggleBtn}
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
+            <X size={20} />
+          </button>
+        </div>
+        <nav className={styles.nav}>
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.exact}
+                className={({ isActive }) =>
+                  `${styles.navLink} ${isActive ? styles.active : ''}`
+                }
+              >
+                <Icon size={20} strokeWidth={1.5} />
+                {sidebarOpen && <span>{item.label}</span>}
+              </NavLink>
+            );
+          })}
+        </nav>
+        <div className={styles.sidebarFooter}>
+          <button className={styles.logoutBtn}>
+            <LogOut size={20} strokeWidth={1.5} />
+            {sidebarOpen && <span>Выйти</span>}
+          </button>
+        </div>
+      </aside>
+
+      <main className={`${styles.mainContent} ${!sidebarOpen ? styles.sidebarClosed : ''}`}>
+        <div className={styles.contentWrapper}>
+          <Outlet />
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default AdminLayout;
+

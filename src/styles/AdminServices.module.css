@@ -1,0 +1,238 @@
+.servicesAdmin {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-32);
+  gap: var(--space-16);
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-8) 0;
+}
+
+.header p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.saveBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-24);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-s);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.saveBtn svg {
+  flex-shrink: 0;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background-color: #3d5548;
+  transform: translateY(-1px);
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toolbar {
+  margin-bottom: var(--space-24);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  background-color: #ffffff;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-border);
+  max-width: 500px;
+}
+
+.search svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--color-text-primary);
+  background: none;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.servicesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.serviceCard {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  padding: var(--space-24);
+}
+
+.serviceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-24);
+  gap: var(--space-16);
+}
+
+.serviceHeader h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  flex: 1;
+}
+
+.serviceLink {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-xs);
+  font-family: monospace;
+}
+
+.serviceContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+}
+
+.textarea {
+  padding: var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  font-size: 15px;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+  transition: all var(--transition-fast);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(79, 111, 94, 0.1);
+}
+
+.priceRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-24);
+  align-items: flex-end;
+}
+
+.priceInput {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  background-color: #ffffff;
+}
+
+.priceFrom {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--color-text-primary);
+  background: none;
+  min-width: 100px;
+}
+
+.currency {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  cursor: pointer;
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  padding: var(--space-64);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .serviceHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .priceRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+}
+

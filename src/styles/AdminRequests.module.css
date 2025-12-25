@@ -1,0 +1,339 @@
+.requestsAdmin {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-32);
+  gap: var(--space-16);
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-8) 0;
+}
+
+.header p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-24);
+  background-color: #ffffff;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.exportBtn svg {
+  flex-shrink: 0;
+}
+
+.exportBtn:hover {
+  background-color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+  flex-wrap: wrap;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  background-color: #ffffff;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-border);
+  flex: 1;
+  min-width: 300px;
+}
+
+.search svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--color-text-primary);
+  background: none;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background-color: #ffffff;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-border);
+}
+
+.filter svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.filterSelect {
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--color-text-primary);
+  background: none;
+  cursor: pointer;
+}
+
+.requestsTable {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+
+.tableHeader {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 150px 180px 180px 200px 150px 120px auto;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-24);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.requestRow {
+  display: grid;
+  grid-template-columns: 150px 180px 180px 200px 150px 120px auto;
+  gap: var(--space-16);
+  padding: var(--space-20) var(--space-24);
+  border-bottom: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
+}
+
+.requestRow:hover {
+  background-color: var(--color-bg);
+}
+
+.requestRow:last-child {
+  border-bottom: none;
+}
+
+.colDate {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.colDate svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.colName {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 15px;
+}
+
+.company {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.colContact {
+  display: flex;
+  align-items: center;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.contactItem svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.colService {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.service {
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.website {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-family: monospace;
+}
+
+.colBudget {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.budget {
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.goal {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.colStatus {
+  display: flex;
+  align-items: center;
+}
+
+.statusBadge {
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-xs);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statusNew {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.statusViewed {
+  background-color: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+}
+
+.statusProcessed {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.statusArchived {
+  background-color: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+.colDetails {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.detailsBtn {
+  padding: var(--space-6) var(--space-12);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.detailsBtn:hover {
+  background-color: rgba(79, 111, 94, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.loading,
+.empty {
+  text-align: center;
+  padding: var(--space-64);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 1400px) {
+  .tableRow,
+  .requestRow {
+    grid-template-columns: 140px 160px 160px 180px 140px 100px auto;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tableRow,
+  .requestRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .colDate,
+  .colName,
+  .colContact,
+  .colService,
+  .colBudget,
+  .colStatus,
+  .colDetails {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-8);
+  }
+
+  .colDetails {
+    border-bottom: none;
+    padding-top: var(--space-8);
+  }
+
+  .tableHeader {
+    display: none;
+  }
+}
+
