@@ -150,3 +150,17 @@
   }
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: var(--space-12) var(--space-20);
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .mobileMenu {
+    padding: var(--space-6);
+  }
+}
+
