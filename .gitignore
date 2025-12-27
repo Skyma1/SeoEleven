@@ -12,14 +12,6 @@
 # environment variables
 .env
 .env.local
-.env.example
-.env.docker
-.env.backend
-/backend/.env
-/backend/.env.local
-/backend/.env.development
-/backend/.env.production
-/backend/.env.example
 .env.development
 .env.development.local
 .env.test
@@ -40,9 +32,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
-# backend deps
-/backend/node_modules
 
 # OS files
 Thumbs.db
