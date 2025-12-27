@@ -113,26 +113,3 @@
   }
 }
 
-@media (max-width: 480px) {
-  .cta {
-    padding: var(--space-32) var(--space-20);
-  }
-
-  .container {
-    padding: var(--space-32) var(--space-20);
-    gap: var(--space-24);
-  }
-
-  .container h2 {
-    font-size: 30px;
-  }
-
-  .container p {
-    font-size: 15px;
-  }
-
-  .actions {
-    gap: var(--space-12);
-  }
-}
-
