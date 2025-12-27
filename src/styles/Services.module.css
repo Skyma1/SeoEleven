@@ -350,3 +350,30 @@
   }
 }
 
+@media (max-width: 480px) {
+  .services {
+    padding: var(--space-36) var(--space-20);
+  }
+
+  .gridContainer {
+    padding: var(--space-20);
+    gap: var(--space-12);
+  }
+
+  .dominantBlock,
+  .secondaryLargeBlock,
+  .mediumBlock,
+  .smallBlock {
+    padding: var(--space-28) var(--space-20);
+  }
+
+  .iconWrapper {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cardLink {
+    font-size: 14px;
+  }
+}
+
