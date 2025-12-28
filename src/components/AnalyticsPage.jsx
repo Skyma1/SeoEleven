@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, BarChart3, Search, Target, TrendingUp, FileText } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const AnalyticsPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Аналитика и аудит', 'service-page');
+  };
+
   return (
     <>
       {/* БЛОК 1. HERO */}
@@ -18,7 +25,7 @@ const AnalyticsPage = () => {
             аналитики, строим дашборды и отчёты, которые дают реальное понимание эффективности 
             процессов и помогают принимать решения на основе данных.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Заказать аудит
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -209,9 +216,13 @@ const AnalyticsPage = () => {
               систем — от 200 000 рублей.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Заказать аудит и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

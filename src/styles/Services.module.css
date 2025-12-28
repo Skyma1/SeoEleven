@@ -38,7 +38,7 @@
 .dominantBlock {
   grid-column: span 7;
   grid-row: 1;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-m);
   padding: var(--space-56) var(--space-48);
   border: 1px solid var(--color-border);
@@ -73,7 +73,7 @@
 .secondaryLargeBlock {
   grid-column: span 5;
   grid-row: 1;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-m);
   padding: var(--space-56) var(--space-48);
   border: 1px solid var(--color-border);
@@ -108,7 +108,7 @@
 .mediumBlock {
   grid-column: span 6;
   grid-row: 2;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-m);
   padding: var(--space-40) var(--space-36);
   border: 1px solid var(--color-border);
@@ -151,7 +151,7 @@
 .smallBlock {
   grid-column: span 3;
   grid-row: 3;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-m);
   padding: var(--space-36) var(--space-32);
   border: 1px solid var(--color-border);
@@ -203,7 +203,7 @@
 .iconWrapper {
   width: 56px;
   height: 56px;
-  background-color: #FAF9F6;
+  background-color: rgba(37, 99, 235, 0.1);
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
@@ -213,9 +213,18 @@
   flex-shrink: 0;
 }
 
+.iconWrapper svg {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
+}
+
 .block:hover .iconWrapper {
   transform: scale(1.1);
-  background-color: white;
+  background-color: rgba(37, 99, 235, 0.15);
+}
+
+.block:hover .iconWrapper svg {
+  color: var(--color-accent);
 }
 
 .cardLink {
@@ -235,12 +244,16 @@
   text-decoration: underline;
 }
 
-.cardLink:hover svg {
-  transform: translateX(4px);
+.cardLink svg {
+  color: var(--color-accent);
+  stroke: currentColor;
+  transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
-.cardLink svg {
-  transition: transform var(--transition-fast);
+.cardLink:hover svg {
+  color: var(--color-accent);
+  stroke: currentColor;
+  transform: translateX(4px);
 }
 
 @media (max-width: 1024px) {

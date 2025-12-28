@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Link as LinkIcon, Target, BarChart3, Search } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const LinkBuildingPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Ссылочное продвижение', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const LinkBuildingPage = () => {
             Правильно построенная ссылочная масса улучшает авторитет сайта, помогает росту позиций 
             и привлекает трафик. Мы работаем только с качественными источниками и естественными ссылками.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить продвижение
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -192,9 +199,13 @@ const LinkBuildingPage = () => {
               рассчитывается индивидуально.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить продвижение и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

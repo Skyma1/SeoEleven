@@ -4,7 +4,7 @@ USE `seoeleven`;
 CREATE TABLE IF NOT EXISTS contacts (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
-  contact_type ENUM('email','phone') NOT NULL,
+  contact_type ENUM('email','phone','telegram','max') NOT NULL,
   contact VARCHAR(190) NOT NULL,
   company VARCHAR(190),
   service VARCHAR(120),

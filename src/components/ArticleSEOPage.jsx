@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, FileText, Search, PenTool, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const ArticleSEOPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Статейное продвижение', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const ArticleSEOPage = () => {
             трафик и помогают продвигать сайт в поисковых системах. Статьи оптимизированы под поисковые 
             запросы, содержат полезную информацию и способствуют росту позиций сайта.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить продвижение
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -191,9 +198,13 @@ const ArticleSEOPage = () => {
               рассчитывается индивидуально.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить продвижение и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

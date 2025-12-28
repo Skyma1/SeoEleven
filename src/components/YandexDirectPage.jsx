@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Search, Target, BarChart3, Settings, Zap } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const YandexDirectPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Настройка Яндекс.Директ', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -17,7 +24,7 @@ const YandexDirectPage = () => {
             кампании, оптимизируем их для максимальной эффективности и ведём рекламу для постоянного 
             улучшения результатов.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить настройку
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -201,9 +208,13 @@ const YandexDirectPage = () => {
               в месяц. Бюджет на рекламу оплачивается отдельно в Яндекс.Директ.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить настройку и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

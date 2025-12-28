@@ -11,6 +11,7 @@ import { Routes, Route } from 'react-router-dom';
 
 // Компоненты
 import Header from './components/Header';
+import Breadcrumbs from './components/Breadcrumbs';
 import Home from './components/Home';
 import SEOPage from './components/SEOPage';
 import AboutPage from './components/AboutPage';
@@ -39,6 +40,7 @@ import WebDevelopmentPage from './components/WebDevelopmentPage';
 import SupportPage from './components/SupportPage';
 import HostingSetupPage from './components/HostingSetupPage';
 import LogoDesignPage from './components/LogoDesignPage';
+import ServicesPage from './components/ServicesPage';
 import Footer from './components/Footer';
 import CookieConsent from './components/CookieConsent';
 import NotFoundPage from './components/NotFoundPage';
@@ -114,9 +116,12 @@ function App() {
                   element={
                     <>
                       <Header />
+                      <Breadcrumbs />
                       <main>
                         <Routes>
                           <Route path="/" element={<Home />} />
+                          <Route path="/services" element={<ServicesPage />} />
+                          <Route path="/uslugi" element={<ServicesPage />} />
                           <Route path="/services/ai-seo" element={<SEOPage />} />
                           <Route path="/services/telegram-bots" element={<TelegramBotsPage />} />
                           <Route path="/services/no-code-automation" element={<NoCodeAutomationPage />} />

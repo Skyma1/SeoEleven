@@ -1,10 +1,10 @@
 /* Design System Variables */
 :root {
-  --color-bg: #F0EEE9;
-  --color-accent: #4F6F5E;
-  --color-text-primary: #2E2E2E;
-  --color-text-secondary: #5F5F5F;
-  --color-border: rgba(0, 0, 0, 0.06);
+  --color-bg: #FAFAFA;
+  --color-accent: #2563EB;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-border: rgba(15, 23, 42, 0.08);
   
   --radius-xs: 10px;
   --radius-s: 14px;
@@ -36,6 +36,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -117,6 +121,20 @@ a {
 
 a:hover {
   opacity: 0.7;
+}
+
+/* SVG Icons - предотвращаем наследование currentColor при hover */
+/* SVG элементы используют stroke: currentColor, но мы явно задаем color через CSS */
+svg {
+  stroke: currentColor;
+}
+
+/* Убеждаемся, что SVG внутри элементов с заданным цветом используют этот цвет, а не наследуют от родителя */
+*[style*="color"] svg,
+*[class*="color"] svg,
+.iconWrapper svg,
+.iconWrapper:hover svg {
+  stroke: currentColor;
 }
 
 /* Mobile Typography Adjustments */

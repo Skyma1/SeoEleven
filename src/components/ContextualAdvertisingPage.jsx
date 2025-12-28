@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, TrendingUp, Target, BarChart3, DollarSign, Zap } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const ContextualAdvertisingPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Контекстная реклама', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -17,7 +24,7 @@ const ContextualAdvertisingPage = () => {
             быстро получить целевой трафик и заявки. Мы настраиваем и ведём рекламные кампании, 
             оптимизируем их для максимальной эффективности и снижения стоимости привлечения клиентов.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить рекламу
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -206,9 +213,13 @@ const ContextualAdvertisingPage = () => {
               рекламу оплачивается отдельно в рекламные системы.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить рекламу и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

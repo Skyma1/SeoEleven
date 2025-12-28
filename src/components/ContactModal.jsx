@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { X, Send, CheckCircle, Phone, Mail } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { X, Send, CheckCircle, Phone, Mail, AlertCircle, MessageCircle } from 'lucide-react';
 import apiService from '../services/api';
 import { validateContactForm } from '../utils/validation';
 import { handleApiError, parseFormErrors } from '../utils/errorHandlers';
+import { applyPhoneMask, cleanPhoneNumber, isValidPhoneNumber } from '../utils/phoneMask';
 import {
   FORM_SERVICES as SERVICES,
   FORM_GOALS as GOALS,
@@ -13,7 +14,19 @@ import {
   CONTACT_TYPES,
   SUCCESS_MESSAGES,
 } from '../config/constants';
+import { getServiceConfig } from '../config/serviceConfig';
+import { PRICING_CONFIG } from '../config/pricingConfig';
+import { getPricingKey } from '../utils/servicePriceMapping';
 import styles from '../styles/ContactModal.module.css';
+
+// Иконка для Max (VK Max мессенджер)
+const MaxIcon = ({ size = 18, strokeWidth = 1.5 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+    <path d="M2 17L12 22L22 17" />
+    <path d="M2 12L12 17L22 12" />
+  </svg>
+);
 
 /**
  * Модальное окно контактной формы
@@ -43,39 +56,92 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
   const [submitStatus, setSubmitStatus] = useState(null);
 
   useEffect(() => {
-    if (service && SERVICE_MAPPING[service]) {
-      setFormData(prev => ({
-        ...prev,
-        service: SERVICE_MAPPING[service]
-      }));
+    if (service) {
+      // Сохраняем исходное название услуги, если она есть в списке доступных услуг
+      // Если услуги нет в списке, но есть в маппинге, используем маппинг
+      // Иначе используем исходное значение
+      let finalService = service;
+      
+      if (SERVICES.includes(service)) {
+        // Услуга есть в списке - используем её напрямую
+        finalService = service;
+      } else if (SERVICE_MAPPING[service]) {
+        // Услуги нет в списке, но есть маппинг - используем маппинг
+        finalService = SERVICE_MAPPING[service];
+      }
+      // Иначе используем исходное значение
+      
+      // Получаем конфигурацию новой услуги и проверяем цель
+      const serviceConfig = getServiceConfig(finalService);
+      setFormData(prev => {
+        let goal = prev.goal;
+        // Если цель не подходит для новой услуги, сбрасываем её
+        if (goal && serviceConfig.availableGoals && !serviceConfig.availableGoals.includes(goal)) {
+          goal = '';
+        }
+        
+        return {
+          ...prev,
+          service: finalService,
+          goal: goal
+        };
+      });
     }
   }, [service]);
 
   useEffect(() => {
     if (!isOpen) {
-      const mappedService = service && SERVICE_MAPPING[service] ? SERVICE_MAPPING[service] : '';
+      // При закрытии сбрасываем форму, но сохраняем услугу, если она была передана
+      let finalService = '';
+      if (service) {
+        // Сохраняем исходное название, если оно есть в списке, иначе используем маппинг
+        finalService = SERVICES.includes(service) ? service : (SERVICE_MAPPING[service] || '');
+      }
       setFormData({
         name: '',
         contactType: CONTACT_TYPES.EMAIL,
         contact: '',
         company: '',
-        service: mappedService,
+        service: finalService,
         website: '',
         goal: '',
         budget: '',
         timeline: '',
         comment: '',
         privacyAgreed: false,
-        source: source
+        source: source || 'contact-modal'
       });
       setErrors({});
       setSubmitStatus(null);
+    } else {
+      // При открытии обновляем source и услугу
+      let finalService = formData.service;
+      if (service) {
+        // Сохраняем исходное название, если оно есть в списке, иначе используем маппинг
+        finalService = SERVICES.includes(service) ? service : (SERVICE_MAPPING[service] || service);
+      }
+      
+      // Получаем конфигурацию услуги и сбрасываем цель, если она не подходит
+      const serviceConfig = getServiceConfig(finalService);
+      let goal = formData.goal;
+      if (goal && serviceConfig.availableGoals && !serviceConfig.availableGoals.includes(goal)) {
+        goal = ''; // Сбрасываем цель, если она не подходит для новой услуги
+      }
+      
+      setFormData(prev => ({
+        ...prev,
+        service: finalService,
+        goal: goal,
+        source: source || 'contact-modal'
+      }));
     }
   }, [isOpen, service, source]);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      // Прокручиваем к верху страницы при открытии модалки
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       document.body.style.overflow = '';
     }
@@ -94,12 +160,55 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleContactTypeChange = (type) => {
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      contactType: type,
+      contact: '' // Очищаем поле контакта при смене типа
     }));
+    
+    // Очищаем ошибки
+    if (errors.contact) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors.contact;
+        return newErrors;
+      });
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    
+    if (name === 'contact' && formData.contactType === CONTACT_TYPES.PHONE) {
+      // Применяем маску для телефона
+      const masked = applyPhoneMask(value);
+      setFormData(prev => ({
+        ...prev,
+        [name]: masked
+      }));
+    } else if (name === 'service') {
+      // При смене услуги проверяем и сбрасываем цель, если она не подходит
+      const serviceConfig = getServiceConfig(value);
+      setFormData(prev => {
+        let goal = prev.goal;
+        // Если цель не подходит для новой услуги, сбрасываем её
+        if (goal && serviceConfig.availableGoals && !serviceConfig.availableGoals.includes(goal)) {
+          goal = '';
+        }
+        return {
+          ...prev,
+          [name]: value,
+          goal: goal
+        };
+      });
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+      }));
+    }
+    
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
@@ -107,23 +216,98 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
         return newErrors;
       });
     }
-    // Очищаем поле контакта при смене типа
-    if (name === 'contactType') {
-      setFormData(prev => ({ ...prev, contact: '' }));
-      if (errors.contact) {
-        setErrors(prev => {
-          const newErrors = { ...prev };
-          delete newErrors.contact;
-          return newErrors;
-        });
-      }
+  };
+
+  const getContactPlaceholder = () => {
+    switch (formData.contactType) {
+      case CONTACT_TYPES.EMAIL:
+        return 'your@email.com';
+      case CONTACT_TYPES.PHONE:
+        return '+7 (___) ___-__-__';
+      case CONTACT_TYPES.TELEGRAM:
+        return '@username';
+      case CONTACT_TYPES.MAX:
+        return '@username';
+      default:
+        return '';
+    }
+  };
+
+  const getContactInputType = () => {
+    switch (formData.contactType) {
+      case CONTACT_TYPES.EMAIL:
+        return 'email';
+      case CONTACT_TYPES.PHONE:
+        return 'tel';
+      default:
+        return 'text';
     }
   };
 
   // Используем централизованную валидацию
+  const scrollToFirstError = (errors) => {
+    // Порядок полей для проверки (учитываем конфигурацию услуги)
+    const serviceConfig = getServiceConfig(formData.service);
+    const fieldOrder = ['name', 'contact', 'company', 'service', 'website'];
+    
+    // Добавляем goal только если он требуется для услуги
+    if (serviceConfig.requiresGoal !== false) {
+      fieldOrder.push('goal');
+    }
+    
+    fieldOrder.push('budget', 'timeline', 'comment', 'privacyAgreed');
+    
+    for (const fieldName of fieldOrder) {
+      if (errors[fieldName]) {
+        // Для модалки прокручиваем внутри контента
+        const fieldId = `modal-${fieldName}`;
+        const fieldElement = document.getElementById(fieldId);
+        
+        if (fieldElement) {
+          // Прокручиваем внутри модального контента
+          const modalContent = fieldElement.closest(`.${styles.content}`);
+          if (modalContent) {
+            // Вычисляем центр экрана
+            const viewportHeight = window.innerHeight;
+            const centerY = viewportHeight / 2;
+            
+            // Получаем позицию поля относительно модального контента
+            const fieldRect = fieldElement.getBoundingClientRect();
+            const modalRect = modalContent.getBoundingClientRect();
+            
+            // Вычисляем позицию поля относительно контента модалки
+            const fieldTopRelative = fieldRect.top - modalRect.top + modalContent.scrollTop;
+            
+            // Прокручиваем так, чтобы поле было в центре экрана
+            const scrollPosition = fieldTopRelative - centerY + (fieldRect.height / 2);
+            
+            modalContent.scrollTo({
+              top: Math.max(0, scrollPosition),
+              behavior: 'smooth'
+            });
+          }
+          
+          // Фокус на поле
+          setTimeout(() => {
+            fieldElement.focus();
+          }, 300);
+          break;
+        }
+      }
+    }
+  };
+
   const validateForm = () => {
     const { isValid, errors: validationErrors } = validateContactForm(formData);
     setErrors(validationErrors);
+    
+    if (!isValid) {
+      // Прокручиваем к первому полю с ошибкой
+      setTimeout(() => {
+        scrollToFirstError(validationErrors);
+      }, 100);
+    }
+    
     return isValid;
   };
 
@@ -138,19 +322,24 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
     setSubmitStatus(null);
 
     try {
+      // Получаем конфигурацию услуги для определения обязательности полей
+      const serviceConfig = getServiceConfig(formData.service);
+      
       const payload = {
         name: formData.name.trim(),
         contactType: formData.contactType,
-        contact: formData.contact.trim(),
+        contact: formData.contactType === CONTACT_TYPES.PHONE 
+          ? cleanPhoneNumber(formData.contact)
+          : formData.contact.trim(),
         company: formData.company.trim() || null,
         service: formData.service,
         website: formData.website.trim() || null,
-        goal: formData.goal,
+        goal: serviceConfig.requiresGoal !== false ? formData.goal : null,
         budget: formData.budget,
         timeline: formData.timeline || null,
         comment: formData.comment.trim() || null,
         privacyAgreed: formData.privacyAgreed,
-        source: formData.source
+        source: source || formData.source || 'contact-modal'
       };
 
       // Используем централизованный API сервис
@@ -171,6 +360,10 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
         if (data && data.errors) {
           const serverErrors = parseFormErrors(data.errors);
           setErrors(serverErrors);
+          // Прокручиваем к первому полю с ошибкой
+          setTimeout(() => {
+            scrollToFirstError(serverErrors);
+          }, 100);
         }
         setSubmitStatus('error');
       }
@@ -183,9 +376,55 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
     }
   };
 
+  // Рассчитываем базовую цену для выбранной услуги (ДО раннего возврата!)
+  const servicePrice = useMemo(() => {
+    if (!formData.service) return null;
+    
+    const pricingKey = getPricingKey(formData.service);
+    if (!pricingKey || !PRICING_CONFIG[pricingKey]) return null;
+    
+    const config = PRICING_CONFIG[pricingKey];
+    if (!config.basePrice) return null;
+    
+    const base = config.basePrice;
+    const range = config.range || 0.15;
+    const min = Math.round(base * (1 - range));
+    const max = Math.round(base * (1 + range));
+    
+    return {
+      base,
+      min,
+      max,
+      format: config.format || 'Индивидуально',
+      formatted: {
+        base: `от ${new Intl.NumberFormat('ru-RU').format(base)} ₽`,
+        min: new Intl.NumberFormat('ru-RU').format(min),
+        max: new Intl.NumberFormat('ru-RU').format(max),
+        range: `${new Intl.NumberFormat('ru-RU').format(min)} – ${new Intl.NumberFormat('ru-RU').format(max)} ₽`
+      }
+    };
+  }, [formData.service]);
+
   if (!isOpen) return null;
 
-  const requiresWebsite = SERVICES_REQUIRING_WEBSITE.includes(formData.service);
+  // Получаем конфигурацию для текущей услуги
+  const serviceConfig = getServiceConfig(formData.service);
+  
+  // Проверяем, требуется ли сайт для услуги (проверяем и исходную услугу, и маппированную)
+  const requiresWebsite = serviceConfig.requiresWebsite || 
+    SERVICES_REQUIRING_WEBSITE.includes(formData.service) || 
+    (service && SERVICES_REQUIRING_WEBSITE.includes(service));
+  
+  // Если услуга передана через prop, делаем поле disabled
+  // Проверяем, что услуга либо есть в маппинге, либо в списке доступных услуг
+  const isServicePreselected = service && (
+    SERVICE_MAPPING[service] || 
+    SERVICES.includes(service) || 
+    service
+  );
+  
+  // Получаем доступные цели для текущей услуги
+  const availableGoals = serviceConfig.availableGoals || GOALS;
 
   return (
     <div className={styles.modal}>
@@ -223,40 +462,55 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
 
             <div className={styles.formGroup}>
               <label className={styles.label}>
-                Как с вами связаться *
+                Как с вами связаться? *
               </label>
-              <div className={styles.contactToggle}>
+              <div className={styles.contactTypeToggle}>
                 <button
                   type="button"
-                  className={`${styles.toggleButton} ${formData.contactType === CONTACT_TYPES.EMAIL ? styles.toggleButtonActive : ''}`}
-                  onClick={() => {
-                    handleInputChange({ target: { name: 'contactType', value: CONTACT_TYPES.EMAIL, type: 'text' } });
-                  }}
+                  className={`${styles.contactTypeButton} ${formData.contactType === CONTACT_TYPES.EMAIL ? styles.contactTypeButtonActive : ''}`}
+                  onClick={() => handleContactTypeChange(CONTACT_TYPES.EMAIL)}
                   disabled={isSubmitting}
                 >
-                  <Mail size={16} strokeWidth={1.5} />
-                  Email
+                  <Mail size={18} strokeWidth={1.5} />
+                  <span>Email</span>
                 </button>
                 <button
                   type="button"
-                  className={`${styles.toggleButton} ${formData.contactType === CONTACT_TYPES.PHONE ? styles.toggleButtonActive : ''}`}
-                  onClick={() => {
-                    handleInputChange({ target: { name: 'contactType', value: CONTACT_TYPES.PHONE, type: 'text' } });
-                  }}
+                  className={`${styles.contactTypeButton} ${formData.contactType === CONTACT_TYPES.PHONE ? styles.contactTypeButtonActive : ''}`}
+                  onClick={() => handleContactTypeChange(CONTACT_TYPES.PHONE)}
                   disabled={isSubmitting}
                 >
-                  <Phone size={16} strokeWidth={1.5} />
-                  Телефон
+                  <Phone size={18} strokeWidth={1.5} />
+                  <span>Телефон</span>
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.contactTypeButton} ${formData.contactType === CONTACT_TYPES.TELEGRAM ? styles.contactTypeButtonActive : ''}`}
+                  onClick={() => handleContactTypeChange(CONTACT_TYPES.TELEGRAM)}
+                  disabled={isSubmitting}
+                >
+                  <MessageCircle size={18} strokeWidth={1.5} />
+                  <span>Telegram</span>
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.contactTypeButton} ${formData.contactType === CONTACT_TYPES.MAX ? styles.contactTypeButtonActive : ''}`}
+                  onClick={() => handleContactTypeChange(CONTACT_TYPES.MAX)}
+                  disabled={isSubmitting}
+                >
+                  <MaxIcon size={18} strokeWidth={1.5} />
+                  <span>Max</span>
                 </button>
               </div>
               <input
-                type={formData.contactType === CONTACT_TYPES.EMAIL ? 'email' : 'tel'}
+                type={getContactInputType()}
                 id="modal-contact"
                 name="contact"
                 value={formData.contact}
                 onChange={handleInputChange}
                 className={`${styles.input} ${errors.contact ? styles.inputError : ''}`}
-                placeholder={formData.contactType === CONTACT_TYPES.EMAIL ? 'your@email.com' : '+7 (___) ___-__-__'}
+                placeholder={getContactPlaceholder()}
+                required
                 disabled={isSubmitting}
               />
               {errors.contact && <span className={styles.error}>{errors.contact}</span>}
@@ -287,15 +541,32 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
                 name="service"
                 value={formData.service}
                 onChange={handleInputChange}
-                className={`${styles.select} ${errors.service ? styles.inputError : ''}`}
-                disabled={isSubmitting}
+                className={`${styles.select} ${errors.service ? styles.inputError : ''} ${isServicePreselected ? styles.selectDisabled : ''}`}
+                disabled={isSubmitting || isServicePreselected}
               >
                 <option value="">Выберите услугу</option>
                 {SERVICES.map(service => (
                   <option key={service} value={service}>{service}</option>
                 ))}
               </select>
+              {isServicePreselected && (
+                <span className={styles.helperText} style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+                  Услуга выбрана автоматически на основе страницы
+                </span>
+              )}
               {errors.service && <span className={styles.error}>{errors.service}</span>}
+              
+              {/* Отображение цены для выбранной услуги */}
+              {servicePrice && (
+                <div className={styles.servicePriceDisplay}>
+                  <div className={styles.servicePriceLabel}>Ориентировочная стоимость:</div>
+                  <div className={styles.servicePriceValue}>{servicePrice.formatted.range}</div>
+                  <div className={styles.servicePriceFormat}>{servicePrice.format}</div>
+                  <div className={styles.servicePriceNote}>
+                    Финальная стоимость уточняется после анализа проекта
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className={styles.formGroup}>
@@ -321,25 +592,33 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
               )}
             </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="modal-goal" className={styles.label}>
-                Основная цель *
-              </label>
-              <select
-                id="modal-goal"
-                name="goal"
-                value={formData.goal}
-                onChange={handleInputChange}
-                className={`${styles.select} ${errors.goal ? styles.inputError : ''}`}
-                disabled={isSubmitting}
-              >
-                <option value="">Выберите цель</option>
-                {GOALS.map(goal => (
-                  <option key={goal} value={goal}>{goal}</option>
-                ))}
-              </select>
-              {errors.goal && <span className={styles.error}>{errors.goal}</span>}
-            </div>
+            {(() => {
+              const serviceConfig = getServiceConfig(formData.service);
+              if (serviceConfig.requiresGoal === false) return null;
+              
+              const availableGoals = serviceConfig.availableGoals || GOALS;
+              return (
+                <div className={styles.formGroup}>
+                  <label htmlFor="modal-goal" className={styles.label}>
+                    Основная цель {serviceConfig.requiresGoal ? '*' : ''}
+                  </label>
+                  <select
+                    id="modal-goal"
+                    name="goal"
+                    value={formData.goal}
+                    onChange={handleInputChange}
+                    className={`${styles.select} ${errors.goal ? styles.inputError : ''}`}
+                    disabled={isSubmitting}
+                  >
+                    <option value="">Выберите цель</option>
+                    {availableGoals.map(goal => (
+                      <option key={goal} value={goal}>{goal}</option>
+                    ))}
+                  </select>
+                  {errors.goal && <span className={styles.error}>{errors.goal}</span>}
+                </div>
+              );
+            })()}
 
             <div className={styles.formGroup}>
               <label htmlFor="modal-budget" className={styles.label}>
@@ -429,14 +708,21 @@ const ContactModal = ({ isOpen, onClose, service = null, source = 'modal' }) => 
 
           {submitStatus === 'error' && (
             <div className={styles.errorMessage}>
-              Произошла ошибка при отправке. Попробуйте ещё раз или свяжитесь с нами напрямую.
+              <AlertCircle size={24} strokeWidth={2} className={styles.errorIcon} />
+              <div className={styles.messageContent}>
+                <strong>Ошибка отправки</strong>
+                <span>Произошла ошибка при отправке. Попробуйте ещё раз или свяжитесь с нами напрямую.</span>
+              </div>
             </div>
           )}
 
           {submitStatus === 'success' && (
             <div className={styles.successMessage}>
-              <CheckCircle size={20} strokeWidth={1.5} />
-              <span>{SUCCESS_MESSAGES.FORM_SUBMITTED}</span>
+              <CheckCircle size={24} strokeWidth={2} className={styles.successIcon} />
+              <div className={styles.messageContent}>
+                <strong>Заявка успешно отправлена!</strong>
+                <span>{SUCCESS_MESSAGES.FORM_SUBMITTED}</span>
+              </div>
             </div>
           )}
 

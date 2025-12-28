@@ -120,7 +120,7 @@
 
 .featuredBadge {
   padding: var(--space-4) var(--space-12);
-  background-color: rgba(79, 111, 94, 0.1);
+  background-color: rgba(37, 99, 235, 0.1);
   color: var(--color-accent);
   border-radius: var(--radius-xs);
   font-size: 12px;
@@ -180,7 +180,7 @@
 }
 
 .editBtn:hover {
-  background-color: rgba(79, 111, 94, 0.1);
+  background-color: rgba(37, 99, 235, 0.1);
   border-color: var(--color-accent);
   color: var(--color-accent);
 }

@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Code, Zap, Settings, Terminal, BarChart3 } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const CustomScriptsPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Индивидуальные скрипты', 'service-page');
+  };
+
   return (
     <>
       {/* БЛОК 1. HERO */}
@@ -18,7 +25,7 @@ const CustomScriptsPage = () => {
             интегрировать системы, которые не имеют готовых интеграций, и решать задачи, для которых 
             нет готовых инструментов.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить задачу
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -205,9 +212,13 @@ const CustomScriptsPage = () => {
               комплексные решения — от 120 000 рублей.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить задачу и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

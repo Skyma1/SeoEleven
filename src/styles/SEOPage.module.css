@@ -65,7 +65,7 @@
 .heroCTA:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 .heroCTA svg {
@@ -96,13 +96,18 @@
 .iconWrapper {
   width: 48px;
   height: 48px;
-  background-color: #FAF9F6;
+  background-color: rgba(37, 99, 235, 0.1);
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
   flex-shrink: 0;
+}
+
+.iconWrapper svg {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
 }
 
 .column:first-child .iconWrapper {
@@ -182,7 +187,7 @@
 }
 
 .processStep {
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-m);
   padding: var(--space-32);
   border: 1px solid var(--color-border);
@@ -260,7 +265,14 @@
 
 .serviceItem svg {
   color: var(--color-accent);
+  stroke: currentColor;
   flex-shrink: 0;
+  transition: color var(--transition-base);
+}
+
+.serviceItem:hover svg {
+  color: var(--color-accent);
+  stroke: currentColor;
 }
 
 .serviceTitle {

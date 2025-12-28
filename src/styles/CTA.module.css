@@ -57,12 +57,14 @@
   transform: translateX(2px);
 }
 
-.primaryButton:hover svg {
-  transform: translateX(2px);
+.primaryButton svg {
+  color: var(--color-accent);
+  transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
-.primaryButton svg {
-  transition: transform var(--transition-fast);
+.primaryButton:hover svg {
+  color: var(--color-accent);
+  transform: translateX(2px);
 }
 
 .secondaryButton {
@@ -89,7 +91,13 @@
 }
 
 .secondaryButton svg {
-  transition: transform var(--transition-fast);
+  color: white;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.secondaryButton:hover svg {
+  color: white;
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {

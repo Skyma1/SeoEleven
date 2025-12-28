@@ -1,14 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Check, X, Search, FileText, Settings, BarChart3, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 import Quiz from './Quiz';
 
 const SEOPage = () => {
-  const navigate = useNavigate();
+  const { openModal } = useModal();
 
   const handleCTA = () => {
-    navigate('/contact');
+    openModal('SEO-продвижение под AI (GEO)', 'service-page');
   };
 
   return (
@@ -220,9 +220,13 @@ const SEOPage = () => {
               от 150 000 рублей за проект.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить проект и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

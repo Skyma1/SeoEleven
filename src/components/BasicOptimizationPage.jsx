@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Settings, FileText, Search, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const BasicOptimizationPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Базовая оптимизация и мета-теги', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const BasicOptimizationPage = () => {
             страниц. Это фундамент SEO, который необходим для правильной индексации и отображения 
             сайта в поисковых системах. Мы оптимизируем все базовые элементы для максимальной эффективности.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить оптимизацию
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -187,9 +194,13 @@ const BasicOptimizationPage = () => {
               комплексным продвижением.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить оптимизацию и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

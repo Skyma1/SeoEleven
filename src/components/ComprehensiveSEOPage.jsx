@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Search, Target, FileText, Settings, BarChart3 } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const ComprehensiveSEOPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Комплексное SEO-продвижение', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -17,7 +24,7 @@ const ComprehensiveSEOPage = () => {
             и улучшения позиций в поисковых системах. Мы работаем над всеми аспектами SEO для достижения 
             максимального результата.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить продвижение
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -206,9 +213,13 @@ const ComprehensiveSEOPage = () => {
               стратегии.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить продвижение и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

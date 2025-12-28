@@ -1,19 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, MessageCircle, TrendingUp, Zap } from 'lucide-react';
-import { useModal } from '../context/ModalContext';
 import styles from '../styles/Hero.module.css';
 
 const Hero = () => {
   const navigate = useNavigate();
-  const { openModal } = useModal();
 
   const handleStartProject = () => {
-    openModal(null, 'hero');
+    // Ведем на калькулятор для расчета стоимости
+    navigate('/#calculator');
+    // Прокручиваем к калькулятору
+    setTimeout(() => {
+      const element = document.getElementById('calculator');
+      if (element) {
+        const headerHeight = 73;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   const handleContact = () => {
-    navigate('/contact');
+    navigate('/contact#form');
   };
 
   return (

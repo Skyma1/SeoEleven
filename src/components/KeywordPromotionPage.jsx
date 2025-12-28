@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Target, Search, TrendingUp, BarChart3 } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const KeywordPromotionPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Продвижение по словам', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const KeywordPromotionPage = () => {
             вашего бизнеса. Мы оптимизируем страницы под целевые запросы, работаем над улучшением 
             позиций и привлечением трафика по этим запросам.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить продвижение
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -189,9 +196,13 @@ const KeywordPromotionPage = () => {
               рассчитывается индивидуально.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить продвижение и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

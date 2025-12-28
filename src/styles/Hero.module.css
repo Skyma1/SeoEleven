@@ -19,7 +19,7 @@
 .dominantBlock {
   grid-column: span 8;
   grid-row: 1 / span 2;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-m);
   padding: var(--space-64) var(--space-64);
   display: flex;
@@ -51,7 +51,7 @@
 
 .secondaryBlock {
   grid-column: span 4;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-m);
   padding: var(--space-40) var(--space-32);
   border: 1px solid var(--color-border);
@@ -92,7 +92,7 @@
 .iconWrapper {
   width: 48px;
   height: 48px;
-  background-color: #FAF9F6;
+  background-color: rgba(37, 99, 235, 0.1);
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
@@ -102,9 +102,18 @@
   flex-shrink: 0;
 }
 
+.iconWrapper svg {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
+}
+
 .secondaryBlock:hover .iconWrapper {
   transform: scale(1.1);
-  background-color: white;
+  background-color: rgba(37, 99, 235, 0.15);
+}
+
+.secondaryBlock:hover .iconWrapper svg {
+  color: var(--color-accent);
 }
 
 .actions {
@@ -131,12 +140,14 @@
   transform: translateX(2px);
 }
 
-.primaryButton:hover svg {
-  transform: translateX(2px);
+.primaryButton svg {
+  color: white;
+  transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
-.primaryButton svg {
-  transition: transform var(--transition-fast);
+.primaryButton:hover svg {
+  color: white;
+  transform: translateX(2px);
 }
 
 .secondaryButton {
@@ -158,12 +169,14 @@
   transform: translateY(-1px);
 }
 
-.secondaryButton:hover svg {
-  transform: scale(1.1);
+.secondaryButton svg {
+  color: var(--color-text-primary);
+  transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
-.secondaryButton svg {
-  transition: transform var(--transition-fast);
+.secondaryButton:hover svg {
+  color: var(--color-text-primary);
+  transform: scale(1.1);
 }
 
 @media (max-width: 1024px) {

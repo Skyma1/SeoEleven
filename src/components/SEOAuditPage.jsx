@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Search, FileText, Settings, BarChart3, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const SEOAuditPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('SEO-аудит (классический)', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const SEOAuditPage = () => {
             оптимизации, возможности для улучшения. Аудит даёт полное понимание текущего состояния 
             сайта и рекомендации по улучшению для роста позиций и трафика.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Заказать аудит
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -197,9 +204,13 @@ const SEOAuditPage = () => {
               с работами по улучшению сайта или комплексным продвижением.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Заказать аудит и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

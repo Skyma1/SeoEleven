@@ -6,6 +6,7 @@
  */
 
 import { VALIDATION, SERVICES_REQUIRING_WEBSITE } from '../config/constants';
+import { getServiceConfig } from '../config/serviceConfig';
 
 // =============================================
 // Базовые валидаторы
@@ -143,9 +144,17 @@ export const validateContactForm = (formData) => {
     if (websiteError) errors.website = websiteError;
   }
 
-  // Цель
-  const goalError = validators.required(formData.goal, 'Укажите основную цель');
-  if (goalError) errors.goal = goalError;
+  // Цель (проверяем по конфигурации услуги)
+  const serviceConfig = getServiceConfig(formData.service);
+  if (serviceConfig.requiresGoal !== false) {
+    const goalError = validators.required(formData.goal, 'Укажите основную цель');
+    if (goalError) {
+      errors.goal = goalError;
+    } else if (serviceConfig.availableGoals && !serviceConfig.availableGoals.includes(formData.goal)) {
+      // Проверяем, что выбранная цель доступна для этой услуги
+      errors.goal = 'Выберите доступную цель для этой услуги';
+    }
+  }
 
   // Бюджет
   const budgetError = validators.required(formData.budget, 'Укажите примерный бюджет');
@@ -163,6 +172,58 @@ export const validateContactForm = (formData) => {
     'Необходимо согласие на обработку данных'
   );
   if (privacyError) errors.privacyAgreed = privacyError;
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+  };
+};
+
+// =============================================
+// Валидация простой контактной формы (без обязательных полей service, goal, budget)
+// =============================================
+
+export const validateSimpleContactForm = (formData) => {
+  const errors = {};
+
+  // Имя
+  const nameError = 
+    validators.required(formData.name, 'Укажите, как к вам обращаться') ||
+    validators.minLength(VALIDATION.NAME_MIN_LENGTH)(formData.name) ||
+    validators.maxLength(VALIDATION.NAME_MAX_LENGTH)(formData.name);
+  if (nameError) errors.name = nameError;
+
+  // Контакт (email, телефон, telegram, max)
+  const contactLabel = formData.contactType === 'phone' ? 'телефон' : 
+                      formData.contactType === 'telegram' ? 'Telegram username' :
+                      formData.contactType === 'max' ? 'Max username' : 'email';
+  const contactError = validators.required(
+    formData.contact, 
+    `Укажите ${contactLabel}`
+  );
+  if (contactError) {
+    errors.contact = contactError;
+  } else {
+    // Валидация в зависимости от типа контакта
+    if (formData.contactType === 'email') {
+      const emailError = validators.email(formData.contact);
+      if (emailError) errors.contact = emailError;
+    } else if (formData.contactType === 'phone') {
+      const phoneError = validators.phone(formData.contact);
+      if (phoneError) errors.contact = phoneError;
+    } else if (formData.contactType === 'telegram' || formData.contactType === 'max') {
+      // Telegram и Max должны начинаться с @
+      if (!formData.contact.startsWith('@')) {
+        errors.contact = 'Username должен начинаться с @';
+      }
+    }
+  }
+
+  // Сообщение (опциональное, но если есть - проверяем длину)
+  if (formData.message) {
+    const messageError = validators.maxLength(VALIDATION.COMMENT_MAX_LENGTH)(formData.message);
+    if (messageError) errors.message = messageError;
+  }
 
   return {
     isValid: Object.keys(errors).length === 0,

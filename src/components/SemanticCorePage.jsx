@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Search, Target, FileText, BarChart3 } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const SemanticCorePage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Сбор семантического ядра', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -17,7 +24,7 @@ const SemanticCorePage = () => {
             качественный трафик. Мы собираем полное семантическое ядро с кластеризацией и 
             распределением по страницам.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить сбор ядра
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -194,9 +201,13 @@ const SemanticCorePage = () => {
               с оптимизацией страниц и комплексным продвижением.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить сбор ядра и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

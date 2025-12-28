@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Server, Settings, Zap, Shield, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const HostingSetupPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Настройка хостинга', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const HostingSetupPage = () => {
             Мы настраиваем серверы, оптимизируем производительность, настраиваем безопасность, 
             SSL-сертификаты, резервное копирование и мониторинг.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить настройку
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -196,9 +203,13 @@ const HostingSetupPage = () => {
               поддержку и развитие.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить настройку и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

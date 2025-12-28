@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Bot, Smartphone, Zap, MessageSquare, Settings } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const TelegramBotsPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Telegram-боты и Mini Apps', 'service-page');
+  };
+
   return (
     <>
       {/* БЛОК 1. HERO */}
@@ -18,7 +25,7 @@ const TelegramBotsPage = () => {
             полноценные веб-приложения внутри Telegram, которые расширяют возможности ботов 
             и создают более богатый пользовательский опыт.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить проект
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -208,9 +215,13 @@ const TelegramBotsPage = () => {
               комплексные решения с Mini Apps — от 200 000 рублей.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit' }}
+              >
                 Обсудить проект и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

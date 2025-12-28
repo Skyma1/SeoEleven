@@ -109,7 +109,7 @@
 .ctaButton:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 .mobileMenu {

@@ -224,7 +224,7 @@
 }
 
 .caseResults {
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-s);
   padding: var(--space-20);
   margin-top: var(--space-8);
@@ -286,7 +286,7 @@
 }
 
 .tag {
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   color: var(--color-text-secondary);
   padding: var(--space-8) var(--space-16);
   border-radius: var(--radius-xs);
@@ -375,7 +375,7 @@
 .ctaButton:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 .ctaButton svg {

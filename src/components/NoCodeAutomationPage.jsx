@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Workflow, Zap, Link as LinkIcon, Settings, BarChart3 } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const NoCodeAutomationPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Автоматизация без кода (Make, n8n)', 'service-page');
+  };
+
   return (
     <>
       {/* БЛОК 1. HERO */}
@@ -18,7 +25,7 @@ const NoCodeAutomationPage = () => {
             обрабатывать данные, отправлять уведомления и выполнять действия по заданным сценариям. 
             Это ускоряет процессы, снижает ошибки и освобождает время сотрудников.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить автоматизацию
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -211,9 +218,13 @@ const NoCodeAutomationPage = () => {
               комплексные решения — от 150 000 рублей.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить автоматизацию и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

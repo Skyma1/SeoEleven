@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Palette, Target, FileText, Zap } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const LogoDesignPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Дизайн логотипа', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const LogoDesignPage = () => {
             запоминаются, отражают ценности компании и работают в различных контекстах. От концепции 
             до финальных файлов — полный цикл создания логотипа.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить дизайн
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -192,9 +199,13 @@ const LogoDesignPage = () => {
               разработка концепций, доработка выбранной концепции, подготовка файлов и документации.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить дизайн и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

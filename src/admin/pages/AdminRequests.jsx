@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Phone, Mail, Calendar, Filter, Download } from 'lucide-react';
+import { Search, Phone, Mail, Calendar, Filter, Download, MessageCircle } from 'lucide-react';
 import apiService from '../../services/api';
 import styles from '../../styles/AdminRequests.module.css';
 
@@ -8,6 +8,7 @@ const AdminRequests = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [sourceFilter, setSourceFilter] = useState('all');
   const [error, setError] = useState(null);
 
   const fetchRequests = async () => {
@@ -15,6 +16,7 @@ const AdminRequests = () => {
     setError(null);
     const params = {};
     if (statusFilter !== 'all') params.status = statusFilter;
+    if (sourceFilter !== 'all') params.source = sourceFilter;
     if (searchQuery) params.search = searchQuery;
     
     const { data, error: err } = await apiService.adminGetRequests(params);
@@ -29,7 +31,7 @@ const AdminRequests = () => {
 
   useEffect(() => {
     fetchRequests();
-  }, [statusFilter]);
+  }, [statusFilter, sourceFilter]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -130,6 +132,22 @@ const AdminRequests = () => {
             <option value="archived">Архив</option>
           </select>
         </div>
+        <div className={styles.filter}>
+          <Filter size={20} strokeWidth={1.5} />
+          <select
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
+            className={styles.filterSelect}
+          >
+            <option value="all">Все заявки</option>
+            <option value="calculator">Калькулятор</option>
+            <option value="contact-page">Контакты (напишите нам)</option>
+            <option value="service-page">Страницы услуг</option>
+            <option value="header">Хедер (модалка)</option>
+            <option value="mobile-menu">Мобильное меню (модалка)</option>
+            <option value="contact-modal">Модальное окно (прочее)</option>
+          </select>
+        </div>
       </div>
 
       <div className={styles.requestsTable}>
@@ -167,11 +185,25 @@ const AdminRequests = () => {
                   <div className={styles.contactItem}>
                     {request.contactType === 'phone' ? (
                       <Phone size={16} strokeWidth={1.5} />
+                    ) : request.contactType === 'telegram' ? (
+                      <MessageCircle size={16} strokeWidth={1.5} />
+                    ) : request.contactType === 'max' ? (
+                      <MessageCircle size={16} strokeWidth={1.5} />
                     ) : (
                       <Mail size={16} strokeWidth={1.5} />
                     )}
                     <span>{request.contact}</span>
                   </div>
+                  {request.source && (
+                    <div className={styles.sourceBadge}>
+                      {request.source === 'calculator' ? 'Калькулятор' : 
+                       request.source === 'contact-page' ? 'Контакты' :
+                       request.source === 'service-page' ? 'Страница услуги' :
+                       request.source === 'header' ? 'Хедер' :
+                       request.source === 'mobile-menu' ? 'Мобильное меню' :
+                       request.source === 'contact-modal' ? 'Модалка' : request.source}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.colService}>
                   <div className={styles.service}>{request.service}</div>

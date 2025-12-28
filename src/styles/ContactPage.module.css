@@ -84,7 +84,7 @@
 .contactIcon {
   width: 64px;
   height: 64px;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
@@ -92,6 +92,15 @@
   color: var(--color-accent);
   margin: 0 auto;
   flex-shrink: 0;
+}
+
+.contactIcon svg {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
+}
+
+.contactCard:hover .contactIcon svg {
+  color: var(--color-accent);
 }
 
 .contactTitle {
@@ -194,7 +203,154 @@
 .textarea:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(79, 111, 94, 0.1);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.input:disabled,
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.inputError {
+  border-color: #dc3545 !important;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}
+
+.errorText {
+  font-size: 14px;
+  color: #dc3545;
+  margin-top: -4px;
+}
+
+/* Выбор типа контакта */
+.contactTypeToggle {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-12);
+  margin-bottom: var(--space-8);
+}
+
+.contactTypeButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-12) var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  background-color: white;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.contactTypeButton:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+.contactTypeButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contactTypeButtonActive {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.contactTypeButtonActive:hover:not(:disabled) {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.contactTypeButton svg {
+  flex-shrink: 0;
+}
+
+.errorMessage,
+.successMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-16);
+  padding: var(--space-20) var(--space-24);
+  border-radius: var(--radius-m);
+  font-size: 15px;
+  line-height: 1.6;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorMessage {
+  background-color: #fff5f5;
+  border: 2px solid #feb2b2;
+  color: #c53030;
+}
+
+.successMessage {
+  background-color: #f0fff4;
+  border: 2px solid #9ae6b4;
+  color: #22543d;
+  box-shadow: 0 2px 8px rgba(34, 84, 61, 0.1);
+}
+
+.errorMessage svg,
+.successMessage svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.successIcon {
+  color: #38a169;
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.messageContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+}
+
+.messageContent strong {
+  font-size: 16px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.messageContent span {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.9;
 }
 
 .input::placeholder,
@@ -228,7 +384,7 @@
 .submitButton:hover:not(:disabled) {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 .submitButton:disabled {
@@ -247,7 +403,7 @@
 .successMessage {
   padding: var(--space-16) var(--space-24);
   background-color: #F0F9F4;
-  border: 1px solid #4F6F5E;
+  border: 1px solid #2563EB;
   border-radius: var(--radius-s);
   color: var(--color-accent);
   font-size: 15px;
@@ -352,6 +508,15 @@
 
   .socialLink {
     justify-content: center;
+  }
+
+  .contactTypeToggle {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contactTypeButton {
+    font-size: 12px;
+    padding: var(--space-10) var(--space-8);
   }
 }
 

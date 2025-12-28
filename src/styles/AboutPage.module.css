@@ -56,7 +56,7 @@
 .heroCTA:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 .heroCTA svg {
@@ -117,13 +117,18 @@
 .valueIcon {
   width: 48px;
   height: 48px;
-  background-color: #FAF9F6;
+  background-color: rgba(37, 99, 235, 0.1);
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
   flex-shrink: 0;
+}
+
+.valueIcon svg {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
 }
 
 .valueTitle {
@@ -317,7 +322,7 @@
 .teamIcon {
   width: 64px;
   height: 64px;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
@@ -325,6 +330,15 @@
   color: var(--color-accent);
   margin: 0 auto;
   flex-shrink: 0;
+}
+
+.teamIcon svg {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
+}
+
+.teamCard:hover .teamIcon svg {
+  color: var(--color-accent);
 }
 
 .teamRole {
@@ -354,7 +368,7 @@
 .transparencyIcon {
   width: 64px;
   height: 64px;
-  background-color: #FAF9F6;
+  background-color: #F8F9FA;
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
@@ -438,7 +452,7 @@
 .ctaButton:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 /* Адаптивность */

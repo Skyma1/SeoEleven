@@ -1,13 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Check, X, Code, Smartphone, Zap, Settings, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const WebDevelopmentPage = () => {
-  const navigate = useNavigate();
+  const { openModal } = useModal();
 
   const handleCTA = () => {
-    navigate('/contact');
+    openModal('Веб-разработка', 'service-page');
   };
 
   return (
@@ -200,9 +200,13 @@ const WebDevelopmentPage = () => {
               Стоимость зависит от сложности проекта. Начинается от 100 000 рублей.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit' }}
+              >
                 Обсудить проект и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

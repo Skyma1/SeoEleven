@@ -55,7 +55,7 @@ const Footer = () => {
           <div className={styles.column}>
             <h3>Контакты</h3>
             <div className={styles.links}>
-              <a href="mailto:seoeleve@gmail.com" className={styles.link}>seoeleve@gmail.com</a>
+              <a href="mailto:seoeleven@gmail.com" className={styles.link}>seoeleven@gmail.com</a>
               <a href="tel:+1234567890" className={styles.link}>+1 (234) 567-890</a>
             </div>
           </div>

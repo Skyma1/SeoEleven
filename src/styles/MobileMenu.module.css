@@ -186,7 +186,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-4);
-  background-color: rgba(79, 111, 94, 0.1);
+  background-color: rgba(37, 99, 235, 0.1);
   color: var(--color-accent);
   font-size: 10px;
   font-weight: 600;
@@ -220,7 +220,7 @@
 .mobileCtaButton:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 111, 94, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 @keyframes slideDown {

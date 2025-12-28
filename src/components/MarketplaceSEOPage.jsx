@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, ShoppingBag, TrendingUp, BarChart3, Search, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const MarketplaceSEOPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('SEO для маркетплейсов (WB, Ozon)', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -17,7 +24,7 @@ const MarketplaceSEOPage = () => {
             появляться выше в поиске маркетплейса, получать больше просмотров и продаж. Мы работаем 
             с Wildberries, Ozon и другими платформами.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить продвижение
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -191,9 +198,13 @@ const MarketplaceSEOPage = () => {
               рассчитывается индивидуально.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить продвижение и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>

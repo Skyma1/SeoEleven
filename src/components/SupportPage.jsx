@@ -1,8 +1,15 @@
 import React from 'react';
 import { ArrowRight, Check, X, Settings, Shield, Zap, Clock, Target } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 import styles from '../styles/SEOPage.module.css';
 
 const SupportPage = () => {
+  const { openModal } = useModal();
+
+  const handleCTA = () => {
+    openModal('Поддержка и обслуживание', 'service-page');
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -16,7 +23,7 @@ const SupportPage = () => {
             безопасность. Мы обеспечиваем стабильную работу вашего сайта, оперативно решаем проблемы 
             и поддерживаем актуальность всех систем.
           </p>
-          <button className={styles.heroCTA}>
+          <button className={styles.heroCTA} onClick={handleCTA}>
             Обсудить поддержку
             <ArrowRight size={20} strokeWidth={1.5} />
           </button>
@@ -200,9 +207,13 @@ const SupportPage = () => {
               реакцию на технические проблемы в рамках оговорённого времени реагирования.
             </p>
             <p className={styles.paragraph}>
-              <a href="/contact" className={styles.pricingLink}>
+              <button 
+                onClick={handleCTA}
+                className={styles.pricingLink}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline', color: 'inherit', font: 'inherit' }}
+              >
                 Обсудить поддержку и получить оценку
-              </a>
+              </button>
             </p>
           </div>
         </div>
