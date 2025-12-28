@@ -270,6 +270,28 @@
   color: #6b7280;
 }
 
+.statusSelect {
+  padding: var(--space-6) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  font-size: 13px;
+  font-weight: 500;
+  background-color: white;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.statusSelect:hover {
+  border-color: var(--color-accent);
+}
+
+.statusSelect:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(79, 111, 94, 0.1);
+}
+
 .colDetails {
   display: flex;
   align-items: center;

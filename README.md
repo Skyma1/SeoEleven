@@ -202,6 +202,25 @@ npm run build
 REACT_APP_API_URL=https://api.yourdomain.com/api
 ```
 
+## 🐳 Docker: бекенд + MySQL + phpMyAdmin
+
+Запуск минимального бекенда в контейнере вместе с БД и phpMyAdmin.
+
+1. (Опционально) скопируйте `backend/env.example` в `backend/.env` и при необходимости поменяйте креды.  
+2. Запустите стек:  
+   ```bash
+   docker-compose up -d
+   ```  
+3. Проверка:  
+   - API: http://localhost:3002/api/health  
+   - Swagger UI: http://localhost:3002/api/docs  
+   - phpMyAdmin: http://localhost:8080 (host: `db`, user: `root`, pass: `rootpassword` или те, что заданы в compose)  
+   - MySQL: порт `3307` на хосте (в контейнере 3306), база `seoeleven`, пользователь `seoeleven/seoeleven`.
+
+4. Фронтенд укажите на API (`REACT_APP_API_URL=http://localhost:3002/api`).
+
+Данные БД хранятся в томе `db_data`; стартовые таблицы и демо-данные создаются из `backend/init.sql`.
+
 ### С бекендом (Node.js/Express)
 
 ```javascript

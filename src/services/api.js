@@ -5,7 +5,10 @@
  * для централизованной обработки ошибок, логирования и конфигурации
  */
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+import { STORAGE_KEYS } from '../config/constants';
+
+// Используем относительный путь для проксирования через фронтенд
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 class ApiService {
   constructor() {
@@ -26,6 +29,15 @@ class ApiService {
 
     try {
       const response = await fetch(`${this.baseURL}${endpoint}`, config);
+      
+      // Проверяем, что ответ действительно JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error(`API Error [${endpoint}]: Expected JSON but got ${contentType}`, text.substring(0, 200));
+        throw new Error(`Server returned non-JSON response: ${contentType}`);
+      }
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -104,7 +116,8 @@ class ApiService {
    * Запрос к админ API с токеном авторизации
    */
   async adminRequest(endpoint, options = {}) {
-    const token = localStorage.getItem('adminToken');
+    // Используем тот же ключ, что и в AuthContext
+    const token = localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
     
     if (!token) {
       return { 
@@ -274,7 +287,7 @@ class ApiService {
    */
   async adminExportRequests(params = {}) {
     const query = new URLSearchParams(params).toString();
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
     
     try {
       const response = await fetch(
@@ -332,6 +345,48 @@ class ApiService {
     return this.adminRequest(
       `/statistics?dateFrom=${dateFrom}&dateTo=${dateTo}&groupBy=${groupBy}`
     );
+  }
+
+  // =============================================
+  // ADMIN API - Яндекс.Метрика
+  // =============================================
+
+  /**
+   * Подключить Яндекс.Метрику
+   * @param {Object} credentials - { token, counterId }
+   */
+  async adminConnectMetrica(credentials) {
+    return this.adminRequest('/metrica/connect', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+    });
+  }
+
+  /**
+   * Получить статистику из Яндекс.Метрики
+   * @param {string} dateFrom - дата начала
+   * @param {string} dateTo - дата конца
+   */
+  async adminGetMetricaStats(dateFrom, dateTo) {
+    return this.adminRequest(
+      `/metrica/stats?dateFrom=${dateFrom}&dateTo=${dateTo}`
+    );
+  }
+
+  /**
+   * Проверить статус подключения Яндекс.Метрики
+   */
+  async adminGetMetricaStatus() {
+    return this.adminRequest('/metrica/status');
+  }
+
+  /**
+   * Отключить Яндекс.Метрику
+   */
+  async adminDisconnectMetrica() {
+    return this.adminRequest('/metrica/disconnect', {
+      method: 'DELETE',
+    });
   }
 }
 

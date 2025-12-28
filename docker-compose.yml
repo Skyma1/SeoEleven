@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  api:
+    build: ./backend
+    container_name: seoeleven-api
+    environment:
+      PORT: 3001
+      CORS_ORIGIN: http://localhost:3000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: seoeleven
+      DB_PASSWORD: seoeleven
+      DB_NAME: seoeleven
+      ADMIN_EMAIL: admin@test.com
+      ADMIN_PASSWORD: changeme
+    ports:
+      - "3002:3001"
+    depends_on:
+      - db
+    networks:
+      - seoeleven-net
+
+  db:
+    image: mysql:8.0
+    container_name: seoeleven-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: seoeleven
+      MYSQL_USER: seoeleven
+      MYSQL_PASSWORD: seoeleven
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3307:3306"
+    networks:
+      - seoeleven-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: seoeleven-phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - seoeleven-net
+
+networks:
+  seoeleven-net:
+    driver: bridge
+
+volumes:
+  db_data:
+

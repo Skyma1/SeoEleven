@@ -56,6 +56,7 @@ import CaseEdit from './admin/pages/CaseEdit';
 import AdminServices from './admin/pages/AdminServices';
 import AdminRequests from './admin/pages/AdminRequests';
 import AdminStatistics from './admin/pages/AdminStatistics';
+import AdminMetrica from './admin/pages/AdminMetrica';
 
 // Контексты
 import { ModalProvider } from './context/ModalContext';
@@ -95,6 +96,7 @@ function App() {
                   <Route path="cases/:id/edit" element={<CaseEdit />} />
                   <Route path="services" element={<AdminServices />} />
                   <Route path="requests" element={<AdminRequests />} />
+                  <Route path="metrica" element={<AdminMetrica />} />
                 </Route>
 
                 {/* Public Routes */}

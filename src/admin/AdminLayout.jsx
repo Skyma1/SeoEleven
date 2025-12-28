@@ -11,10 +11,12 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import styles from '../styles/AdminLayout.module.css';
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
+  const { logout } = useAuth();
 
   // Предотвращаем горизонтальный скролл на body
   React.useEffect(() => {
@@ -28,8 +30,9 @@ const AdminLayout = () => {
     { path: '/admin', icon: LayoutDashboard, label: 'Статистика', exact: true },
     { path: '/admin/blog', icon: FileText, label: 'Блог' },
     { path: '/admin/cases', icon: Briefcase, label: 'Кейсы' },
-    { path: '/admin/services', icon: Settings, label: 'Услуги' },
     { path: '/admin/requests', icon: MessageSquare, label: 'Заявки' },
+    { path: '/admin/metrica', icon: BarChart3, label: 'Яндекс.Метрика' },
+    { path: '/admin/services', icon: Settings, label: 'Услуги' },
   ];
 
   return (
@@ -75,7 +78,11 @@ const AdminLayout = () => {
           })}
         </nav>
         <div className={styles.sidebarFooter}>
-          <button className={styles.logoutBtn}>
+          <button 
+            className={styles.logoutBtn}
+            onClick={logout}
+            type="button"
+          >
             <LogOut size={20} strokeWidth={1.5} />
             {sidebarOpen && <span>Выйти</span>}
           </button>

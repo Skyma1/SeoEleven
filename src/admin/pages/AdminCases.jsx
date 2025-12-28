@@ -1,45 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Edit, Trash2, Search, Calendar, Tag } from 'lucide-react';
+import apiService from '../../services/api';
 import styles from '../../styles/AdminCases.module.css';
 
 const AdminCases = () => {
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState(null);
+
+  const fetchCases = async () => {
+    setLoading(true);
+    setError(null);
+    const { data, error: err } = await apiService.adminGetCases();
+    if (err) {
+      setError(err);
+      setCases([]);
+    } else {
+      setCases(data?.cases || []);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    // TODO: Загрузка данных с API
-    // fetchCases();
-    setLoading(false);
+    fetchCases();
   }, []);
 
   const handleDelete = async (id) => {
     if (window.confirm('Вы уверены, что хотите удалить этот кейс?')) {
-      // TODO: Удаление через API
-      // await deleteCase(id);
-      // fetchCases();
+      const { error: err } = await apiService.adminDeleteCase(id);
+      if (err) {
+        alert(`Ошибка при удалении: ${err}`);
+      } else {
+        fetchCases();
+      }
     }
   };
 
   const filteredCases = cases.filter(caseItem =>
-    caseItem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    caseItem.client.toLowerCase().includes(searchQuery.toLowerCase())
+    caseItem.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    caseItem.client?.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  // Mock данные для примера
-  const mockCases = [
-    {
-      id: 1,
-      title: 'Рост органического трафика на 250% за 6 месяцев',
-      client: 'Интернет-магазин электроники',
-      category: 'SEO',
-      period: '6 месяцев',
-      featured: true
-    }
-  ];
-
-  const displayCases = cases.length > 0 ? filteredCases : mockCases;
 
   return (
     <div className={styles.casesAdmin}>
@@ -67,16 +69,22 @@ const AdminCases = () => {
         </div>
       </div>
 
+      {error && (
+        <div className={styles.error}>
+          Ошибка загрузки: {error}
+        </div>
+      )}
+
       {loading ? (
         <div className={styles.loading}>Загрузка...</div>
       ) : (
         <div className={styles.casesList}>
-          {displayCases.length === 0 ? (
+          {filteredCases.length === 0 ? (
             <div className={styles.empty}>
               <p>Нет кейсов. Создайте первый кейс!</p>
             </div>
           ) : (
-            displayCases.map((caseItem) => (
+            filteredCases.map((caseItem) => (
               <div key={caseItem.id} className={styles.caseCard}>
                 <div className={styles.caseContent}>
                   <div className={styles.caseHeader}>

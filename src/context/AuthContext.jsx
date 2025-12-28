@@ -35,13 +35,26 @@ export const AuthProvider = ({ children }) => {
    * Проверить токен при загрузке приложения
    */
   useEffect(() => {
-    const checkAuth = () => {
+    const checkAuth = async () => {
       const token = localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
       
       if (token) {
-        // TODO: В будущем можно добавить валидацию токена на бекенде
-        // Пока просто считаем что токен валиден
-        setUser({ token });
+        // Проверяем токен на бекенде (опционально)
+        // Пока просто устанавливаем токен, валидация произойдет при первом запросе
+        try {
+          // Можно добавить эндпоинт для проверки токена
+          // const { data } = await apiService.checkToken();
+          // if (data && data.valid) {
+          //   setUser({ token, ...data.user });
+          // } else {
+          //   localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
+          // }
+          setUser({ token });
+        } catch (err) {
+          // Если токен невалиден, удаляем его
+          localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
+          setUser(null);
+        }
       }
       
       setLoading(false);

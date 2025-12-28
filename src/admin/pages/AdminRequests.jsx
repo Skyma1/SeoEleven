@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Phone, Mail, Calendar, Filter, Download } from 'lucide-react';
+import apiService from '../../services/api';
 import styles from '../../styles/AdminRequests.module.css';
 
 const AdminRequests = () => {
@@ -7,42 +8,62 @@ const AdminRequests = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [error, setError] = useState(null);
+
+  const fetchRequests = async () => {
+    setLoading(true);
+    setError(null);
+    const params = {};
+    if (statusFilter !== 'all') params.status = statusFilter;
+    if (searchQuery) params.search = searchQuery;
+    
+    const { data, error: err } = await apiService.adminGetRequests(params);
+    if (err) {
+      setError(err);
+      setRequests([]);
+    } else {
+      setRequests(data?.requests || []);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    // TODO: Загрузка данных с API
-    // fetchRequests();
-    // Mock данные
-    setRequests([
-      {
-        id: 1,
-        name: 'Иван Иванов',
-        contactType: 'phone',
-        contact: '+7 (999) 123-45-67',
-        company: 'ООО "Пример"',
-        service: 'SEO-продвижение',
-        website: 'example.com',
-        goal: 'Рост трафика',
-        budget: '30 000 – 70 000 ₽',
-        timeline: '2 месяца',
-        comment: 'Хочу увеличить органический трафик',
-        source: 'modal',
-        status: 'new',
-        createdAt: new Date().toISOString()
-      }
-    ]);
-    setLoading(false);
-  }, []);
+    fetchRequests();
+  }, [statusFilter]);
 
-  const filteredRequests = requests.filter(request => {
-    const matchesSearch = 
-      request.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.company?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.service.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesStatus = statusFilter === 'all' || request.status === statusFilter;
-    
-    return matchesSearch && matchesStatus;
-  });
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchQuery !== undefined) {
+        fetchRequests();
+      }
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  const handleStatusChange = async (id, newStatus) => {
+    const { error: err } = await apiService.adminUpdateRequestStatus(id, newStatus);
+    if (err) {
+      alert(`Ошибка при обновлении статуса: ${err}`);
+    } else {
+      fetchRequests();
+    }
+  };
+
+  const handleExport = async () => {
+    const { data, error: err } = await apiService.adminExportRequests();
+    if (err) {
+      alert(`Ошибка при экспорте: ${err}`);
+      return;
+    }
+    const url = window.URL.createObjectURL(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `requests-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleString('ru-RU', {
@@ -65,10 +86,6 @@ const AdminRequests = () => {
     return <span className={`${styles.statusBadge} ${statusInfo.class}`}>{statusInfo.label}</span>;
   };
 
-  if (loading) {
-    return <div className={styles.loading}>Загрузка...</div>;
-  }
-
   return (
     <div className={styles.requestsAdmin}>
       <div className={styles.header}>
@@ -76,11 +93,17 @@ const AdminRequests = () => {
           <h1>Заявки</h1>
           <p>Просмотр и управление заявками с сайта</p>
         </div>
-        <button className={styles.exportBtn}>
+        <button className={styles.exportBtn} onClick={handleExport}>
           <Download size={20} strokeWidth={1.5} />
           Экспорт
         </button>
       </div>
+
+      {error && (
+        <div className={styles.error}>
+          Ошибка загрузки: {error}
+        </div>
+      )}
 
       <div className={styles.toolbar}>
         <div className={styles.search}>
@@ -121,12 +144,14 @@ const AdminRequests = () => {
           </div>
         </div>
         <div className={styles.tableBody}>
-          {filteredRequests.length === 0 ? (
+          {loading ? (
+            <div className={styles.loading}>Загрузка...</div>
+          ) : requests.length === 0 ? (
             <div className={styles.empty}>
               <p>Заявки не найдены</p>
             </div>
           ) : (
-            filteredRequests.map((request) => (
+            requests.map((request) => (
               <div key={request.id} className={styles.requestRow}>
                 <div className={styles.colDate}>
                   <Calendar size={16} strokeWidth={1.5} />
@@ -161,13 +186,21 @@ const AdminRequests = () => {
                   )}
                 </div>
                 <div className={styles.colStatus}>
-                  {getStatusBadge(request.status)}
+                  <select
+                    value={request.status || 'new'}
+                    onChange={(e) => handleStatusChange(request.id, e.target.value)}
+                    className={styles.statusSelect}
+                  >
+                    <option value="new">Новая</option>
+                    <option value="viewed">Просмотрена</option>
+                    <option value="processed">Обработана</option>
+                    <option value="archived">Архив</option>
+                  </select>
                 </div>
                 <div className={styles.colDetails}>
                   <button 
                     className={styles.detailsBtn}
                     onClick={() => {
-                      // TODO: Открыть модальное окно с деталями
                       alert(`Детали заявки #${request.id}\n\nКомментарий: ${request.comment || 'нет'}\nСроки: ${request.timeline || 'не указаны'}\nИсточник: ${request.source}`);
                     }}
                   >

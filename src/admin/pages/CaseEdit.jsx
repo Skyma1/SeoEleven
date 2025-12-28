@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Save, Plus, X } from 'lucide-react';
+import apiService from '../../services/api';
 import styles from '../../styles/CaseEdit.module.css';
 
 const CaseEdit = () => {
@@ -23,12 +24,34 @@ const CaseEdit = () => {
   
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!isNew) {
-      // TODO: Загрузка данных с API
-      // fetchCase(id);
-      setLoading(false);
+      const fetchCase = async () => {
+        setLoading(true);
+        const { data, error: err } = await apiService.adminGetCase(id);
+        if (err) {
+          setError(err);
+        } else if (data) {
+          setFormData({
+            title: data.title || '',
+            client: data.client || '',
+            description: data.description || '',
+            category: data.category || '',
+            period: data.period || '',
+            results: Array.isArray(data.results) && data.results.length > 0 
+              ? data.results 
+              : [{ label: '', value: '' }],
+            tags: Array.isArray(data.tags) ? data.tags.join(', ') : '',
+            featured: data.featured || false,
+            image: data.image || '',
+            url: data.url || ''
+          });
+        }
+        setLoading(false);
+      };
+      fetchCase();
     }
   }, [id, isNew]);
 
@@ -65,6 +88,7 @@ const CaseEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
+    setError(null);
 
     try {
       const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(Boolean);
@@ -74,15 +98,22 @@ const CaseEdit = () => {
         results: formData.results.filter(r => r.label && r.value)
       };
 
-      // TODO: Отправка на API
-      // const url = isNew ? '/api/cases' : `/api/cases/${id}`;
-      // const method = isNew ? 'POST' : 'PUT';
-      // await fetch(url, { method, body: JSON.stringify(payload) });
+      let result;
+      if (isNew) {
+        result = await apiService.adminCreateCase(payload);
+      } else {
+        result = await apiService.adminUpdateCase(id, payload);
+      }
+
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
 
       navigate('/admin/cases');
     } catch (error) {
       console.error('Ошибка сохранения:', error);
-      alert('Ошибка при сохранении кейса');
+      setError(error.message || 'Ошибка при сохранении кейса');
     } finally {
       setSaving(false);
     }
@@ -101,6 +132,12 @@ const CaseEdit = () => {
         </button>
         <h1>{isNew ? 'Создать кейс' : 'Редактировать кейс'}</h1>
       </div>
+
+      {error && (
+        <div className={styles.error}>
+          Ошибка: {error}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formRow}>

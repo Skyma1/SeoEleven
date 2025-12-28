@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Save } from 'lucide-react';
+import apiService from '../../services/api';
 import styles from '../../styles/BlogEdit.module.css';
 
 const BlogEdit = () => {
@@ -23,12 +24,32 @@ const BlogEdit = () => {
   
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!isNew) {
-      // TODO: Загрузка данных с API
-      // fetchPost(id);
-      setLoading(false);
+      const fetchPost = async () => {
+        setLoading(true);
+        const { data, error: err } = await apiService.adminGetBlogPost(id);
+        if (err) {
+          setError(err);
+        } else if (data) {
+          setFormData({
+            title: data.title || '',
+            excerpt: data.excerpt || '',
+            content: data.content || '',
+            author: data.author || '',
+            date: data.date ? data.date.split('T')[0] : new Date().toISOString().split('T')[0],
+            category: data.category || '',
+            tags: Array.isArray(data.tags) ? data.tags.join(', ') : '',
+            featured: data.featured || false,
+            readTime: data.readTime || 0,
+            image: data.image || ''
+          });
+        }
+        setLoading(false);
+      };
+      fetchPost();
     }
   }, [id, isNew]);
 
@@ -43,6 +64,7 @@ const BlogEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
+    setError(null);
 
     try {
       const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(Boolean);
@@ -52,15 +74,22 @@ const BlogEdit = () => {
         readTime: parseInt(formData.readTime) || 0
       };
 
-      // TODO: Отправка на API
-      // const url = isNew ? '/api/blog' : `/api/blog/${id}`;
-      // const method = isNew ? 'POST' : 'PUT';
-      // await fetch(url, { method, body: JSON.stringify(payload) });
+      let result;
+      if (isNew) {
+        result = await apiService.adminCreateBlogPost(payload);
+      } else {
+        result = await apiService.adminUpdateBlogPost(id, payload);
+      }
+
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
 
       navigate('/admin/blog');
     } catch (error) {
       console.error('Ошибка сохранения:', error);
-      alert('Ошибка при сохранении поста');
+      setError(error.message || 'Ошибка при сохранении поста');
     } finally {
       setSaving(false);
     }
@@ -79,6 +108,12 @@ const BlogEdit = () => {
         </button>
         <h1>{isNew ? 'Создать пост' : 'Редактировать пост'}</h1>
       </div>
+
+      {error && (
+        <div className={styles.error}>
+          Ошибка: {error}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formRow}>

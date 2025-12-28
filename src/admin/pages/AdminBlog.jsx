@@ -1,46 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Edit, Trash2, Search, Calendar, User, Tag } from 'lucide-react';
+import apiService from '../../services/api';
 import styles from '../../styles/AdminBlog.module.css';
 
 const AdminBlog = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState(null);
+
+  const fetchPosts = async () => {
+    setLoading(true);
+    setError(null);
+    const { data, error: err } = await apiService.adminGetBlogPosts();
+    if (err) {
+      setError(err);
+      setPosts([]);
+    } else {
+      setPosts(data?.posts || []);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    // TODO: Загрузка данных с API
-    // fetchPosts();
-    setLoading(false);
+    fetchPosts();
   }, []);
 
   const handleDelete = async (id) => {
     if (window.confirm('Вы уверены, что хотите удалить этот пост?')) {
-      // TODO: Удаление через API
-      // await deletePost(id);
-      // fetchPosts();
+      const { error: err } = await apiService.adminDeleteBlogPost(id);
+      if (err) {
+        alert(`Ошибка при удалении: ${err}`);
+      } else {
+        fetchPosts();
+      }
     }
   };
 
   const filteredPosts = posts.filter(post =>
-    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.excerpt?.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  // Mock данные для примера
-  const mockPosts = [
-    {
-      id: 1,
-      title: "Как увеличить органический трафик на 250% за 6 месяцев",
-      excerpt: "Комплексный подход к SEO-продвижению...",
-      author: "Команда Студии",
-      date: "2024-01-15",
-      category: "SEO",
-      featured: true
-    }
-  ];
-
-  const displayPosts = posts.length > 0 ? filteredPosts : mockPosts;
 
   return (
     <div className={styles.blogAdmin}>
@@ -68,16 +69,22 @@ const AdminBlog = () => {
         </div>
       </div>
 
+      {error && (
+        <div className={styles.error}>
+          Ошибка загрузки: {error}
+        </div>
+      )}
+
       {loading ? (
         <div className={styles.loading}>Загрузка...</div>
       ) : (
         <div className={styles.postsList}>
-          {displayPosts.length === 0 ? (
+          {filteredPosts.length === 0 ? (
             <div className={styles.empty}>
               <p>Нет постов. Создайте первый пост!</p>
             </div>
           ) : (
-            displayPosts.map((post) => (
+            filteredPosts.map((post) => (
               <div key={post.id} className={styles.postCard}>
                 <div className={styles.postContent}>
                   <div className={styles.postHeader}>
