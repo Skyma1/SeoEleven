@@ -39,6 +39,14 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
       
       if (token) {
+        // Удаляем старые dev токены (они не являются валидными JWT)
+        if (token.startsWith('dev-token-')) {
+          localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+        
         // Проверяем токен на бекенде (опционально)
         // Пока просто устанавливаем токен, валидация произойдет при первом запросе
         try {
@@ -70,38 +78,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      // DEVELOPMENT MODE: Работа без бекенда
-      const isDevelopment = process.env.NODE_ENV === 'development';
-      const noBackend = !process.env.REACT_APP_API_URL || process.env.REACT_APP_API_URL.includes('localhost:3001');
-
-      if (isDevelopment && noBackend) {
-        // Режим разработки БЕЗ бекенда - имитация логина
-        console.warn('🔧 DEV MODE: Работа без бекенда. Любой email/пароль сработает.');
-        
-        // Простая валидация
-        if (!credentials.email || !credentials.password) {
-          return { success: false, error: 'Введите email и пароль' };
-        }
-
-        // Имитация успешного логина
-        const fakeToken = 'dev-token-' + Date.now();
-        const fakeUser = {
-          id: 1,
-          email: credentials.email,
-          name: 'Dev Admin'
-        };
-
-        // Сохраняем токен
-        localStorage.setItem(STORAGE_KEYS.ADMIN_TOKEN, fakeToken);
-        setUser({ token: fakeToken, ...fakeUser });
-
-        // Переходим в админку
-        navigate(ROUTES.ADMIN);
-
-        return { success: true };
-      }
-
-      // PRODUCTION MODE: Реальный API запрос
+      // Всегда используем реальный API запрос
       const { data, error } = await apiService.adminLogin(credentials);
 
       if (error) {

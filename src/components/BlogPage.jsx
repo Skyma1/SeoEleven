@@ -7,10 +7,11 @@ import {
   Tag,
   TrendingUp
 } from 'lucide-react';
-import { blogPosts } from '../data/blogData';
+import { useData } from '../context/DataContext';
 import styles from '../styles/BlogPage.module.css';
 
 const BlogPage = () => {
+  const { blogPosts, loading } = useData();
   const [filter, setFilter] = useState('all');
   
   const categories = ['all', 'SEO', 'GEO / AI SEO', 'Разработка', 'Автоматизация'];
@@ -27,6 +28,16 @@ const BlogPage = () => {
       day: 'numeric' 
     });
   };
+
+  if (loading) {
+    return (
+      <section className={styles.hero}>
+        <div className={styles.heroContainer}>
+          <p>Загрузка статей...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>

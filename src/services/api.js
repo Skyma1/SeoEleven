@@ -388,6 +388,83 @@ class ApiService {
       method: 'DELETE',
     });
   }
+
+  // =============================================
+  // ADMIN API - Пользователи
+  // =============================================
+
+  /**
+   * Получить список пользователей
+   */
+  async adminGetUsers() {
+    return this.adminRequest('/users');
+  }
+
+  /**
+   * Получить пользователя по ID
+   */
+  async adminGetUser(id) {
+    return this.adminRequest(`/users/${id}`);
+  }
+
+  /**
+   * Создать пользователя
+   */
+  async adminCreateUser(userData) {
+    return this.adminRequest('/users', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    });
+  }
+
+  /**
+   * Обновить пользователя
+   */
+  async adminUpdateUser(id, userData) {
+    return this.adminRequest(`/users/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(userData),
+    });
+  }
+
+  /**
+   * Удалить пользователя
+   */
+  async adminDeleteUser(id) {
+    return this.adminRequest(`/users/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // =============================================
+  // ADMIN API - Страницы
+  // =============================================
+
+  /**
+   * Получить список всех страниц
+   */
+  async adminGetPages() {
+    return this.adminRequest('/pages');
+  }
+
+  /**
+   * Получить контент страницы
+   */
+  async adminGetPage(path) {
+    const encodedPath = encodeURIComponent(path.replace(/^\//, ''));
+    return this.adminRequest(`/pages/${encodedPath}`);
+  }
+
+  /**
+   * Обновить контент страницы
+   */
+  async adminUpdatePage(path, pageData) {
+    const encodedPath = encodeURIComponent(path.replace(/^\//, ''));
+    return this.adminRequest(`/pages/${encodedPath}`, {
+      method: 'PUT',
+      body: JSON.stringify(pageData),
+    });
+  }
 }
 
 export default new ApiService();

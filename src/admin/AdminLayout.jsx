@@ -7,6 +7,8 @@ import {
   Settings, 
   BarChart3, 
   MessageSquare,
+  Users,
+  Globe,
   LogOut,
   Menu,
   X
@@ -33,6 +35,8 @@ const AdminLayout = () => {
     { path: '/admin/requests', icon: MessageSquare, label: 'Заявки' },
     { path: '/admin/metrica', icon: BarChart3, label: 'Яндекс.Метрика' },
     { path: '/admin/services', icon: Settings, label: 'Услуги' },
+    { path: '/admin/pages', icon: Globe, label: 'Страницы' },
+    { path: '/admin/users', icon: Users, label: 'Пользователи' },
   ];
 
   return (

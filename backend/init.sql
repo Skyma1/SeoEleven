@@ -63,3 +63,48 @@ CREATE TABLE IF NOT EXISTS metrica_settings (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  name VARCHAR(120) NOT NULL,
+  role ENUM('admin', 'editor', 'viewer') DEFAULT 'viewer',
+  permissions JSON,
+  active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  created_by INT,
+  FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- Создаем первого админа (пароль: changeme)
+-- Хеш будет создан при первом входе через старую систему или через API
+-- Для создания пользователя через API используйте POST /api/admin/users
+
+-- Таблица для хранения контента страниц
+CREATE TABLE IF NOT EXISTS page_content (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  page_path VARCHAR(255) UNIQUE NOT NULL,
+  page_name VARCHAR(255) NOT NULL,
+  content LONGTEXT,
+  meta_title VARCHAR(255),
+  meta_description TEXT,
+  meta_keywords VARCHAR(500),
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  updated_by INT,
+  FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- Вставляем начальные записи для основных страниц
+INSERT INTO page_content (page_path, page_name, content) VALUES
+('/', 'Главная страница', '<p>Добро пожаловать на главную страницу!</p>'),
+('/blog', 'Блог', '<p>Наш блог с полезными статьями</p>'),
+('/cases', 'Кейсы', '<p>Наши успешные проекты</p>'),
+('/about', 'О нас', '<p>Информация о компании</p>'),
+('/contact', 'Контакты', '<p>Свяжитесь с нами</p>'),
+('/services/ai-seo', 'AI SEO', '<p>Услуга AI SEO</p>'),
+('/services/telegram-bots', 'Telegram боты', '<p>Разработка Telegram ботов</p>'),
+('/services/no-code-automation', 'Автоматизация без кода', '<p>Автоматизация процессов</p>'),
+('/services/scripts', 'Индивидуальные скрипты', '<p>Разработка скриптов</p>')
+ON DUPLICATE KEY UPDATE page_name=page_name;
+

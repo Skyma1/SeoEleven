@@ -7,12 +7,64 @@ import {
   Tag,
   User
 } from 'lucide-react';
+import { useData } from '../context/DataContext';
+import apiService from '../services/api';
 import { getPostById } from '../data/blogData';
 import styles from '../styles/ArticlePage.module.css';
 
 const ArticlePage = () => {
   const { id } = useParams();
-  const post = getPostById(id);
+  const { blogPosts } = useData();
+  const [post, setPost] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const loadPost = async () => {
+      setLoading(true);
+      
+      // Сначала ищем в загруженных постах из DataContext
+      const foundPost = blogPosts.find(p => p.id === parseInt(id));
+      
+      if (foundPost) {
+        setPost(foundPost);
+        setLoading(false);
+        return;
+      }
+
+      // Если не найден в контексте, пытаемся загрузить из API
+      try {
+        const { data, error } = await apiService.getBlogPost(id);
+        if (!error && data) {
+          setPost(data);
+        } else {
+          // Фоллбэк на локальные данные
+          const localPost = getPostById(id);
+          setPost(localPost);
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки поста:', err);
+        // Фоллбэк на локальные данные
+        const localPost = getPostById(id);
+        setPost(localPost);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      loadPost();
+    }
+  }, [id, blogPosts]);
+
+  if (loading) {
+    return (
+      <section className={styles.hero}>
+        <div className={styles.heroContainer}>
+          <p>Загрузка статьи...</p>
+        </div>
+      </section>
+    );
+  }
 
   if (!post) {
     return (

@@ -111,6 +111,7 @@ const AdminLogin = () => {
                 className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
                 placeholder="admin@example.com"
                 disabled={isSubmitting}
+                autoComplete="email"
                 autoFocus
               />
             </div>
@@ -134,6 +135,7 @@ const AdminLogin = () => {
                 className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
                 placeholder="••••••••"
                 disabled={isSubmitting}
+                autoComplete="current-password"
               />
             </div>
             {errors.password && (

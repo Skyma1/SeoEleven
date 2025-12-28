@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Save, Plus, X } from 'lucide-react';
+import RichTextEditor from '../../components/RichTextEditor';
 import apiService from '../../services/api';
 import styles from '../../styles/CaseEdit.module.css';
 
@@ -173,15 +174,14 @@ const CaseEdit = () => {
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="description">Описание *</label>
-            <textarea
-              id="description"
-              name="description"
+            <RichTextEditor
               value={formData.description}
-              onChange={handleChange}
-              required
-              rows="4"
-              className={styles.textarea}
+              onChange={(content) => setFormData(prev => ({ ...prev, description: content }))}
+              placeholder="Введите описание кейса..."
             />
+            <p className={styles.helpText}>
+              Используйте визуальный редактор для форматирования текста.
+            </p>
           </div>
         </div>
 

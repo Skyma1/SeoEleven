@@ -257,3 +257,10 @@
   }
 }
 
+.helpText {
+  margin-top: var(--space-8);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+

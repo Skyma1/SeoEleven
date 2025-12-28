@@ -4,10 +4,13 @@ import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import config from './config.js';
 import pool, { pingDb } from './db.js';
 import adminRoutes from './routes/admin.js';
 import metricaRoutes from './routes/metrica.js';
+import usersRoutes from './routes/users.js';
+import pagesRoutes from './routes/pages.js';
 
 const app = express();
 
@@ -83,6 +86,54 @@ app.get('/api/blog', async (_req, res) => {
     console.error('Error in /api/blog:', error);
     console.error('Error message:', error.message);
     console.error('Error stack:', error.stack);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * @openapi
+ * /api/blog/{id}:
+ *   get:
+ *     summary: Получить пост по ID
+ *     tags: [Blog]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: OK
+ *       404:
+ *         description: Пост не найден
+ */
+app.get('/api/blog/:id', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM blog_posts WHERE id = ?', [req.params.id]);
+    
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, error: 'Пост не найден' });
+    }
+
+    const row = rows[0];
+    const post = {
+      id: row.id,
+      title: row.title || '',
+      excerpt: row.excerpt || '',
+      content: row.content || '',
+      author: row.author || '',
+      date: row.date ? (row.date instanceof Date ? row.date.toISOString().split('T')[0] : String(row.date).split('T')[0]) : null,
+      category: row.category || '',
+      tags: Array.isArray(row.tags) ? row.tags : [],
+      image: row.image || null,
+      readTime: row.read_time || 0,
+      featured: !!row.featured,
+    };
+    
+    res.json(post);
+  } catch (error) {
+    console.error('Error in /api/blog/:id:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -218,33 +269,90 @@ app.post('/api/contact', async (req, res) => {
  *       401:
  *         description: Неверные данные
  */
-app.post('/api/admin/login', (req, res) => {
-  const { email, password } = req.body || {};
-  if (email === config.admin.email && password === config.admin.password) {
+app.post('/api/admin/login', async (req, res) => {
+  try {
+    const { email, password } = req.body || {};
+    
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: 'Email и пароль обязательны' });
+    }
+
+    // Проверяем в БД
+    const [users] = await pool.query('SELECT * FROM users WHERE email = ? AND active = TRUE', [email]);
+    
+    if (users.length === 0) {
+      // Fallback на старую систему для обратной совместимости
+      if (email === config.admin.email && password === config.admin.password) {
+        const token = jwt.sign(
+          { id: 1, email: config.admin.email, role: 'admin', type: 'admin' },
+          config.jwtSecret,
+          { expiresIn: '7d' }
+        );
+        return res.json({
+          success: true,
+          token,
+          user: { id: 1, email, name: 'Admin', role: 'admin' },
+        });
+      }
+      return res.status(401).json({ success: false, error: 'Неверный email или пароль' });
+    }
+
+    const user = users[0];
+    
+    // Проверяем пароль (используем bcrypt)
+    const passwordMatch = await bcrypt.compare(password, user.password_hash);
+    
+    if (!passwordMatch) {
+      return res.status(401).json({ success: false, error: 'Неверный email или пароль' });
+    }
+
+    // Парсим permissions
+    let permissions = {};
+    if (user.permissions) {
+      if (typeof user.permissions === 'string') {
+        permissions = JSON.parse(user.permissions);
+      } else {
+        permissions = user.permissions;
+      }
+    }
+
     // Генерируем JWT токен
     const token = jwt.sign(
       { 
-        id: 1, 
-        email: config.admin.email,
+        id: user.id, 
+        email: user.email,
+        role: user.role,
         type: 'admin'
       },
       config.jwtSecret,
-      { expiresIn: '7d' } // Токен действителен 7 дней
+      { expiresIn: '7d' }
     );
     
     return res.json({
       success: true,
       token,
-      user: { id: 1, email, name: 'Admin' },
+      user: { 
+        id: user.id, 
+        email: user.email, 
+        name: user.name,
+        role: user.role,
+        permissions
+      },
     });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ success: false, error: 'Ошибка входа в систему' });
   }
-  return res.status(401).json({ success: false, error: 'Неверные данные' });
 });
 
 // Подключение роутов админки
 app.use('/api/admin', adminRoutes);
 // Роуты метрики должны быть подключены к админским роутам
 app.use('/api/admin/metrica', metricaRoutes);
+// Роуты управления пользователями
+app.use('/api/admin/users', usersRoutes);
+// Роуты управления страницами
+app.use('/api/admin/pages', pagesRoutes);
 
 app.use((err, req, res, next) => {
   // eslint-disable-next-line no-console

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Save } from 'lucide-react';
+import RichTextEditor from '../../components/RichTextEditor';
 import apiService from '../../services/api';
 import styles from '../../styles/BlogEdit.module.css';
 
@@ -148,16 +149,15 @@ const BlogEdit = () => {
 
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
-            <label htmlFor="content">Содержание (HTML) *</label>
-            <textarea
-              id="content"
-              name="content"
+            <label htmlFor="content">Содержание *</label>
+            <RichTextEditor
               value={formData.content}
-              onChange={handleChange}
-              required
-              rows="15"
-              className={styles.textareaLarge}
+              onChange={(content) => setFormData(prev => ({ ...prev, content }))}
+              placeholder="Введите содержание статьи..."
             />
+            <p className={styles.helpText}>
+              Используйте визуальный редактор для форматирования текста. Не нужно знать HTML!
+            </p>
           </div>
         </div>
 

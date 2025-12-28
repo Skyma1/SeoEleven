@@ -57,6 +57,10 @@ import AdminServices from './admin/pages/AdminServices';
 import AdminRequests from './admin/pages/AdminRequests';
 import AdminStatistics from './admin/pages/AdminStatistics';
 import AdminMetrica from './admin/pages/AdminMetrica';
+import AdminUsers from './admin/pages/AdminUsers';
+import UserEdit from './admin/pages/UserEdit';
+import AdminPages from './admin/pages/AdminPages';
+import PageEdit from './admin/pages/PageEdit';
 
 // Контексты
 import { ModalProvider } from './context/ModalContext';
@@ -97,6 +101,11 @@ function App() {
                   <Route path="services" element={<AdminServices />} />
                   <Route path="requests" element={<AdminRequests />} />
                   <Route path="metrica" element={<AdminMetrica />} />
+                  <Route path="users" element={<AdminUsers />} />
+                  <Route path="users/new" element={<UserEdit />} />
+                  <Route path="users/:id/edit" element={<UserEdit />} />
+                  <Route path="pages" element={<AdminPages />} />
+                  <Route path="pages/:path/edit" element={<PageEdit />} />
                 </Route>
 
                 {/* Public Routes */}

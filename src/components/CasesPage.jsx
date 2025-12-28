@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight,
@@ -8,33 +8,12 @@ import {
   Calendar,
   ExternalLink
 } from 'lucide-react';
-import { casesData, fetchCases } from '../data/casesData';
+import { useData } from '../context/DataContext';
 import styles from '../styles/CasesPage.module.css';
 
 const CasesPage = () => {
-  const [cases, setCases] = useState([]);
+  const { cases, loading } = useData();
   const [filter, setFilter] = useState('all');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Загрузка данных из API (если доступен) или использование локальных данных
-    // Для активации API раскомментируйте следующие строки:
-    // fetchCases()
-    //   .then(data => {
-    //     setCases(data);
-    //     setLoading(false);
-    //   })
-    //   .catch(() => {
-    //     setCases(casesData);
-    //     setLoading(false);
-    //   });
-    
-    // Временная загрузка локальных данных
-    setTimeout(() => {
-      setCases(casesData);
-      setLoading(false);
-    }, 300);
-  }, []);
 
   const filteredCases = filter === 'all' 
     ? cases 
