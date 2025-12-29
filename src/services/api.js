@@ -9,19 +9,17 @@ import { STORAGE_KEYS } from '../config/constants';
 
 // Используем относительный путь для проксирования через фронтенд
 // ВАЖНО: После изменения REACT_APP_API_URL нужно перезапустить dev сервер!
-let API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
-
-// Если указан полный URL без /api, добавляем его
-if (API_BASE_URL.startsWith('http') && !API_BASE_URL.endsWith('/api')) {
-  API_BASE_URL = API_BASE_URL.endsWith('/') 
-    ? `${API_BASE_URL}api` 
-    : `${API_BASE_URL}/api`;
-}
+// В development всегда используем относительный путь /api для проксирования
+// Полный URL из REACT_APP_API_URL используется только в setupProxy.js
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? (process.env.REACT_APP_API_URL || '/api')
+  : '/api'; // В development всегда используем прокси
 
 // Отладка (можно удалить после проверки)
 if (process.env.NODE_ENV === 'development') {
   console.log('[API] REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
-  console.log('[API] Using API_BASE_URL:', API_BASE_URL);
+  console.log('[API] Using API_BASE_URL (relative for proxy):', API_BASE_URL);
+  console.log('[API] Proxy will forward to:', process.env.REACT_APP_API_URL || 'http://localhost:3002');
 }
 
 class ApiService {

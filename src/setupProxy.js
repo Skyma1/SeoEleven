@@ -11,7 +11,13 @@ if (API_TARGET.endsWith('/api')) {
 }
 API_TARGET = API_TARGET.replace(/\/$/, ''); // Убираем trailing slash
 
+// Если указан только порт или IP без протокола, добавляем http://
+if (!API_TARGET.startsWith('http://') && !API_TARGET.startsWith('https://')) {
+  API_TARGET = `http://${API_TARGET}`;
+}
+
 console.log('[PROXY] Target:', API_TARGET);
+console.log('[PROXY] All /api requests will be forwarded to:', API_TARGET);
 
 module.exports = function(app) {
   app.use(
