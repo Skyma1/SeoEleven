@@ -35,7 +35,7 @@ const AdminLayout = () => {
     { path: '/admin/requests', icon: MessageSquare, label: 'Заявки' },
     { path: '/admin/metrica', icon: BarChart3, label: 'Яндекс.Метрика' },
     { path: '/admin/services', icon: Settings, label: 'Услуги' },
-    { path: '/admin/pages', icon: Globe, label: 'Страницы' },
+    // { path: '/admin/pages', icon: Globe, label: 'Страницы' }, // Временно скрыто
     { path: '/admin/users', icon: Users, label: 'Пользователи' },
   ];
 
