@@ -8,7 +8,14 @@
 import { STORAGE_KEYS } from '../config/constants';
 
 // Используем относительный путь для проксирования через фронтенд
+// ВАЖНО: После изменения REACT_APP_API_URL нужно перезапустить dev сервер!
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
+
+// Отладка (можно удалить после проверки)
+if (process.env.NODE_ENV === 'development') {
+  console.log('[API] REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+  console.log('[API] Using API_BASE_URL:', API_BASE_URL);
+}
 
 class ApiService {
   constructor() {
