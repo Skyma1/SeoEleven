@@ -6,11 +6,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { 
   ArrowLeft, 
-  Save,
-  Eye,
-  Code
+  Save
 } from 'lucide-react';
-import RichTextEditor from '../../components/RichTextEditor';
+import PageBuilder from '../../components/PageBuilder';
 import apiService from '../../services/api';
 import styles from '../../styles/PageEdit.module.css';
 
@@ -30,7 +28,6 @@ const PageEdit = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
-  const [viewMode, setViewMode] = useState('visual'); // 'visual' or 'html'
 
   useEffect(() => {
     fetchPage();
@@ -163,48 +160,22 @@ const PageEdit = () => {
         </div>
 
         <div className={styles.formSection}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Контент страницы</h2>
-            <div className={styles.viewModeToggle}>
-              <button
-                type="button"
-                className={`${styles.viewModeButton} ${viewMode === 'visual' ? styles.active : ''}`}
-                onClick={() => setViewMode('visual')}
-              >
-                <Eye size={18} strokeWidth={1.5} />
-                Визуальный
-              </button>
-              <button
-                type="button"
-                className={`${styles.viewModeButton} ${viewMode === 'html' ? styles.active : ''}`}
-                onClick={() => setViewMode('html')}
-              >
-                <Code size={18} strokeWidth={1.5} />
-                HTML
-              </button>
-            </div>
-          </div>
-
-          {viewMode === 'visual' ? (
-            <RichTextEditor
-              value={formData.content}
-              onChange={(content) => setFormData(prev => ({ ...prev, content }))}
-              placeholder="Введите контент страницы..."
-            />
-          ) : (
-            <textarea
-              value={formData.content}
-              onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-              className={styles.htmlTextarea}
-              rows="20"
-              placeholder="HTML код страницы"
-            />
-          )}
+          <h2 className={styles.sectionTitle}>Конструктор страницы</h2>
+          <p className={styles.sectionDescription}>
+            Перетаскивайте блоки из панели слева на страницу. Настраивайте стили в панели справа.
+          </p>
+          
+          <PageBuilder
+            value={formData.content}
+            onChange={(content) => setFormData(prev => ({ ...prev, content }))}
+            onSave={(data) => {
+              const content = JSON.stringify(data);
+              setFormData(prev => ({ ...prev, content }));
+            }}
+          />
 
           <p className={styles.helpText}>
-            {viewMode === 'visual' 
-              ? 'Используйте визуальный редактор для форматирования текста. Не нужно знать HTML!'
-              : 'Режим HTML для продвинутых пользователей. Будьте осторожны с синтаксисом.'}
+            💡 Используйте drag-and-drop для добавления блоков. Нажимайте на элементы для редактирования.
           </p>
         </div>
 
