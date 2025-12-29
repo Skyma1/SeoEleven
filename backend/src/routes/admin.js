@@ -380,18 +380,13 @@ router.delete('/cases/:id', async (req, res) => {
 
 router.get('/requests', async (req, res) => {
   try {
-    const { status, search, source } = req.query;
+    const { status, search } = req.query;
     let query = 'SELECT * FROM contacts WHERE 1=1';
     const params = [];
 
     if (status && status !== 'all') {
       query += ' AND status = ?';
       params.push(status);
-    }
-
-    if (source && source !== 'all') {
-      query += ' AND source = ?';
-      params.push(source);
     }
 
     if (search) {
