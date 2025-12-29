@@ -1,9 +1,15 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 // Получаем URL бекенда из переменной окружения или используем дефолт
-const API_TARGET = process.env.REACT_APP_API_URL 
-  ? process.env.REACT_APP_API_URL.replace('/api', '')
-  : 'http://localhost:3002';
+let API_TARGET = process.env.REACT_APP_API_URL || 'http://localhost:3002';
+
+// Убираем /api из конца если есть, и убираем trailing slash
+if (API_TARGET.endsWith('/api')) {
+  API_TARGET = API_TARGET.replace('/api', '');
+} else if (API_TARGET.endsWith('/api/')) {
+  API_TARGET = API_TARGET.replace('/api/', '');
+}
+API_TARGET = API_TARGET.replace(/\/$/, ''); // Убираем trailing slash
 
 console.log('[PROXY] Target:', API_TARGET);
 
