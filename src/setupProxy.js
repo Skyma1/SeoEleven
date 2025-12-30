@@ -26,16 +26,33 @@ module.exports = function(app) {
       target: API_TARGET,
       changeOrigin: true,
       secure: false,
-      logLevel: 'debug',
+      logLevel: process.env.NODE_ENV === 'development' ? 'warn' : 'error',
       onProxyReq: (proxyReq, req, res) => {
-        console.log(`[PROXY] ${req.method} ${req.url} -> ${API_TARGET}${req.url}`);
+        // Логируем только в development и только для важных запросов
+        if (process.env.NODE_ENV === 'development' && !req.url.includes('/blog') && !req.url.includes('/cases')) {
+          console.log(`[PROXY] ${req.method} ${req.url} -> ${API_TARGET}${req.url}`);
+        }
       },
       onProxyRes: (proxyRes, req, res) => {
-        console.log(`[PROXY RESPONSE] ${req.url} -> ${proxyRes.statusCode}`);
+        // Логируем только ошибки
+        if (proxyRes.statusCode >= 400) {
+          console.warn(`[PROXY] ${req.url} -> ${proxyRes.statusCode}`);
+        }
       },
       onError: (err, req, res) => {
-        console.error('[PROXY ERROR]', err.message);
-        res.status(500).json({ error: 'Proxy error', message: err.message });
+        // Логируем ошибки прокси только один раз при первом запросе
+        if (!req._proxyErrorLogged) {
+          console.warn(`[PROXY] Backend server at ${API_TARGET} is not available. Using fallback data.`);
+          req._proxyErrorLogged = true;
+        }
+        // Отправляем JSON ответ с ошибкой
+        if (!res.headersSent) {
+          res.status(500).json({ 
+            error: 'Proxy error', 
+            message: 'Backend server is not available',
+            fallback: true
+          });
+        }
       },
     })
   );

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Вакансии - SEO Eleven</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#F0EEE9", // Cloud Dancer
+                        "background-dark": "#1a1616",
+                        "graphite": "#181111",
+                        "graphite-light": "#2A2424",
+                        "surface": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(24, 17, 17, 0.05)',
+                        'hover': '0 10px 25px -5px rgba(24, 17, 17, 0.1)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #F0EEE9;
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(24, 17, 17, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-graphite dark:text-white overflow-x-hidden w-full">
+<header class="sticky top-0 z-50 w-full backdrop-blur-md bg-background-light/80 dark:bg-background-dark/80 border-b border-graphite/5 px-6 py-4">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between">
+<a class="flex items-center gap-3 group cursor-pointer" href="#">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined !text-[32px]">dataset</span>
+</div>
+<h2 class="text-graphite dark:text-white text-xl font-bold tracking-tight">SEO Eleven</h2>
+</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Услуги</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Кейсы</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Блог</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">О нас</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Контакты</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 px-5 bg-primary hover:bg-red-700 transition-colors text-white text-sm font-bold shadow-lg shadow-primary/20">
+<span class="truncate">Связаться</span>
+</button>
+</div>
+</div>
+</header>
+<main class="w-full flex flex-col items-center pt-8 pb-20 px-4 sm:px-6">
+<div class="max-w-[1200px] w-full flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<div class="md:col-span-8 bg-surface dark:bg-zinc-900 rounded-2xl p-8 sm:p-12 shadow-soft relative overflow-hidden flex flex-col justify-center min-h-[300px]">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+<div class="relative z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-graphite/5 dark:bg-white/10 text-xs font-semibold uppercase tracking-wider mb-6">
+<span class="material-symbols-outlined text-sm text-primary">groups</span>
+                            Карьера в SEO Eleven
+                        </div>
+<h1 class="text-4xl sm:text-5xl font-bold leading-tight tracking-tight mb-4 text-graphite dark:text-white">
+                            Присоединяйся к команде <span class="text-primary">будущего</span>
+</h1>
+<p class="text-lg text-graphite/70 dark:text-gray-400 max-w-lg leading-relaxed">
+                            Мы ищем тех, кто не боится сложных задач, AI-технологий и готов менять рынок digital-маркетинга вместе с нами.
+                        </p>
+</div>
+</div>
+<div class="md:col-span-4 bg-graphite text-white rounded-2xl p-8 shadow-soft relative overflow-hidden flex flex-col justify-between">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&amp;w=2070&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary">favorite</span>
+</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">Забота о команде</h3>
+<p class="text-white/60 text-sm mb-6">ДМС, обучение, удаленная работа и современные макбуки.</p>
+<div class="flex -space-x-3 items-center">
+<div class="w-10 h-10 rounded-full border-2 border-graphite bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDawzFKELGolEo5AreprIYjQ5ovIkBxEE1RGSzPLI9WZPgjZTjtwof09d-3vizNAhoGxUJmRrFE6ZQCA5Hd6xzz6v9vmsEfkBrsi_0deCXmCM44qznJEi2D-ZP_Mo3h9ygjfE1tcjOe5eG-ikyWw_PExTkeEi8akQzn577QitFAVeI_VtDCHotFlgSosKojR35m1gBsD_OlFmlmR2jAQn_bmSVhWCbnE4mItTY5CO3Q_yGwQof_87iudXjuhhHU02xvKguzrCSjleFv')"></div>
+<div class="w-10 h-10 rounded-full border-2 border-graphite bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwODB8G5v0CdmtxyPn70Pnq3F5dMRL53qVFqXXQVhLDpEjrOdDHVTY5hVgklXvP_aFJG6qi66flHDltY3jMnW1-A3CooK7WHgTkhWf5JynrK0TEzZZnsSkSdT2H2VOD64QBSZB0kXmTRn6B9BJgWprTcIKXtdv17bPI0MKw5vBZ8VfeYNUC0lWDI6iSX85ppysm1ocw4BTdEEuG3sZ6E_Lr6VjDzUmuB1au0_ugIfJMnWqlu__SzV9SooIMvD4U-PASKMpxsSe-p_j')"></div>
+<div class="w-10 h-10 rounded-full border-2 border-graphite bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCKE6GAiMbh5lYcTk6Wtp5mtp_vAM0AhoqA3QJhMG5kKSg3Gnuf2xI-4F3HP2tlWB_Ya-78BP2PNNjeOr8uvpKQ4T6ZN9O4OEk5aPqsvu5yZkUXqqLyC3Ku659M4rzrI0mUaV9RWdkcJOneIlivLKKLCBJ8gVA6-PcjMf8qJ7kvwgrc6Z2yXPoSdBy6fmodocihcSiAE5z-a2MZCjtfEHfgRzv0MS_hbxuLOLQBv8Z85I5Z5E5b1Et66S-4eCv41otK6WUTzJ5aUVFn')"></div>
+<div class="w-10 h-10 rounded-full border-2 border-graphite bg-surface flex items-center justify-center text-xs font-bold text-graphite shadow-sm">+50</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 py-2">
+<button class="px-4 py-2 rounded-full bg-graphite text-white text-sm font-medium shadow-md">Все вакансии</button>
+<button class="px-4 py-2 rounded-full bg-surface hover:bg-white text-graphite border border-transparent hover:border-primary/20 text-sm font-medium transition-all shadow-sm">SEO &amp; Content</button>
+<button class="px-4 py-2 rounded-full bg-surface hover:bg-white text-graphite border border-transparent hover:border-primary/20 text-sm font-medium transition-all shadow-sm">Development</button>
+<button class="px-4 py-2 rounded-full bg-surface hover:bg-white text-graphite border border-transparent hover:border-primary/20 text-sm font-medium transition-all shadow-sm">Analytics</button>
+<button class="px-4 py-2 rounded-full bg-surface hover:bg-white text-graphite border border-transparent hover:border-primary/20 text-sm font-medium transition-all shadow-sm">Sales</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bento-card bg-surface dark:bg-zinc-900 rounded-2xl p-6 shadow-soft flex flex-col justify-between border-2 border-primary relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                        Горящая вакансия
+                    </div>
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl text-primary">
+<span class="material-symbols-outlined text-[28px]">search</span>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Senior SEO Strategist</h3>
+<div class="flex flex-wrap gap-2 mb-4 text-xs text-graphite/60 dark:text-gray-400">
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Full-time</span>
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Remote</span>
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Senior</span>
+</div>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed mb-6">
+                            Разработка стратегий продвижения для крупных E-commerce проектов. Управление командой, глубокая аналитика и внедрение AI-инструментов.
+                        </p>
+</div>
+<button class="w-full py-3 rounded-xl bg-primary hover:bg-red-700 text-white font-bold transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                        Откликнуться
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="bento-card bg-surface dark:bg-zinc-900 rounded-2xl p-6 shadow-soft flex flex-col justify-between border border-transparent hover:border-graphite/10 group">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-graphite dark:text-white">
+<span class="material-symbols-outlined text-[28px]">terminal</span>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Middle Python Developer</h3>
+<div class="flex flex-wrap gap-2 mb-4 text-xs text-graphite/60 dark:text-gray-400">
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Full-time</span>
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Office/Hybrid</span>
+</div>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed mb-6">
+                            Разработка backend-части наших внутренних аналитических сервисов. Работа с OpenAI API, парсинг данных, оптимизация high-load систем.
+                        </p>
+</div>
+<button class="w-full py-3 rounded-xl border border-graphite/20 hover:border-primary text-graphite dark:text-white hover:text-primary font-bold transition-all flex items-center justify-center gap-2 bg-transparent hover:bg-primary/5">
+                        Откликнуться
+                    </button>
+</div>
+<div class="bento-card bg-surface dark:bg-zinc-900 rounded-2xl p-6 shadow-soft flex flex-col justify-between border border-transparent hover:border-graphite/10 group">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-graphite dark:text-white">
+<span class="material-symbols-outlined text-[28px]">ads_click</span>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">PPC Manager (Direct/Ads)</h3>
+<div class="flex flex-wrap gap-2 mb-4 text-xs text-graphite/60 dark:text-gray-400">
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Full-time</span>
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Remote</span>
+</div>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed mb-6">
+                            Настройка и ведение рекламных кампаний в Яндекс.Директ и VK Ads. Работа с бюджетами от 500к. Анализ эффективности и масштабирование.
+                        </p>
+</div>
+<button class="w-full py-3 rounded-xl border border-graphite/20 hover:border-primary text-graphite dark:text-white hover:text-primary font-bold transition-all flex items-center justify-center gap-2 bg-transparent hover:bg-primary/5">
+                        Откликнуться
+                    </button>
+</div>
+<div class="bento-card bg-surface dark:bg-zinc-900 rounded-2xl p-6 shadow-soft flex flex-col justify-between border border-transparent hover:border-graphite/10 group">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-graphite dark:text-white">
+<span class="material-symbols-outlined text-[28px]">psychology</span>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">AI Content Creator</h3>
+<div class="flex flex-wrap gap-2 mb-4 text-xs text-graphite/60 dark:text-gray-400">
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Part-time</span>
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Remote</span>
+</div>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed mb-6">
+                            Генерация контента с помощью нейросетей (text-to-image, text-to-text). Промпт-инжиниринг, редактура и подготовка материалов для блогов.
+                        </p>
+</div>
+<button class="w-full py-3 rounded-xl border border-graphite/20 hover:border-primary text-graphite dark:text-white hover:text-primary font-bold transition-all flex items-center justify-center gap-2 bg-transparent hover:bg-primary/5">
+                        Откликнуться
+                    </button>
+</div>
+<div class="bento-card bg-surface dark:bg-zinc-900 rounded-2xl p-6 shadow-soft flex flex-col justify-between border border-transparent hover:border-graphite/10 group">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-graphite dark:text-white">
+<span class="material-symbols-outlined text-[28px]">support_agent</span>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Account Manager</h3>
+<div class="flex flex-wrap gap-2 mb-4 text-xs text-graphite/60 dark:text-gray-400">
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Full-time</span>
+<span class="bg-background-light dark:bg-zinc-800 px-2 py-1 rounded">Office</span>
+</div>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed mb-6">
+                            Сопровождение ключевых клиентов студии. Коммуникация, подготовка отчетов, управление ожиданиями и допродажа услуг.
+                        </p>
+</div>
+<button class="w-full py-3 rounded-xl border border-graphite/20 hover:border-primary text-graphite dark:text-white hover:text-primary font-bold transition-all flex items-center justify-center gap-2 bg-transparent hover:bg-primary/5">
+                        Откликнуться
+                    </button>
+</div>
+<div class="bento-card bg-graphite-light rounded-2xl p-6 shadow-soft flex flex-col justify-center items-center text-center relative overflow-hidden group border border-transparent">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/20 to-transparent pointer-events-none opacity-50"></div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="size-14 rounded-full bg-white/10 flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-[32px]">mail_outline</span>
+</div>
+<h3 class="text-xl font-bold mb-2 text-white">Не нашли вакансию?</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-6 max-w-xs">
+                            Отправьте нам свое резюме. Мы всегда рады талантливым специалистам и рассмотрим вашу кандидатуру.
+                        </p>
+<button class="px-8 py-3 rounded-xl bg-white text-graphite font-bold hover:bg-primary hover:text-white transition-all shadow-lg">
+                            Отправить резюме
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-graphite text-white pt-16 pb-8 border-t border-white/5">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="md:col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined !text-[32px]">dataset</span>
+</div>
+<span class="font-bold text-xl tracking-tight">SEO Eleven</span>
+</div>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Digital-студия нового поколения. Объединяем SEO, аналитику и AI для роста вашего бизнеса.
+                    </p>
+</div>
+<div>
+<h4 class="font-bold mb-6">Меню</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">Услуги</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Кейсы</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Блог</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">О нас</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Услуги</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">SEO Продвижение</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Контекстная реклама</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">AI Автоматизация</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Разработка</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Контакты</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-lg">location_on</span>
+<span>Москва, Сити</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-lg">mail</span>
+<a class="hover:text-primary transition-colors" href="mailto:hello@seo11.ru">hello@seo11.ru</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-sm text-gray-500">
+                    © 2026 SEO Eleven. Все права защищены.
+                </div>
+<div class="flex gap-6">
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">Telegram</a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">VKontakte</a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">YouTube</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

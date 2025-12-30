@@ -42,6 +42,16 @@ import HostingSetupPage from './components/HostingSetupPage';
 import LogoDesignPage from './components/LogoDesignPage';
 import ServicesPage from './components/ServicesPage';
 import Footer from './components/Footer';
+
+// New Pages (изолированные компоненты)
+import NewHomePage from './components/newPages/NewHomePage';
+import NewServicesPage from './components/newPages/NewServicesPage';
+import NewBlogPage from './components/newPages/NewBlogPage';
+import NewCasesPage from './components/newPages/NewCasesPage';
+import NewAboutPage from './components/newPages/NewAboutPage';
+import NewTeamPage from './components/newPages/NewTeamPage';
+import NewVacanciesPage from './components/newPages/NewVacanciesPage';
+import NewServiceTemplatePage from './components/newPages/NewServiceTemplatePage';
 import CookieConsent from './components/CookieConsent';
 import NotFoundPage from './components/NotFoundPage';
 import ScrollToTop from './components/ScrollToTop';
@@ -71,6 +81,7 @@ import { AuthProvider } from './context/AuthContext';
 
 // Стили
 import './styles/globals.css';
+import './styles/tailwind.css';
 
 function App() {
   return (
@@ -109,6 +120,16 @@ function App() {
                   <Route path="pages" element={<AdminPages />} />
                   <Route path="pages/:path/edit" element={<PageEdit />} />
                 </Route>
+
+                {/* New Pages Routes (изолированные, префикс /new) */}
+                <Route path="/new" element={<NewHomePage />} />
+                <Route path="/new/services" element={<NewServicesPage />} />
+                <Route path="/new/blog" element={<NewBlogPage />} />
+                <Route path="/new/cases" element={<NewCasesPage />} />
+                <Route path="/new/about" element={<NewAboutPage />} />
+                <Route path="/new/team" element={<NewTeamPage />} />
+                <Route path="/new/vacancies" element={<NewVacanciesPage />} />
+                <Route path="/new/service-template" element={<NewServiceTemplatePage />} />
 
                 {/* Public Routes */}
                 <Route

@@ -46,19 +46,35 @@ class ApiService {
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         const text = await response.text();
-        console.error(`API Error [${endpoint}]: Expected JSON but got ${contentType}`, text.substring(0, 200));
+        // Логируем только в development и только если это не прокси-ошибка
+        if (process.env.NODE_ENV === 'development' && !text.includes('Proxy error')) {
+          console.warn(`API Warning [${endpoint}]: Expected JSON but got ${contentType}`);
+        }
         throw new Error(`Server returned non-JSON response: ${contentType}`);
       }
 
       const data = await response.json();
 
       if (!response.ok) {
+        // Для прокси-ошибок и 500 ошибок не логируем в консоль, так как есть fallback
+        const isProxyError = response.status === 500 && (data.error === 'Proxy error' || data.message?.includes('Proxy error'));
+        if (!isProxyError && process.env.NODE_ENV === 'development') {
+          console.warn(`API Warning [${endpoint}]: ${data.message || data.error || 'Request failed'}`);
+        }
         throw new Error(data.message || data.error || 'Request failed');
       }
 
       return { data, error: null };
     } catch (error) {
-      console.error(`API Error [${endpoint}]:`, error);
+      // Подавляем логи для прокси-ошибок и сетевых ошибок, так как есть fallback данные
+      const isNetworkError = error.message.includes('Failed to fetch') || 
+                            error.message.includes('NetworkError') ||
+                            error.message.includes('Proxy error');
+      
+      if (!isNetworkError && process.env.NODE_ENV === 'development') {
+        console.warn(`API Warning [${endpoint}]: ${error.message}`);
+      }
+      
       return { data: null, error: error.message };
     }
   }

@@ -7,6 +7,67 @@
   <meta name="keywords" content="SEO, разработка, дизайн, автоматизация, веб-разработка" />
   <title>SeoEleven - Цифровые решения для бизнеса</title>
   
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+  
+  <!-- Критический CSS для предотвращения FOUC -->
+  <style>
+    /* Скрываем контент до загрузки всех стилей (для всех страниц) */
+    #root {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    /* Показываем контент после загрузки стилей */
+    body.styles-loaded #root {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.15s ease-in;
+    }
+    
+    /* Базовые стили */
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script>
+    // Показываем контент после полной загрузки всех ресурсов (включая CSS)
+    (function() {
+      function showContent() {
+        document.body.classList.add('styles-loaded');
+      }
+      
+      // Проверяем готовность документа
+      if (document.readyState === 'complete') {
+        // Двойной requestAnimationFrame для гарантии применения стилей
+        requestAnimationFrame(function() {
+          requestAnimationFrame(showContent);
+        });
+      } else if (document.readyState === 'interactive') {
+        // Если DOM готов, но ресурсы еще загружаются
+        window.addEventListener('load', function() {
+          requestAnimationFrame(function() {
+            requestAnimationFrame(showContent);
+          });
+        });
+      } else {
+        // Если документ еще загружается
+        document.addEventListener('DOMContentLoaded', function() {
+          window.addEventListener('load', function() {
+            requestAnimationFrame(function() {
+              requestAnimationFrame(showContent);
+            });
+          });
+        });
+      }
+    })();
+  </script>
+  
   <!-- Schema.org разметка -->
   <script type="application/ld+json">
   {
@@ -14,7 +75,7 @@
     "@type": "Organization",
     "name": "SeoEleven",
     "url": "https://seoeleven.com",
-    "logo": "https://seoeleven.com/logo.png",
+    "logo": "https://seoeleven.com/images/logo.png",
     "description": "Цифровые решения для малого и среднего бизнеса. Специализируемся на SEO, разработке, дизайне и автоматизации.",
     "email": "seoeleven@gmail.com",
     "telephone": "+1 (234) 567-890",
@@ -47,7 +108,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "SeoEleven",
-    "image": "https://seoeleven.com/logo.png",
+    "image": "https://seoeleven.com/images/logo.png",
     "@id": "https://seoeleven.com",
     "url": "https://seoeleven.com",
     "telephone": "+1 (234) 567-890",

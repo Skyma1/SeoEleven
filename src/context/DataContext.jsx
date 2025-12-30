@@ -47,20 +47,34 @@ export const DataProvider = ({ children }) => {
       ]);
 
       // Обработка постов блога
-      if (blogResponse.status === 'fulfilled' && !blogResponse.value.error) {
+      if (blogResponse.status === 'fulfilled' && !blogResponse.value.error && blogResponse.value.data) {
         const posts = blogResponse.value.data.posts || blogResponse.value.data;
         setBlogPosts(posts);
       } else {
-        console.warn('Не удалось загрузить посты из API, используем локальные данные');
+        // Используем локальные данные без предупреждения, если сервер недоступен
+        const isServerError = blogResponse.status === 'rejected' || 
+                              (blogResponse.status === 'fulfilled' && 
+                               (blogResponse.value.error?.includes('Proxy error') || 
+                                blogResponse.value.error?.includes('Failed to fetch')));
+        if (!isServerError && process.env.NODE_ENV === 'development') {
+          console.info('Используем локальные данные для блога (сервер недоступен)');
+        }
         setBlogPosts(localBlogPosts);
       }
 
       // Обработка кейсов
-      if (casesResponse.status === 'fulfilled' && !casesResponse.value.error) {
+      if (casesResponse.status === 'fulfilled' && !casesResponse.value.error && casesResponse.value.data) {
         const casesData = casesResponse.value.data.cases || casesResponse.value.data;
         setCases(casesData);
       } else {
-        console.warn('Не удалось загрузить кейсы из API, используем локальные данные');
+        // Используем локальные данные без предупреждения, если сервер недоступен
+        const isServerError = casesResponse.status === 'rejected' || 
+                              (casesResponse.status === 'fulfilled' && 
+                               (casesResponse.value.error?.includes('Proxy error') || 
+                                casesResponse.value.error?.includes('Failed to fetch')));
+        if (!isServerError && process.env.NODE_ENV === 'development') {
+          console.info('Используем локальные данные для кейсов (сервер недоступен)');
+        }
         setCases(localCasesData);
       }
     } catch (err) {

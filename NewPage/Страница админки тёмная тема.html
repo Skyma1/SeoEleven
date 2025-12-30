@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SEO Eleven - Admin Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#F0EEE9", /* Cloud Dancer */
+                        "background-dark": "#221010",
+                        "graphite": "#1c1c1c",
+                        "graphite-light": "#2a2a2a",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #444;
+        }
+    </style>
+</head>
+<body class="bg-background-light font-display antialiased text-gray-900 selection:bg-primary selection:text-white h-screen overflow-hidden flex">
+<!-- Sidebar Navigation -->
+<aside class="w-20 lg:w-72 bg-graphite h-full flex flex-col justify-between border-r border-white/5 transition-all duration-300 z-20 shrink-0">
+<div class="flex flex-col h-full">
+<!-- Logo Area -->
+<div class="h-20 flex items-center px-6 border-b border-white/5">
+<div class="flex items-center gap-3">
+<div class="bg-primary aspect-square rounded-full size-8 flex items-center justify-center text-white shrink-0">
+<span class="material-symbols-outlined text-[18px]">all_inclusive</span>
+</div>
+<div class="hidden lg:flex flex-col">
+<h1 class="text-white text-lg font-bold leading-none tracking-tight">SEO ELEVEN</h1>
+<p class="text-gray-400 text-xs font-normal mt-1">Admin Panel</p>
+</div>
+</div>
+</div>
+<!-- Navigation Menu -->
+<nav class="flex-1 overflow-y-auto py-6 px-3 flex flex-col gap-1 sidebar-scroll">
+<p class="hidden lg:block px-3 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Меню</p>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-primary group transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="hidden lg:block text-sm font-medium">Главная</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 group transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="hidden lg:block text-sm font-medium">Сессии</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 group transition-colors" href="#">
+<span class="material-symbols-outlined">inbox</span>
+<span class="hidden lg:block text-sm font-medium">Заявки</span>
+<span class="hidden lg:flex ml-auto bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">12</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 group transition-colors" href="#">
+<span class="material-symbols-outlined">pie_chart</span>
+<span class="hidden lg:block text-sm font-medium">Аналитика</span>
+</a>
+<p class="hidden lg:block px-3 text-xs font-bold text-gray-500 uppercase tracking-wider mt-6 mb-2">Инструменты</p>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 group transition-colors" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="hidden lg:block text-sm font-medium">AI Инструменты</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 group transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="hidden lg:block text-sm font-medium">Настройки</span>
+</a>
+</nav>
+<!-- User Profile (Bottom) -->
+<div class="p-4 border-t border-white/5">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="Profile picture of the admin user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwMiDZohSK_pQv0XMw1AAGnpdGB9foYowFCNGc950sbqcMqnqOsWhWN62hQ-dBEjvx0GY7J9r1OmUQEQah3o4e-7iuD_WpPDhR2YpeYSwXC7wGqMj9CftQIlpuVg5gqh2EDzPLSp_IZggJijirsWwA-lYLkbmMo1gXn0mWuvR9WCgD319WkidfNqjyeZYwjAXfdpO28X_OWwUwnO7pArzVcN5ykgGOp_-SR2XZJxqJkwTfdv-Dm8kE7VyWhoLAx6Cu-xzWMEuObZMm");'>
+</div>
+<div class="hidden lg:flex flex-col">
+<p class="text-white text-sm font-medium leading-none">Алина В.</p>
+<p class="text-gray-400 text-xs mt-1">SEO Lead</p>
+</div>
+<span class="hidden lg:block material-symbols-outlined text-gray-500 ml-auto">more_vert</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Header -->
+<header class="h-20 shrink-0 flex items-center justify-between px-8 bg-background-light/90 backdrop-blur-sm z-10">
+<div class="flex flex-col">
+<h2 class="text-[#181111] text-2xl font-bold tracking-tight">Обзор</h2>
+<p class="text-[#8a6060] text-sm">Понедельник, 12 Октября 2026</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="absolute top-0 right-0 size-2.5 bg-primary rounded-full border-2 border-background-light"></span>
+<button class="size-10 rounded-full bg-white border border-[#e6dbdb] flex items-center justify-center text-[#181111] hover:bg-gray-50 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<button class="h-10 px-4 rounded-full bg-[#181111] text-white text-sm font-medium hover:bg-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Новый отчет</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Dashboard Content -->
+<div class="flex-1 overflow-y-auto p-8 pb-20">
+<div class="max-w-[1600px] mx-auto">
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)]">
+<!-- 1. SESSIONS (Large Card) -->
+<div class="col-span-1 md:col-span-2 xl:col-span-2 row-span-1 bg-graphite rounded-2xl p-6 relative overflow-hidden group shadow-lg">
+<div class="absolute top-0 right-0 p-6 opacity-10">
+<span class="material-symbols-outlined text-8xl text-white">ssid_chart</span>
+</div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div>
+<h3 class="text-gray-400 text-sm font-medium uppercase tracking-wider">Сессии</h3>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-white text-4xl font-bold tracking-tighter">14,203</span>
+<span class="bg-green-500/20 text-green-400 text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +12%
+                                    </span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="text-gray-500 hover:text-white text-xs font-medium transition-colors">24ч</button>
+<button class="text-white bg-white/10 px-2 py-1 rounded text-xs font-medium transition-colors">7д</button>
+<button class="text-gray-500 hover:text-white text-xs font-medium transition-colors">30д</button>
+</div>
+</div>
+<!-- Custom Chart SVG -->
+<div class="h-32 w-full relative z-10">
+<svg class="w-full h-full" fill="none" preserveaspectratio="none" viewbox="0 0 400 150">
+<defs>
+<lineargradient id="gradientLine" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#f20d0d" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#f20d0d" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,120 C40,120 40,40 80,40 C120,40 120,90 160,90 C200,90 200,30 240,30 C280,30 280,110 320,110 C360,110 360,10 400,10 L400,150 L0,150 Z" fill="url(#gradientLine)"></path>
+<path d="M0,120 C40,120 40,40 80,40 C120,40 120,90 160,90 C200,90 200,30 240,30 C280,30 280,110 320,110 C360,110 360,10 400,10" fill="none" stroke="#f20d0d" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+</div>
+</div>
+<!-- 2. LEADS (Small Card) -->
+<div class="col-span-1 md:col-span-1 xl:col-span-1 bg-graphite rounded-2xl p-6 flex flex-col justify-between shadow-lg relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 size-32 bg-primary/10 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start">
+<h3 class="text-gray-400 text-sm font-medium uppercase tracking-wider">Новые Заявки</h3>
+<div class="bg-white/5 p-2 rounded-lg text-white">
+<span class="material-symbols-outlined">inbox</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="text-white text-4xl font-bold tracking-tighter block">342</span>
+<p class="text-gray-500 text-xs mt-1">Цель на сегодня: <span class="text-gray-300">400</span></p>
+</div>
+<div class="mt-4 w-full bg-white/10 rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- 3. CONVERSION (Small Card) -->
+<div class="col-span-1 md:col-span-1 xl:col-span-1 bg-graphite rounded-2xl p-6 flex flex-col justify-between shadow-lg relative overflow-hidden">
+<div class="flex justify-between items-start">
+<h3 class="text-gray-400 text-sm font-medium uppercase tracking-wider">Конверсия</h3>
+<div class="flex items-center text-red-500 bg-red-500/10 px-2 py-0.5 rounded text-xs font-bold">
+                                -0.4%
+                            </div>
+</div>
+<div class="flex items-center gap-4 mt-2">
+<div class="relative size-20 flex items-center justify-center">
+<svg class="transform -rotate-90 w-20 h-20">
+<circle cx="40" cy="40" fill="transparent" r="36" stroke="#333" stroke-width="8"></circle>
+<circle cx="40" cy="40" fill="transparent" r="36" stroke="#f20d0d" stroke-dasharray="226.2" stroke-dashoffset="140" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-white text-sm font-bold">3.8%</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-white text-sm font-medium">Средняя</p>
+<p class="text-gray-500 text-xs">по отрасли 2.1%</p>
+</div>
+</div>
+</div>
+<!-- 4. TRAFFIC SOURCES (Bar Chart - Wide) -->
+<div class="col-span-1 md:col-span-2 xl:col-span-2 bg-graphite rounded-2xl p-6 shadow-lg">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-white text-lg font-bold">Источники трафика</h3>
+<button class="text-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="grid gap-4">
+<!-- Google -->
+<div class="group">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-gray-300 font-medium">Google</span>
+<span class="text-white font-bold">12.5k</span>
+</div>
+<div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+<div class="bg-gradient-to-r from-blue-500 to-blue-400 h-full rounded-full w-[75%] group-hover:bg-blue-300 transition-colors"></div>
+</div>
+</div>
+<!-- Yandex -->
+<div class="group">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-gray-300 font-medium">Yandex</span>
+<span class="text-white font-bold">8.2k</span>
+</div>
+<div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+<div class="bg-gradient-to-r from-yellow-500 to-yellow-400 h-full rounded-full w-[55%]"></div>
+</div>
+</div>
+<!-- Direct -->
+<div class="group">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-gray-300 font-medium">Direct</span>
+<span class="text-white font-bold">4.1k</span>
+</div>
+<div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+<div class="bg-gradient-to-r from-gray-500 to-gray-400 h-full rounded-full w-[25%]"></div>
+</div>
+</div>
+<!-- Social -->
+<div class="group">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-gray-300 font-medium">Social</span>
+<span class="text-white font-bold">2.8k</span>
+</div>
+<div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-pink-500 h-full rounded-full w-[15%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. DEVICES (Donut/List) -->
+<div class="col-span-1 md:col-span-1 xl:col-span-1 bg-graphite rounded-2xl p-6 shadow-lg flex flex-col">
+<h3 class="text-white text-lg font-bold mb-4">Устройства</h3>
+<div class="flex-1 flex flex-col justify-center gap-4">
+<div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/5">
+<div class="bg-[#181111] p-2 rounded-lg text-gray-300">
+<span class="material-symbols-outlined">smartphone</span>
+</div>
+<div>
+<p class="text-white text-sm font-bold">Mobile</p>
+<p class="text-gray-500 text-xs">62% трафика</p>
+</div>
+<div class="ml-auto text-green-500 text-xs font-bold">+5%</div>
+</div>
+<div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/5">
+<div class="bg-[#181111] p-2 rounded-lg text-gray-300">
+<span class="material-symbols-outlined">desktop_windows</span>
+</div>
+<div>
+<p class="text-white text-sm font-bold">Desktop</p>
+<p class="text-gray-500 text-xs">35% трафика</p>
+</div>
+<div class="ml-auto text-red-500 text-xs font-bold">-2%</div>
+</div>
+<div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/5">
+<div class="bg-[#181111] p-2 rounded-lg text-gray-300">
+<span class="material-symbols-outlined">tablet_mac</span>
+</div>
+<div>
+<p class="text-white text-sm font-bold">Tablet</p>
+<p class="text-gray-500 text-xs">3% трафика</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 6. TOP COUNTRIES (Map Placeholder) -->
+<div class="col-span-1 md:col-span-1 xl:col-span-1 bg-graphite rounded-2xl p-6 shadow-lg flex flex-col">
+<h3 class="text-white text-lg font-bold mb-4">География</h3>
+<div class="flex-1 rounded-xl overflow-hidden relative bg-[#2a2a2a] flex items-center justify-center group cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity" data-alt="Abstract dark world map showing active user locations" data-location="World Map" style='background-image: url("https://placeholder.pics/svg/300");'>
+</div>
+<div class="relative z-10 text-center">
+<p class="text-white font-bold text-2xl">RU</p>
+<p class="text-primary text-xs font-medium uppercase tracking-widest mt-1">Топ Регион</p>
+</div>
+<div class="absolute bottom-3 left-3 right-3 bg-black/60 backdrop-blur-md rounded-lg p-3 flex flex-col gap-2 border border-white/10">
+<div class="flex justify-between items-center text-xs">
+<span class="text-gray-300">Russia</span>
+<span class="text-white font-bold">45%</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-gray-300">Kazakhstan</span>
+<span class="text-white font-bold">22%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 7. POPULAR PAGES (Full Width Table) -->
+<div class="col-span-1 md:col-span-2 xl:col-span-4 bg-graphite rounded-2xl p-6 shadow-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+<h3 class="text-white text-lg font-bold">Популярные страницы</h3>
+<div class="flex gap-2">
+<input class="bg-white/5 border border-white/10 text-white text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-primary placeholder-gray-600" placeholder="Поиск..." type="text"/>
+<button class="bg-primary hover:bg-red-700 text-white text-sm px-4 py-1.5 rounded-lg transition-colors font-medium">Экспорт</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-white/10">
+<th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Страница</th>
+<th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Просмотры</th>
+<th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Уник.</th>
+<th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Вход</th>
+<th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Отказы</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="group hover:bg-white/5 transition-colors border-b border-white/5">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="p-1.5 bg-white/5 rounded text-gray-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">link</span>
+</div>
+<span class="text-white font-medium">/home</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right text-gray-300">45,231</td>
+<td class="py-3 px-4 text-right text-gray-300">32,012</td>
+<td class="py-3 px-4 text-right text-gray-300">12,500</td>
+<td class="py-3 px-4 text-right text-red-400">24.5%</td>
+</tr>
+<tr class="group hover:bg-white/5 transition-colors border-b border-white/5">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="p-1.5 bg-white/5 rounded text-gray-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">article</span>
+</div>
+<span class="text-white font-medium">/blog/ai-seo-trends-2026</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right text-gray-300">12,105</td>
+<td class="py-3 px-4 text-right text-gray-300">11,002</td>
+<td class="py-3 px-4 text-right text-gray-300">8,900</td>
+<td class="py-3 px-4 text-right text-green-400">12.1%</td>
+</tr>
+<tr class="group hover:bg-white/5 transition-colors border-b border-white/5">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="p-1.5 bg-white/5 rounded text-gray-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">shopping_cart</span>
+</div>
+<span class="text-white font-medium">/services/context-ads</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right text-gray-300">8,540</td>
+<td class="py-3 px-4 text-right text-gray-300">5,100</td>
+<td class="py-3 px-4 text-right text-gray-300">2,300</td>
+<td class="py-3 px-4 text-right text-gray-300">38.2%</td>
+</tr>
+<tr class="group hover:bg-white/5 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="p-1.5 bg-white/5 rounded text-gray-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">contact_mail</span>
+</div>
+<span class="text-white font-medium">/contacts</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right text-gray-300">4,200</td>
+<td class="py-3 px-4 text-right text-gray-300">3,800</td>
+<td class="py-3 px-4 text-right text-gray-300">1,200</td>
+<td class="py-3 px-4 text-right text-green-400">15.4%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Simple Footer -->
+<footer class="mt-12 text-center text-[#8a6060] text-xs">
+<p>© 2026 SEO ELEVEN. All Data Encrypted.</p>
+</footer>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SEO Eleven - Digital Agency</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#F0EEE9", // Cloud Dancer
+                        "background-dark": "#1a1616",
+                        "graphite": "#181111",
+                        "graphite-light": "#2A2424",
+                        "surface": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(24, 17, 17, 0.05)',
+                        'hover': '0 10px 25px -5px rgba(24, 17, 17, 0.1)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #F0EEE9;
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(24, 17, 17, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-graphite dark:text-white overflow-x-hidden w-full">
+<header class="sticky top-0 z-50 w-full backdrop-blur-md bg-background-light/80 dark:bg-background-dark/80 border-b border-graphite/5 px-6 py-4">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined !text-[32px]">dataset</span>
+</div>
+<h2 class="text-graphite dark:text-white text-xl font-bold tracking-tight">SEO Eleven</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Услуги</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Кейсы</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Блог</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">О нас</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Контакты</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 px-5 bg-primary hover:bg-red-700 transition-colors text-white text-sm font-bold shadow-lg shadow-primary/20">
+<span class="truncate">Связаться</span>
+</button>
+</div>
+</div>
+</header>
+<main class="w-full flex flex-col items-center pt-8 pb-20 px-4 sm:px-6">
+<div class="max-w-[1200px] w-full flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[minmax(180px,auto)]">
+<div class="md:col-span-8 row-span-2 bg-surface dark:bg-zinc-900 rounded-2xl p-8 sm:p-12 flex flex-col justify-between shadow-soft relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+<div class="relative z-10 max-w-[640px]">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-graphite/5 dark:bg-white/10 text-xs font-semibold uppercase tracking-wider mb-6">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            Digital 2026 Ready
+                        </div>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-graphite dark:text-white">
+                            Рост бизнеса через <span class="text-primary">SEO</span>, <span class="text-primary">Рекламу</span> и <span class="text-primary">AI</span>
+</h1>
+<p class="text-lg text-graphite/70 dark:text-gray-400 mb-8 max-w-lg leading-relaxed">
+                            Точная аналитика и технологии нового поколения. Мы превращаем данные в прибыль, используя алгоритмы 2026 года.
+                        </p>
+</div>
+<div class="relative z-10 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+<button class="flex items-center gap-2 h-14 px-8 bg-primary hover:bg-red-700 text-white text-base font-bold rounded-xl transition-all shadow-xl shadow-primary/25 hover:shadow-primary/40 active:scale-95">
+                            Заказать аудит
+                            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<div class="flex -space-x-3 items-center ml-2">
+<div class="w-10 h-10 rounded-full border-2 border-white bg-gray-200 bg-cover bg-center" data-alt="Portrait of a female client" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDawzFKELGolEo5AreprIYjQ5ovIkBxEE1RGSzPLI9WZPgjZTjtwof09d-3vizNAhoGxUJmRrFE6ZQCA5Hd6xzz6v9vmsEfkBrsi_0deCXmCM44qznJEi2D-ZP_Mo3h9ygjfE1tcjOe5eG-ikyWw_PExTkeEi8akQzn577QitFAVeI_VtDCHotFlgSosKojR35m1gBsD_OlFmlmR2jAQn_bmSVhWCbnE4mItTY5CO3Q_yGwQof_87iudXjuhhHU02xvKguzrCSjleFv')"></div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-gray-200 bg-cover bg-center" data-alt="Portrait of a male client" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwODB8G5v0CdmtxyPn70Pnq3F5dMRL53qVFqXXQVhLDpEjrOdDHVTY5hVgklXvP_aFJG6qi66flHDltY3jMnW1-A3CooK7WHgTkhWf5JynrK0TEzZZnsSkSdT2H2VOD64QBSZB0kXmTRn6B9BJgWprTcIKXtdv17bPI0MKw5vBZ8VfeYNUC0lWDI6iSX85ppysm1ocw4BTdEEuG3sZ6E_Lr6VjDzUmuB1au0_ugIfJMnWqlu__SzV9SooIMvD4U-PASKMpxsSe-p_j')"></div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-gray-200 bg-cover bg-center" data-alt="Portrait of a smiling man" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCKE6GAiMbh5lYcTk6Wtp5mtp_vAM0AhoqA3QJhMG5kKSg3Gnuf2xI-4F3HP2tlWB_Ya-78BP2PNNjeOr8uvpKQ4T6ZN9O4OEk5aPqsvu5yZkUXqqLyC3Ku659M4rzrI0mUaV9RWdkcJOneIlivLKKLCBJ8gVA6-PcjMf8qJ7kvwgrc6Z2yXPoSdBy6fmodocihcSiAE5z-a2MZCjtfEHfgRzv0MS_hbxuLOLQBv8Z85I5Z5E5b1Et66S-4eCv41otK6WUTzJ5aUVFn')"></div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-surface flex items-center justify-center text-xs font-bold text-graphite shadow-sm">+50</div>
+</div>
+<span class="text-sm font-medium text-graphite/60 dark:text-gray-400 ml-1">клиентов в работе</span>
+</div>
+</div>
+<div class="md:col-span-4 bg-graphite text-white rounded-2xl p-6 flex flex-col justify-between shadow-soft relative overflow-hidden bento-card min-h-[240px]">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&amp;w=2500&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay" data-alt="Abstract dark technological pattern"></div>
+<div class="relative z-10 flex justify-between items-start">
+<span class="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</span>
+<span class="text-xs font-mono text-gray-400">LIVE STATS</span>
+</div>
+<div class="relative z-10">
+<div class="text-4xl font-bold mb-1">+300%</div>
+<div class="text-sm text-gray-400">Рост органического трафика за 6 месяцев</div>
+</div>
+</div>
+<div class="md:col-span-2 bg-surface dark:bg-zinc-900 rounded-2xl p-6 shadow-soft bento-card flex flex-col justify-between group cursor-pointer border border-transparent hover:border-primary/20">
+<div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<div>
+<h3 class="font-bold text-lg leading-tight mb-1">SEO 2.0</h3>
+<p class="text-xs text-graphite/60 dark:text-gray-400">Вывод в ТОП</p>
+</div>
+</div>
+<div class="md:col-span-2 bg-surface dark:bg-zinc-900 rounded-2xl p-6 shadow-soft bento-card flex flex-col justify-between group cursor-pointer border border-transparent hover:border-primary/20">
+<div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">ads_click</span>
+</div>
+<div>
+<h3 class="font-bold text-lg leading-tight mb-1">Ads</h3>
+<p class="text-xs text-graphite/60 dark:text-gray-400">Максимум ROI</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-3 bg-graphite-light text-white rounded-2xl py-8 px-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-soft">
+<div class="flex flex-col gap-2 md:w-1/3">
+<h3 class="text-xl font-bold">Наш технологический стек</h3>
+<p class="text-sm text-gray-400">Инструменты аналитики и разработки 2026 года.</p>
+</div>
+<div class="flex flex-wrap justify-center md:justify-end gap-8 md:gap-12 md:w-2/3 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="flex items-center gap-2 font-bold text-lg"><span class="material-symbols-outlined">code</span> Python</div>
+<div class="flex items-center gap-2 font-bold text-lg"><span class="material-symbols-outlined">analytics</span> GA4</div>
+<div class="flex items-center gap-2 font-bold text-lg"><span class="material-symbols-outlined">smart_toy</span> OpenAI</div>
+<div class="flex items-center gap-2 font-bold text-lg"><span class="material-symbols-outlined">view_in_ar</span> React</div>
+</div>
+</div>
+<div class="bg-surface dark:bg-zinc-900 p-8 rounded-2xl shadow-soft bento-card flex flex-col gap-4 border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<div class="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg text-primary">
+<span class="material-symbols-outlined !text-[32px]">psychology</span>
+</div>
+<span class="material-symbols-outlined text-gray-300">arrow_outward</span>
+</div>
+<div class="mt-2">
+<h3 class="text-xl font-bold mb-2">AI &amp; Автоматизация</h3>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed">
+                            Внедряем нейросети для генерации контента и предиктивной аналитики спроса. Опережайте конкурентов на два шага.
+                        </p>
+</div>
+</div>
+<div class="bg-surface dark:bg-zinc-900 p-8 rounded-2xl shadow-soft bento-card flex flex-col gap-4 border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<div class="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg text-primary">
+<span class="material-symbols-outlined !text-[32px]">terminal</span>
+</div>
+<span class="material-symbols-outlined text-gray-300">arrow_outward</span>
+</div>
+<div class="mt-2">
+<h3 class="text-xl font-bold mb-2">Web Development</h3>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed">
+                            Создание молниеносных SPA и высоконагруженных порталов. Скорость загрузки влияет на продажи — мы делаем это быстрее всех.
+                        </p>
+</div>
+</div>
+<div class="bg-surface dark:bg-zinc-900 p-8 rounded-2xl shadow-soft bento-card flex flex-col gap-4 border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<div class="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg text-primary">
+<span class="material-symbols-outlined !text-[32px]">monitoring</span>
+</div>
+<span class="material-symbols-outlined text-gray-300">arrow_outward</span>
+</div>
+<div class="mt-2">
+<h3 class="text-xl font-bold mb-2">Сквозная аналитика</h3>
+<p class="text-sm text-graphite/70 dark:text-gray-400 leading-relaxed">
+                            Видим весь путь клиента. От первого клика до повторных продаж. Никаких догадок, только точные данные.
+                        </p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-900 rounded-2xl p-8 sm:p-12 shadow-soft mt-6">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+<div class="max-w-2xl">
+<h2 class="text-3xl font-bold mb-4">Результаты говорят сами за себя</h2>
+<p class="text-graphite/70 dark:text-gray-400">Мы не просто оказываем услуги, мы становимся партнером по росту вашей выручки.</p>
+</div>
+<a class="text-primary font-bold hover:underline flex items-center gap-1" href="#">Все кейсы <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="group cursor-pointer">
+<div class="h-64 w-full rounded-xl bg-gray-100 dark:bg-zinc-800 overflow-hidden relative mb-4">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Financial graphs and data visualization" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBN32SzW7xiNCrrkciFU2K-PDaxC3wKHMCLDzo_P8tSyzStvKRIXL_QinmHCGcm_ohYfxmmM1bjlxOC_jDjGepIiPXNJR8gHz_L0GrHG6Vs-zZWxfqX1uHEByc5Lv4VqpkZD-ohF3OJpJXSNzzKAgYE95dpAlBYUHNeznuxhGf77KPzXfOtnThc7D939grhvWkqPEPqi6kjobUccwCba3P7YMwM7UUKB-yDBc95rG95OpgQe7d2m_PGxDsvRYzXxNeicVc8InWZHn5x')"></div>
+<div class="absolute bottom-4 left-4 bg-white dark:bg-black/80 px-4 py-2 rounded-lg text-sm font-bold shadow-md">
+                                FinTech
+                            </div>
+</div>
+<h3 class="text-xl font-bold mb-1 group-hover:text-primary transition-colors">Масштабирование необанка</h3>
+<p class="text-sm text-graphite/60 dark:text-gray-400 mb-3">Комплексный маркетинг + App Store Optimization</p>
+<div class="flex gap-4">
+<div class="bg-background-light dark:bg-zinc-800 px-3 py-1 rounded text-sm font-semibold text-primary">ROI x4.5</div>
+<div class="bg-background-light dark:bg-zinc-800 px-3 py-1 rounded text-sm font-semibold text-green-600">+120% Установок</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="h-64 w-full rounded-xl bg-gray-100 dark:bg-zinc-800 overflow-hidden relative mb-4">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Woman shopping online with colorful bags" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCvjT4rPpk_YNu34zeeObEHrUVnNvZxKrtVFFDPdtyGr1wB2D_5fAwU6c2uL7zmkxHkBQbEBTXjAqzPMGVk4LQFUDrStCIbOkw4iOR4lztuFhiS3VgIXTvZyl7OWImsmquBx_MdM6xAgPhWgdaC3nLnBqGsOxTmoCT79CbCCGaLSx8E4y_yGxuM0Tkwx3tjN3qo015RGSRAHa3FwWe7F4_CuALW70qxuXLNuma3VQYYBpUts-DfC5CFmr4zZME7YOiU2jvcIUPSq76P')"></div>
+<div class="absolute bottom-4 left-4 bg-white dark:bg-black/80 px-4 py-2 rounded-lg text-sm font-bold shadow-md">
+                                E-commerce
+                            </div>
+</div>
+<h3 class="text-xl font-bold mb-1 group-hover:text-primary transition-colors">Fashion Ритейлер</h3>
+<p class="text-sm text-graphite/60 dark:text-gray-400 mb-3">SEO продвижение мультибрендового магазина</p>
+<div class="flex gap-4">
+<div class="bg-background-light dark:bg-zinc-800 px-3 py-1 rounded text-sm font-semibold text-primary">Трафик +300%</div>
+<div class="bg-background-light dark:bg-zinc-800 px-3 py-1 rounded text-sm font-semibold text-green-600">ТОП-3 по РФ</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary text-white rounded-2xl p-8 sm:p-12 text-center shadow-lg shadow-primary/20 relative overflow-hidden mt-6">
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/20 to-transparent pointer-events-none"></div>
+<div class="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-6">
+<h2 class="text-3xl sm:text-4xl font-bold leading-tight">Готовы кратно вырасти в 2026?</h2>
+<p class="text-white/90 text-lg">Оставьте заявку на бесплатный экспресс-аудит вашего проекта. Мы найдем точки роста за 24 часа.</p>
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center pt-2">
+<input class="h-12 px-4 rounded-lg text-graphite w-full sm:max-w-xs border-0 focus:ring-2 focus:ring-white/50 bg-white shadow-md" placeholder="Ваш email" type="email"/>
+<button class="h-12 px-8 bg-graphite hover:bg-black text-white font-bold rounded-lg transition-colors shadow-lg">
+                            Отправить
+                        </button>
+</div>
+<p class="text-xs text-white/60 mt-2">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-graphite text-white pt-16 pb-8 border-t border-white/5">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="md:col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined !text-[32px]">dataset</span>
+</div>
+<span class="font-bold text-xl tracking-tight">SEO Eleven</span>
+</div>
+<p class="text-gray-400 text-sm leading-relaxed">
+                    Digital-студия нового поколения. Объединяем SEO, аналитику и AI для роста вашего бизнеса.
+                </p>
+</div>
+<div>
+<h4 class="font-bold mb-6">Меню</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">Услуги</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Кейсы</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Блог</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">О нас</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Услуги</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">SEO Продвижение</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Контекстная реклама</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">AI Автоматизация</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Разработка</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Контакты</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-lg">location_on</span>
+<span>Москва, Сити</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-lg">mail</span>
+<a class="hover:text-primary transition-colors" href="mailto:hello@seo11.ru">hello@seo11.ru</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-sm text-gray-500">
+                © 2026 SEO Eleven. Все права защищены.
+            </div>
+<div class="flex gap-6">
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">Telegram</a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">VKontakte</a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">YouTube</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
