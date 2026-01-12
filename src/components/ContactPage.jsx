@@ -277,7 +277,7 @@ const ContactPage = () => {
             </div>
             <h3 className={styles.contactTitle}>Email</h3>
             <p className={styles.contactValue}>
-              <a href="mailto:seoeleven@gmail.com">seoeleven@gmail.com</a>
+              <a href="mailto:info@seoeleven.ru">info@seoeleven.ru</a>
             </p>
             <p className={styles.contactDescription}>
               Напишите нам на почту, ответим в течение рабочего дня
@@ -290,7 +290,7 @@ const ContactPage = () => {
             </div>
             <h3 className={styles.contactTitle}>Телефон</h3>
             <p className={styles.contactValue}>
-              <a href="tel:+1234567890">+1 (234) 567-890</a>
+              <a href="tel:+79319703777">+7 931 970-37-77</a>
             </p>
             <p className={styles.contactDescription}>
               Позвоните нам или оставьте заявку для звонка

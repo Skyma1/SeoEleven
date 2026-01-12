@@ -41,11 +41,15 @@ function NewFooter() {
             <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary text-lg">location_on</span>
-                <span>Москва, Сити</span>
+                <span>Санкт-Петербург, пл. Конституции, 3/2</span>
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-lg">mail</span>
-                <a className="hover:text-primary transition-colors" href="mailto:hello@seo11.ru">hello@seo11.ru</a>
+                <a className="hover:text-primary transition-colors" href="mailto:info@seoeleven.ru">info@seoeleven.ru</a>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-lg">phone</span>
+                <a className="hover:text-primary transition-colors" href="tel:+79319703777">+7 931 970-37-77</a>
               </li>
             </ul>
           </div>
